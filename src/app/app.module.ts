@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from 'src/core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,8 @@ import { AppComponent } from './app.component';
       logOnly: !isDevMode(),
       autoPause: true
     }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
