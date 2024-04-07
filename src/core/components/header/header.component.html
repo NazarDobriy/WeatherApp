@@ -1,0 +1,21 @@
+<header class="border-b-2 border-gray-500">
+  <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4">
+    <div>My Weather</div>
+    <section class="flex gap-6">
+      <div>
+        <a
+          routerLink=""
+          routerLinkActive="text-blue-500"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Home
+        </a>
+      </div>
+      <div>
+        <a routerLink="/favorites" routerLinkActive="text-blue-500">
+          Favorites
+        </a>
+      </div>
+    </section>
+  </nav>
+</header>
