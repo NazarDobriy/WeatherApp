@@ -17,6 +17,8 @@ import { LocationsEffects } from './store/locations/effects';
 import { LocationsStoreService } from './providers/locations-store.service';
 import { LocationSearchComponent } from './components/location-search/location-search.component';
 import { SnackBarService } from './providers/snack-bar.service';
+import { WeatherService } from './providers/weather.service';
+import { WeatherEffects } from './store/weather/effects';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -25,7 +27,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    EffectsModule.forFeature([LocationsEffects]),
+    EffectsModule.forFeature([LocationsEffects, WeatherEffects]),
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
@@ -35,6 +37,11 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  providers: [LocationsService, LocationsStoreService, SnackBarService]
+  providers: [
+    LocationsService,
+    LocationsStoreService,
+    WeatherService,
+    SnackBarService
+  ]
 })
 export class HomeModule {}
