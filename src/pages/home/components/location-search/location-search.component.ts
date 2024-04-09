@@ -33,6 +33,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     }
   };
   private destroy$ = new Subject<void>();
+  private selectedOption: string | null = null;
 
   get searchInput(): string {
     return this.formGroup.get('searchInput')?.value;
@@ -62,7 +63,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
-    console.log('Selected item:', event.option.value);
+    this.selectedOption = event.option.value;
   }
 
   private handleError(): void {
@@ -82,7 +83,9 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((text: string) => {
-        this.locationsStoreService.getLocations(text);
+        if (!this.selectedOption || this.selectedOption.toLowerCase() !== text.toLowerCase()) {
+          this.locationsStoreService.getLocations(text);
+        }
       });
   }
 
