@@ -19,6 +19,7 @@ import { LocationSearchComponent } from './components/location-search/location-s
 import { SnackBarService } from './providers/snack-bar.service';
 import { WeatherService } from './providers/weather.service';
 import { WeatherEffects } from './store/weather/effects';
+import { WeatherStoreService } from './providers/weather-store.service';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -41,6 +42,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     LocationsService,
     LocationsStoreService,
     WeatherService,
+    WeatherStoreService,
     SnackBarService
   ]
 })
