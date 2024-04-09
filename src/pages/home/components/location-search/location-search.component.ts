@@ -84,7 +84,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
       )
       .subscribe((text: string) => {
         if (!this.selectedOption || this.selectedOption.toLowerCase() !== text.toLowerCase()) {
-          this.locationsStoreService.getLocations(text);
+          this.locationsStoreService.dispatchLocations(text);
         }
       });
   }

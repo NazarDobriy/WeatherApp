@@ -12,7 +12,7 @@ export class LocationsStoreService {
 
   constructor(private store: Store) {}
 
-  getLocations(query: string): void {
+  dispatchLocations(query: string): void {
     this.store.dispatch(LocationsActions.getLocations({ query }));
   }
 }
