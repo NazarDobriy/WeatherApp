@@ -1,0 +1,54 @@
+<form [formGroup]="formGroup">
+  <mat-form-field
+    class="2xl:w-[700px] xl:w-[600px] md:w-[500px] sm:w-[400px] w-72"
+    appearance="fill"
+  >
+    <mat-label>Location</mat-label>
+
+    <input
+      matInput
+      formControlName="searchInput"
+      type="text"
+      [matAutocomplete]="auto"
+      [errorStateMatcher]="matcher"
+    />
+
+    <button
+      *ngIf="searchInput"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="clearSearchInput()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <mat-error *ngIf="requiredError">Please enter a location</mat-error>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onOptionSelected($event)"
+    >
+      <ng-container *ngIf="isLoading$ | async; else options">
+        <mat-option disabled>
+          <div class="flex justify-center items-center w-full h-full">
+            <mat-spinner diameter="32"></mat-spinner>
+          </div>
+        </mat-option>
+      </ng-container>
+
+      <ng-template #options>
+        <mat-option
+          *ngFor="let location of locations$ | async"
+          [id]="location.Key"
+          [value]="location.LocalizedName"
+        >
+          <section class="flex justify-between">
+            <div>{{ location.LocalizedName }}</div>
+            <div>{{ location.AdministrativeArea.LocalizedName }}</div>
+          </section>
+        </mat-option>
+      </ng-template>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
