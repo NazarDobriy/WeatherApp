@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CardComponent } from './components/card/card.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 
 const modules = [
   CommonModule,
@@ -23,8 +24,8 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [CardComponent],
+  declarations: [CardComponent, LineChartComponent],
   imports: [...modules],
-  exports: [...modules, CardComponent]
+  exports: [...modules, CardComponent, LineChartComponent]
 })
 export class SharedModule {}
