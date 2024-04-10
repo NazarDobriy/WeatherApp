@@ -1,0 +1,5 @@
+<section class="flex flex-wrap justify-center gap-14">
+  <ng-container *ngFor="let forecast of forecasts">
+    <app-forecast-card [forecast]="forecast"></app-forecast-card>
+  </ng-container>
+</section>

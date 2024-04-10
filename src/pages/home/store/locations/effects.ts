@@ -11,7 +11,7 @@ export class LocationsEffects {
   getLocations$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationsActions.getLocations),
-      switchMap((action: { query: string }) => {
+      switchMap((action) => {
         return this.locationsService.getLocations(action.query).pipe(
           map((locations: ILocation[]) =>
             LocationsActions.getLocationsSuccess({ locations })

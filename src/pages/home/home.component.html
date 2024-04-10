@@ -1,3 +1,37 @@
-<section class="flex justify-center px-44 py-9">
-  <app-location-search></app-location-search>
+<section class="px-32 lg:px-44 py-9">
+  <app-location-search
+    class="flex justify-center items-center"
+  ></app-location-search>
+
+  <section
+    *ngIf="isLoading$ | async; else content"
+    class="flex justify-center items-center mt-24"
+  >
+    <mat-spinner></mat-spinner>
+  </section>
+
+  <ng-template #content>
+    <section
+      class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12"
+    >
+      <section class="flex items-center">
+        <div class="h-24 w-24 bg-gray-400"></div>
+        <div class="flex flex-col items-center gap-4 ml-8">
+          <div>Kyiv</div>
+          <div *ngIf="weather">
+            {{ weather.Temperature.Metric.Value }}&deg;
+            {{ weather.Temperature.Metric.Unit }}
+          </div>
+        </div>
+      </section>
+      <section class="flex items-center gap-3">
+        <mat-icon class="cursor-pointer">favorite_border</mat-icon>
+        <button class="w-40" mat-flat-button color="primary">
+          Add to favorite
+        </button>
+      </section>
+    </section>
+
+    <app-forecasts class="block mt-32"></app-forecasts>
+  </ng-template>
 </section>

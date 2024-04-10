@@ -6,17 +6,12 @@ import {
   Validators
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {
-  Subject,
-  debounceTime,
-  distinctUntilChanged,
-  of,
-  takeUntil
-} from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LocationsStoreService } from '../../providers/locations-store.service';
 import { SnackBarService } from '../../providers/snack-bar.service';
+import { WeatherStoreService } from '../../providers/weather-store.service';
 
 @Component({
   selector: 'app-location-search',
@@ -24,15 +19,16 @@ import { SnackBarService } from '../../providers/snack-bar.service';
 })
 export class LocationSearchComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
-  locations$ = this.locationsStoreService.locations$;
-  isLoading$ = this.locationsStoreService.isLoadingLocations$;
-  error$ = this.locationsStoreService.locationsFailure$;
+  locations$ = this.locationsStore.locations$;
+  isLoading$ = this.locationsStore.isLoadingLocations$;
+  error$ = this.locationsStore.locationsFailure$;
   matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
       return control.invalid && (control.dirty || control.touched);
     }
   };
   private destroy$ = new Subject<void>();
+  private selectedOption: string | null = null;
 
   get searchInput(): string {
     return this.formGroup.get('searchInput')?.value;
@@ -44,7 +40,8 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private locationsStoreService: LocationsStoreService,
+    private locationsStore: LocationsStoreService,
+    private weatherStore: WeatherStoreService,
     private snackBarService: SnackBarService
   ) {
     this.formGroup = this.formBuilder.group({
@@ -62,7 +59,10 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
-    console.log('Selected item:', event.option.value);
+    const key = event.option.id;
+    this.selectedOption = event.option.value;
+    this.weatherStore.dispatchWeather(key);
+    this.weatherStore.dispatchForecasts(key);
   }
 
   private handleError(): void {
@@ -82,7 +82,12 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((text: string) => {
-        this.locationsStoreService.getLocations(text);
+        if (
+          !this.selectedOption ||
+          this.selectedOption.toLowerCase() !== text.toLowerCase()
+        ) {
+          this.locationsStore.dispatchLocations(text);
+        }
       });
   }
 
