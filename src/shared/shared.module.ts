@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 import { CardComponent } from './components/card/card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 
@@ -20,7 +22,8 @@ const modules = [
   MatFormFieldModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSlideToggleModule
 ];
 
 @NgModule({
