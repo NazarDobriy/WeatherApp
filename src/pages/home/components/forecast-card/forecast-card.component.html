@@ -1,7 +1,7 @@
 <app-card>
   <div>{{ forecast.Date | date : 'EEEE' }}</div>
   <div>
-    {{ averageTemperature }}&deg;
+    {{ averageTemperature | number : '1.0-1' }}&deg;
     {{ forecast.Temperature.Minimum.Unit }}
   </div>
 </app-card>

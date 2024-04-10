@@ -38,6 +38,10 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     return this.formGroup.get('searchInput')?.hasError('required');
   }
 
+  get patternError(): boolean | undefined {
+    return this.formGroup.get('searchInput')?.hasError('pattern');
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private locationsStore: LocationsStoreService,
@@ -45,7 +49,10 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService
   ) {
     this.formGroup = this.formBuilder.group({
-      searchInput: ['', Validators.required]
+      searchInput: [
+        '',
+        { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)] }
+      ]
     });
   }
 
@@ -82,11 +89,13 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((text: string) => {
-        if (
-          !this.selectedOption ||
-          this.selectedOption.toLowerCase() !== text.toLowerCase()
-        ) {
-          this.locationsStore.dispatchLocations(text);
+        if (this.formGroup.get('searchInput')?.valid) {
+          if (
+            !this.selectedOption ||
+            this.selectedOption.toLowerCase() !== text.toLowerCase()
+          ) {
+            this.locationsStore.dispatchLocations(text);
+          }
         }
       });
   }
