@@ -32,11 +32,15 @@
       </section>
     </section>
 
-    <mat-slide-toggle class="mt-12" (toggleChange)="isLineChart = !isLineChart">
-      Click to change daily forecast representation!
-    </mat-slide-toggle>
+    <section class="flex justify-center md:justify-start mt-12">
+      <mat-slide-toggle (toggleChange)="isLineChart = !isLineChart">
+        <span class="md:block hidden">
+          Click to change daily forecast representation!
+        </span>
+      </mat-slide-toggle>
+    </section>
 
-    <section class="mt-32">
+    <section class="flex justify-center mt-32">
       <app-forecasts
         *ngIf="!isLineChart; else lineChart"
         [forecasts]="forecasts"
