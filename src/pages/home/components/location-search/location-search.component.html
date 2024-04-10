@@ -24,6 +24,7 @@
     </button>
 
     <mat-error *ngIf="requiredError">Please enter a location</mat-error>
+    <mat-error *ngIf="patternError">Please enter only English characters</mat-error>
 
     <mat-autocomplete
       #auto="matAutocomplete"
