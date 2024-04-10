@@ -32,6 +32,24 @@
       </section>
     </section>
 
-    <app-forecasts class="block mt-32"></app-forecasts>
+    <mat-slide-toggle class="mt-12" (toggleChange)="isLineChart = !isLineChart">
+      Click to change daily forecast representation!
+    </mat-slide-toggle>
+
+    <section class="mt-32">
+      <app-forecasts
+        *ngIf="!isLineChart; else lineChart"
+        [forecasts]="forecasts"
+      ></app-forecasts>
+
+      <ng-template #lineChart>
+        <app-line-chart
+          [labelX]="'Day'"
+          [labelY]="'Night'"
+          [datasetX]="dayDataset"
+          [datasetY]="nightDataset"
+        ></app-line-chart>
+      </ng-template>
+    </section>
   </ng-template>
 </section>
