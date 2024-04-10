@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
@@ -13,7 +14,7 @@ Chart.register(...registerables);
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html'
 })
-export class LineChartComponent implements AfterViewInit {
+export class LineChartComponent implements AfterViewInit, OnDestroy {
   @Input() labelX = '';
   @Input() labelY = '';
   @Input() datasetX: number[] = [];
@@ -57,6 +58,12 @@ export class LineChartComponent implements AfterViewInit {
         },
         options: this.options
       });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy();
     }
   }
 }
