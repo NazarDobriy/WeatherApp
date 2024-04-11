@@ -8,6 +8,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
 import { FavoritesStoreService } from './providers/favorites-store.service';
 import { LocationService } from './providers/location.service';
 import { LocationStoreService } from './providers/location-store.service';
+import { SnackBarService } from './providers/snack-bar.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -17,6 +18,7 @@ import { LocationStoreService } from './providers/location-store.service';
     FavoritesStoreService,
     LocationService,
     LocationStoreService,
+    SnackBarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
