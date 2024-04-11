@@ -10,7 +10,7 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LocationsStoreService } from '../../providers/locations-store.service';
-import { SnackBarService } from '../../providers/snack-bar.service';
+import { SnackBarService } from '../../../../core/providers/snack-bar.service';
 import { WeatherStoreService } from '../../providers/weather-store.service';
 
 @Component({
@@ -63,6 +63,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
 
   clearSearchInput(): void {
     this.formGroup.get('searchInput')?.setValue('');
+    this.locationsStore.dispatchClearLocations();
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
@@ -96,6 +97,9 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
           ) {
             this.locationsStore.dispatchLocations(text);
           }
+        }
+        if (!text.length) {
+          this.locationsStore.dispatchClearLocations();
         }
       });
   }
