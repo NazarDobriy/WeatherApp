@@ -11,3 +11,7 @@ export const removeFavorite = createAction(
   '[Favorites] Remove Favorite',
   props<{ id: string }>()
 );
+export const setFavorites = createAction(
+  '[Favorites] Set Favorites',
+  props<{ favorites: IFavorite[] }>()
+);
