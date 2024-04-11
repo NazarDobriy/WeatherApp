@@ -10,8 +10,8 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LocationsStoreService } from '../../providers/locations-store.service';
-import { WeatherStoreService } from '../../providers/weather-store.service';
 import { LocationStoreService } from 'src/core/providers/location-store.service';
+import { ILocation } from 'src/core/types/location.interface';
 
 @Component({
   selector: 'app-location-search',
@@ -44,7 +44,6 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private locationsStore: LocationsStoreService,
-    private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService
   ) {
     this.formGroup = this.formBuilder.group({
@@ -68,10 +67,11 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
-    const key = event.option.id;
     this.selectedOption = event.option.value;
-    this.weatherStore.dispatchWeather(key);
-    this.weatherStore.dispatchForecasts(key);
+  }
+
+  onSelectionChange(location: ILocation): void {
+    this.locationStore.dispatchLocationChange(location);
   }
 
   private handleInputChanges(): void {

@@ -43,6 +43,7 @@
           *ngFor="let location of locations$ | async"
           [id]="location.Key"
           [value]="location.LocalizedName"
+          (click)="onSelectionChange(location)"
         >
           <section class="flex justify-between">
             <div>{{ location.LocalizedName }}</div>
