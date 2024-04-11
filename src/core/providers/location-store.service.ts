@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as LocationActions from '../store/location/actions';
 import * as LocationSelectors from '../store/location/selectors';
+import { IGeoLocation } from '../types/geo-location';
 
 @Injectable()
 export class LocationStoreService {
@@ -12,7 +13,7 @@ export class LocationStoreService {
 
   constructor(private store: Store) {}
 
-  dispatchLocation(geoPosition: GeolocationCoordinates): void {
+  dispatchLocation(geoPosition: IGeoLocation): void {
     this.store.dispatch(LocationActions.getLocation({ geoPosition }));
   }
 }
