@@ -17,5 +17,11 @@ export const favoritesReducer = createReducer(
       ...state,
       favorites: state.favorites.filter((favorite) => favorite.id !== action.id)
     };
+  }),
+  on(FavoritesActions.setFavorites, (state, action) => {
+    return {
+      ...state,
+      favorites: action.favorites
+    };
   })
 );

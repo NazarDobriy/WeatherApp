@@ -1,7 +1,7 @@
 export interface ILocation {
   Key: string;
   LocalizedName: string;
-  AdministrativeArea: {
+  AdministrativeArea?: {
     ID: string;
     LocalizedName: string;
   };

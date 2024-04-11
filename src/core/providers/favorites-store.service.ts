@@ -22,4 +22,8 @@ export class FavoritesStoreService {
   dispatchFavoriteRemove(id: string): void {
     this.store.dispatch(FavoritesActions.removeFavorite({ id }));
   }
+
+  dispatchSetFavorites(favorites: IFavorite[]): void {
+    this.store.dispatch(FavoritesActions.setFavorites({ favorites }));
+  }
 }
