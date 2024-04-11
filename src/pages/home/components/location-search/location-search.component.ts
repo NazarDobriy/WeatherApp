@@ -10,8 +10,8 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LocationsStoreService } from '../../providers/locations-store.service';
-import { SnackBarService } from '../../../../core/providers/snack-bar.service';
 import { WeatherStoreService } from '../../providers/weather-store.service';
+import { LocationStoreService } from 'src/core/providers/location-store.service';
 
 @Component({
   selector: 'app-location-search',
@@ -21,7 +21,6 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   locations$ = this.locationsStore.locations$;
   isLoading$ = this.locationsStore.isLoadingLocations$;
-  error$ = this.locationsStore.locationsFailure$;
   matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
       return control.invalid && (control.dirty || control.touched);
@@ -46,19 +45,21 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private locationsStore: LocationsStoreService,
     private weatherStore: WeatherStoreService,
-    private snackBarService: SnackBarService
+    private locationStore: LocationStoreService
   ) {
     this.formGroup = this.formBuilder.group({
       searchInput: [
         '',
-        { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)] }
+        {
+          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]
+        }
       ]
     });
   }
 
   ngOnInit(): void {
     this.handleInputChanges();
-    this.handleError();
+    this.handleLocation();
   }
 
   clearSearchInput(): void {
@@ -71,14 +72,6 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     this.selectedOption = event.option.value;
     this.weatherStore.dispatchWeather(key);
     this.weatherStore.dispatchForecasts(key);
-  }
-
-  private handleError(): void {
-    this.error$.pipe(takeUntil(this.destroy$)).subscribe((error) => {
-      if (error) {
-        this.snackBarService.open(error, 'X');
-      }
-    });
   }
 
   private handleInputChanges(): void {
@@ -100,6 +93,16 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
         }
         if (!text.length) {
           this.locationsStore.dispatchClearLocations();
+        }
+      });
+  }
+
+  private handleLocation(): void {
+    this.locationStore.location$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((location) => {
+        if (location) {
+          this.formGroup.get('searchInput')?.setValue(location.LocalizedName);
         }
       });
   }
