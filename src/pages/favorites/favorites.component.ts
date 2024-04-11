@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
+import { LocationStoreService } from 'src/core/providers/location-store.service';
+import { IFavorite } from 'src/core/types/favorite.interface';
 
 @Component({
   selector: 'app-favorites',
@@ -12,11 +14,15 @@ export class FavoritesComponent {
 
   constructor(
     private router: Router,
-    private favoritesStore: FavoritesStoreService
+    private favoritesStore: FavoritesStoreService,
+    private locationStore: LocationStoreService
   ) {}
 
-  selectFavorite(id: string): void {
-    console.log(id);
+  selectFavorite(favorite: IFavorite): void {
+    this.locationStore.dispatchLocationChange({
+      Key: favorite.id,
+      LocalizedName: favorite.name
+    });
     this.router.navigateByUrl('/');
   }
 }
