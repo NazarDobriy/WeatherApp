@@ -24,5 +24,11 @@ export const locationReducer = createReducer(
       isLoading: false,
       error: action.error
     };
+  }),
+  on(LocationActions.changeLocation, (state, action) => {
+    return {
+      ...state,
+      location: action.location
+    }
   })
 );

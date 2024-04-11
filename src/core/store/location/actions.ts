@@ -15,3 +15,7 @@ export const getLocationFailure = createAction(
   '[Location] Get Location failure',
   props<{ error: string }>()
 );
+export const changeLocation = createAction(
+  '[Location] Change Location',
+  props<{ location: ILocation }>()
+);
