@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from 'src/core/core.module';
 import { reducers } from './store/reducer';
+import { SharedModule } from 'src/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,8 +25,9 @@ import { reducers } from './store/reducer';
       autoPause: true
     }),
     EffectsModule.forRoot(),
+    HttpClientModule,
     CoreModule,
-    HttpClientModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
