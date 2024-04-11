@@ -12,6 +12,8 @@ import { LocationStoreService } from './providers/location-store.service';
 import { SnackBarService } from './providers/snack-bar.service';
 import { LocationEffects } from './store/location/effects';
 import { ErrorHandlerService } from './providers/error-handler.service';
+import { NgRxLocalStorageService } from './providers/ng-rx-local-storage.service';
+import { LocalStorageService } from './providers/local-storage.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -27,6 +29,9 @@ import { ErrorHandlerService } from './providers/error-handler.service';
     LocationStoreService,
     SnackBarService,
     ErrorHandlerService,
+    LocationStoreService,
+    NgRxLocalStorageService,
+    LocalStorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
