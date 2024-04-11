@@ -17,17 +17,30 @@
       <section class="flex items-center">
         <div class="h-24 w-24 bg-gray-400"></div>
         <div class="flex flex-col items-center gap-4 ml-8">
-          <div>Kyiv</div>
+          <div *ngIf="location">
+            {{ location.LocalizedName }}
+          </div>
           <div *ngIf="weather">
             {{ weather.Temperature.Metric.Value }}&deg;
             {{ weather.Temperature.Metric.Unit }}
           </div>
         </div>
       </section>
+
       <section class="flex items-center gap-3">
-        <mat-icon class="cursor-pointer">favorite_border</mat-icon>
-        <button class="w-40" mat-flat-button color="primary">
-          Add to favorite
+        <mat-icon
+          class="cursor-pointer"
+          (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
+        >
+          {{ isFavorite ? 'favorite' : 'favorite_border' }}
+        </mat-icon>
+        <button
+          class="w-48"
+          mat-flat-button
+          color="{{ isFavorite ? 'warn' : 'primary' }}"
+          (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
+        >
+          {{ isFavorite ? 'Remove from favorite' : 'Add to favorite' }}
         </button>
       </section>
     </section>
