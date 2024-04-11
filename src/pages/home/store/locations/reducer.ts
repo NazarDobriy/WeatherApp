@@ -24,5 +24,11 @@ export const locationsReducer = createReducer(
       isLoading: false,
       error: action.error
     };
+  }),
+  on(LocationsActions.clearLocations, (state) => {
+    return {
+      ...state,
+      locations: []
+    };
   })
 );

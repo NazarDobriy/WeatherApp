@@ -14,3 +14,4 @@ export const getLocationsFailure = createAction(
   '[Locations] Get Locations failure',
   props<{ error: string }>()
 );
+export const clearLocations = createAction('[Locations] Clear Locations');
