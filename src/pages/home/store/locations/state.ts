@@ -1,4 +1,4 @@
-import { ILocation } from 'src/pages/home/types/location.interface';
+import { ILocation } from 'src/core/types/location.interface';
 
 export interface ILocationsState {
   isLoading: boolean;
