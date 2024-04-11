@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ILocation } from '../types/location.interface';
+import { IGeoLocation } from '../types/geo-location';
 
 @Injectable()
 export class LocationService {
   constructor(private http: HttpClient) {}
 
-  getLocation(getPosition: GeolocationCoordinates): Observable<ILocation> {
+  getLocation(getPosition: IGeoLocation): Observable<ILocation> {
     const params = new HttpParams().set(
       'q',
       `${getPosition.latitude},${getPosition.longitude}`
