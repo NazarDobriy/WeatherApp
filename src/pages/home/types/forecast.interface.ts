@@ -1,4 +1,4 @@
-import { ITemperature } from './temperature.interface';
+import { ITemperature } from '../../../core/types/temperature.interface';
 
 export interface IForecast {
   Date: string;

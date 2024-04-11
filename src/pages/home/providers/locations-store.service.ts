@@ -15,4 +15,8 @@ export class LocationsStoreService {
   dispatchLocations(query: string): void {
     this.store.dispatch(LocationsActions.getLocations({ query }));
   }
+
+  dispatchClearLocations(): void {
+    this.store.dispatch(LocationsActions.clearLocations());
+  }
 }

@@ -1,13 +1,13 @@
 import { ILocation } from 'src/core/types/location.interface';
 
-export interface ILocationsState {
+export interface ILocationState {
   isLoading: boolean;
-  locations: ILocation[] | null;
+  location: ILocation | null;
   error: string | null;
 }
 
-export const locationsInitialState: ILocationsState = {
+export const locationInitialState: ILocationState = {
   isLoading: false,
-  locations: null,
+  location: null,
   error: null
 };

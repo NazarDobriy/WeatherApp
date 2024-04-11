@@ -1,1 +1,9 @@
-<p>favorites works!</p>
+<section class="px-32 lg:px-44 py-24">
+  <div
+    *ngFor="let favorite of favorites$ | async"
+    class="flex flex-wrap justify-center gap-14"
+    (click)="selectFavorite(favorite.id)"
+  >
+    <app-favorite-cart [favorite]="favorite"></app-favorite-cart>
+  </div>
+</section>

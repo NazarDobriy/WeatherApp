@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FavoritesComponent } from './favorites.component';
+import { FavoriteCartComponent } from './components/favorite-cart/favorite-cart.component';
+import { SharedModule } from 'src/shared/shared.module';
 
 const routes: Routes = [{ path: '', component: FavoritesComponent }];
 
 @NgModule({
-  declarations: [FavoritesComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  declarations: [FavoritesComponent, FavoriteCartComponent],
+  imports: [RouterModule.forChild(routes), SharedModule]
 })
 export class FavoritesModule {}
