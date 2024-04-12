@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleGeoPosition();
-    this.ngRxLocalStorage.launch();
+    this.ngRxLocalStorage.initialization();
     this.errorHandlerService.handleError$(this.locationStore.locationFailure$);
   }
 
