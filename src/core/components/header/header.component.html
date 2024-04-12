@@ -2,19 +2,9 @@
   <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4">
     <div>My Weather</div>
     <section class="flex items-center gap-6">
-      <div
-        class="flex justify-center items-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
-        (click)="changeThemeMode()"
-      >
-        <img
-          *ngIf="isDarkMode$ | async; else lightSign"
-          src="assets/img/sun.svg"
-          alt="Sun"
-        />
-        <ng-template #lightSign>
-          <img src="assets/img/moon.svg" alt="Moon" />
-        </ng-template>
-      </div>
+      <app-theme-mode></app-theme-mode>
+      <app-theme-temperature></app-theme-temperature>
+
       <section class="flex gap-4">
         <div>
           <a

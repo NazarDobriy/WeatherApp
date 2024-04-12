@@ -15,9 +15,11 @@ import { ErrorHandlerService } from './providers/error-handler.service';
 import { NgRxLocalStorageService } from './providers/ng-rx-local-storage.service';
 import { LocalStorageService } from './providers/local-storage.service';
 import { ThemeStoreService } from './providers/theme-store.service';
+import { ThemeModeComponent } from './components/header/components/theme-mode/theme-mode.component';
+import { ThemeTemperatureComponent } from './components/header/components/theme-temperature/theme-temperature.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, ThemeModeComponent, ThemeTemperatureComponent],
   imports: [
     CommonModule,
     RouterModule,
