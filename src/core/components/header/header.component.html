@@ -1,4 +1,7 @@
-<header class="border-b-2 border-gray-300">
+<header
+  class="border-b-2 border-gray-300"
+  [class.bg-black-30]="isDarkMode$ | async"
+>
   <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4">
     <div>My Weather</div>
     <section class="flex items-center gap-6">

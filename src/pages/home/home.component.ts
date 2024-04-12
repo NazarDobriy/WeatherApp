@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   );
   isCelsius$ = this.themeStore.isCelsius$;
+  isDarkMode$ = this.themeStore.isDarkMode$;
   private favorites: IFavorite[] = [];
   private destroy$ = new Subject<void>();
 
