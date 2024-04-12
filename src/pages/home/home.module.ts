@@ -13,11 +13,12 @@ import { WeatherStoreService } from './providers/weather-store.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { ForecastsComponent } from './components/forecasts/forecasts.component';
 import { ForecastCardComponent } from './components/forecast-card/forecast-card.component';
+import { LocationSquareComponent } from './components/location-square/location-square.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
 @NgModule({
-  declarations: [HomeComponent, LocationSearchComponent, ForecastsComponent, ForecastCardComponent],
+  declarations: [HomeComponent, LocationSearchComponent, ForecastsComponent, ForecastCardComponent, LocationSquareComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes),
