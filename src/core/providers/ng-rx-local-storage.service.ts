@@ -6,7 +6,7 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class NgRxLocalStorageService implements OnDestroy {
-  private isLaunched = false;
+  private isInitialized = false;
   private destroy$ = new Subject<void>();
   private readonly FAVORITES_KEY = 'favorites';
 
@@ -15,12 +15,12 @@ export class NgRxLocalStorageService implements OnDestroy {
     private favoritesStore: FavoritesStoreService
   ) {}
 
-  launch(): void {
-    if (this.isLaunched) {
+  initialization(): void {
+    if (this.isInitialized) {
       return;
     }
 
-    this.isLaunched = true;
+    this.isInitialized = true;
 
     this.loadFromStorage();
 
@@ -29,6 +29,8 @@ export class NgRxLocalStorageService implements OnDestroy {
       .subscribe((favorites) => {
         this.localStorage.set(this.FAVORITES_KEY, JSON.stringify(favorites));
       });
+
+    window.addEventListener('storage', () => this.loadFromStorage());
   }
 
   private loadFromStorage(): void {
