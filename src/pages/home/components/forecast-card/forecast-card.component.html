@@ -1,7 +1,14 @@
 <app-card>
   <div>{{ forecast.Date | date : 'EEEE' }}</div>
-  <div>
-    {{ averageTemperature | number : '1.0-1' }}&deg;
+
+  <div *ngIf="isCelsius; else fahrenheit">
+    {{
+      averageTemperature | temperatureConverter : isCelsius | number : '1.0-1'
+    }}&deg;
     {{ forecast.Temperature.Minimum.Unit }}
   </div>
+  <ng-template #fahrenheit>
+    {{ averageTemperature | temperatureConverter : isCelsius | number : '1.0-1' }}
+    F
+  </ng-template>
 </app-card>

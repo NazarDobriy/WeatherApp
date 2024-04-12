@@ -21,9 +21,16 @@
           <div *ngIf="location">
             {{ location.LocalizedName }}
           </div>
+
           <div *ngIf="weather">
-            {{ weather.Temperature.Metric.Value }}&deg;
-            {{ weather.Temperature.Metric.Unit }}
+            <div *ngIf="isCelsius$ | async; else fahrenheit">
+              {{ weather.Temperature.Metric.Value }}&deg;
+              {{ weather.Temperature.Metric.Unit }}
+            </div>
+            <ng-template #fahrenheit>
+              {{ weather.Temperature.Imperial.Value }}
+              {{ weather.Temperature.Imperial.Unit }}
+            </ng-template>
           </div>
         </div>
       </section>
