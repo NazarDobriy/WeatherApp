@@ -14,6 +14,7 @@ import { LocationEffects } from './store/location/effects';
 import { ErrorHandlerService } from './providers/error-handler.service';
 import { NgRxLocalStorageService } from './providers/ng-rx-local-storage.service';
 import { LocalStorageService } from './providers/local-storage.service';
+import { ThemeStoreService } from './providers/theme-store.service';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -27,6 +28,7 @@ import { LocalStorageService } from './providers/local-storage.service';
     FavoritesStoreService,
     LocationService,
     LocationStoreService,
+    ThemeStoreService,
     SnackBarService,
     ErrorHandlerService,
     LocationStoreService,
