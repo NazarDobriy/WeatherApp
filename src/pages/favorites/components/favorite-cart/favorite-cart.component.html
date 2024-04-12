@@ -1,8 +1,14 @@
 <app-card class="cursor-pointer">
   <div>{{ favorite.name }}</div>
-  <div>
+
+  <div *ngIf="isCelsius; else fahrenheit">
     {{ favorite.temperature.Value }}&deg;
     {{ favorite.temperature.Unit }}
   </div>
+  <ng-template #fahrenheit>
+    {{ temperature | temperatureConverter : isCelsius | number : '1.0-1' }}
+    F
+  </ng-template>
+
   <div>{{ favorite.weatherText }}</div>
 </app-card>

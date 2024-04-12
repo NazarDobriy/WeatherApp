@@ -1,21 +1,26 @@
-<header class="border-b-2 border-gray-500">
+<header class="border-b-2 border-gray-300">
   <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4">
     <div>My Weather</div>
-    <section class="flex gap-6">
-      <div>
-        <a
-          routerLink=""
-          routerLinkActive="text-blue-500"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          Home
-        </a>
-      </div>
-      <div>
-        <a routerLink="/favorites" routerLinkActive="text-blue-500">
-          Favorites
-        </a>
-      </div>
+    <section class="flex items-center gap-6">
+      <app-theme-mode></app-theme-mode>
+      <app-theme-temperature></app-theme-temperature>
+
+      <section class="flex gap-4">
+        <div>
+          <a
+            routerLink=""
+            routerLinkActive="text-blue-500"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </div>
+        <div>
+          <a routerLink="/favorites" routerLinkActive="text-blue-500">
+            Favorites
+          </a>
+        </div>
+      </section>
     </section>
   </nav>
 </header>

@@ -10,6 +10,7 @@ import { ErrorHandlerService } from 'src/core/providers/error-handler.service';
 import { LocationsStoreService } from './providers/locations-store.service';
 import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
 import { IFavorite } from 'src/core/types/favorite.interface';
+import { ThemeStoreService } from 'src/core/providers/theme-store.service';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       return isLoadingWeather || isLoadingForecasts || isLoadingLocation;
     })
   );
+  isCelsius$ = this.themeStore.isCelsius$;
   private favorites: IFavorite[] = [];
   private destroy$ = new Subject<void>();
 
@@ -54,6 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private themeStore: ThemeStoreService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
     private locationsStore: LocationsStoreService,
