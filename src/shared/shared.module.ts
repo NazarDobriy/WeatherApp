@@ -12,6 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { CardComponent } from './components/card/card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { TemperatureConverterPipe } from './pipes/temperature-converter.pipe';
 
 const modules = [
   CommonModule,
@@ -27,8 +28,13 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [CardComponent, LineChartComponent],
+  declarations: [CardComponent, LineChartComponent, TemperatureConverterPipe],
   imports: [...modules],
-  exports: [...modules, CardComponent, LineChartComponent]
+  exports: [
+    ...modules,
+    CardComponent,
+    LineChartComponent,
+    TemperatureConverterPipe
+  ]
 })
 export class SharedModule {}
