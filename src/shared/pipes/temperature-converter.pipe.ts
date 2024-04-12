@@ -5,9 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TemperatureConverterPipe implements PipeTransform {
   transform(value: number, isCelsius: boolean): number {
-    if (isCelsius) {
-      return value;
-    }
-    return (value * 9) / 5 + 32;
+    return isCelsius ? value : (value * 9) / 5 + 32;
   }
 }
