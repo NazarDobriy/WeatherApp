@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
 
+import { ThemeStoreService } from 'src/core/providers/theme-store.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  isDarkMode$ = this.themeStore.isDarkMode$;
+
+  constructor(private themeStore: ThemeStoreService) {}
+
+  changeThemeMode(): void {
+    this.themeStore.dispatchMode();
+  }
+}

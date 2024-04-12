@@ -1,21 +1,36 @@
-<header class="border-b-2 border-gray-500">
+<header class="border-b-2 border-gray-300 transition-colors">
   <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4">
     <div>My Weather</div>
-    <section class="flex gap-6">
-      <div>
-        <a
-          routerLink=""
-          routerLinkActive="text-blue-500"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          Home
-        </a>
+    <section class="flex items-center gap-6">
+      <div
+        class="flex justify-center items-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
+        (click)="changeThemeMode()"
+      >
+        <img
+          *ngIf="isDarkMode$ | async; else lightSign"
+          src="assets/img/sun.svg"
+          alt="Sun"
+        />
+        <ng-template #lightSign>
+          <img src="assets/img/moon.svg" alt="Moon" />
+        </ng-template>
       </div>
-      <div>
-        <a routerLink="/favorites" routerLinkActive="text-blue-500">
-          Favorites
-        </a>
-      </div>
+      <section class="flex gap-4">
+        <div>
+          <a
+            routerLink=""
+            routerLinkActive="text-blue-500"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </div>
+        <div>
+          <a routerLink="/favorites" routerLinkActive="text-blue-500">
+            Favorites
+          </a>
+        </div>
+      </section>
     </section>
   </nav>
 </header>
