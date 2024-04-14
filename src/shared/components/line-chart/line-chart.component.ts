@@ -3,7 +3,9 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnDestroy,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
@@ -14,7 +16,7 @@ Chart.register(...registerables);
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html'
 })
-export class LineChartComponent implements AfterViewInit, OnDestroy {
+export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() labelX = '';
   @Input() labelY = '';
   @Input() datasetX: number[] = [];
@@ -30,6 +32,12 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.createChart();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['datasetX'] || changes['datasetY']) {
+      this.updateChart();
+    }
   }
 
   private createChart(): void {
@@ -58,6 +66,14 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
         },
         options: this.options
       });
+    }
+  }
+
+  private updateChart(): void {
+    if (this.chart) {
+      this.chart.data.datasets[0].data = this.datasetX;
+      this.chart.data.datasets[1].data = this.datasetY;
+      this.chart.update();
     }
   }
 

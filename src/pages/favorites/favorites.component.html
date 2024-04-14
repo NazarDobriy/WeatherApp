@@ -1,7 +1,4 @@
-<section
-  class="flex flex-wrap justify-center gap-14 px-32 lg:px-44 py-24 h-full transition-colors"
-  [class.bg-black-30]="isDarkMode$ | async"
->
+<section class="flex flex-wrap justify-center gap-14 px-32 lg:px-44 py-24">
   <div
     *ngFor="let favorite of favorites$ | async"
     (click)="selectFavorite(favorite)"

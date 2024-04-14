@@ -7,9 +7,6 @@ import { ThemeStoreService } from 'src/core/providers/theme-store.service';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  isDarkMode$ = this.themeStore.isDarkMode$;
-  isCelsius$ = this.themeStore.isCelsius$;
-
   constructor(private themeStore: ThemeStoreService) {}
 
   changeThemeMode(): void {
