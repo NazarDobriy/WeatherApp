@@ -11,6 +11,7 @@ import { LocationsStoreService } from './providers/locations-store.service';
 import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
 import { IFavorite } from 'src/core/types/favorite.interface';
 import { ThemeStoreService } from 'src/core/providers/theme-store.service';
+import { temperatureConverter } from 'src/utils';
 
 @Component({
   selector: 'app-home',
@@ -32,18 +33,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   );
   isCelsius$ = this.themeStore.isCelsius$;
   isDarkMode$ = this.themeStore.isDarkMode$;
+  private isCelsius = true;
   private favorites: IFavorite[] = [];
   private destroy$ = new Subject<void>();
 
   get dayDataset(): number[] {
     return this.forecasts.map((forecast) =>
-      parseFloat(forecast.Temperature.Maximum.Value)
+      temperatureConverter(
+        parseFloat(forecast.Temperature.Maximum.Value),
+        this.isCelsius
+      )
     );
   }
 
   get nightDataset(): number[] {
     return this.forecasts.map((forecast) =>
-      parseFloat(forecast.Temperature.Minimum.Value)
+      temperatureConverter(
+        parseFloat(forecast.Temperature.Minimum.Value),
+        this.isCelsius
+      )
     );
   }
 
@@ -70,6 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.handleWeather();
     this.handleForecasts();
     this.handleFavorites();
+    this.handleTemperature();
     this.errorHandlerService.handleError$(this.weatherStore.weatherFailure$);
     this.errorHandlerService.handleError$(this.weatherStore.forecastsFailure$);
     this.errorHandlerService.handleError$(this.locationsStore.locationsFailure$);
@@ -127,6 +136,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((favorites) => {
         this.favorites = favorites;
       });
+  }
+
+  private handleTemperature(): void {
+    this.themeStore.isCelsius$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isCelsius) => (this.isCelsius = isCelsius));
   }
 
   ngOnDestroy(): void {
