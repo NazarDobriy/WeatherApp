@@ -15,9 +15,14 @@ import { NgRxLocalStorageService } from './providers/ng-rx-local-storage.service
 import { ThemeStoreService } from './providers/theme-store.service';
 import { ThemeModeComponent } from './components/header/components/theme-mode/theme-mode.component';
 import { ThemeTemperatureComponent } from './components/header/components/theme-temperature/theme-temperature.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
-  declarations: [HeaderComponent, ThemeModeComponent, ThemeTemperatureComponent],
+  declarations: [
+    HeaderComponent,
+    ThemeModeComponent,
+    ThemeTemperatureComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -35,6 +40,11 @@ import { ThemeTemperatureComponent } from './components/header/components/theme-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ]
