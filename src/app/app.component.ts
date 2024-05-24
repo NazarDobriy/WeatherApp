@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { KyivGeoLocation } from 'src/core/consts/location.const';
-import { ErrorHandlerService } from 'src/core/providers/error-handler.service';
 import { LocationStoreService } from 'src/core/providers/location-store.service';
 import { NgRxLocalStorageService } from 'src/core/providers/ng-rx-local-storage.service';
+import { SnackBarService } from 'src/core/providers/snack-bar.service';
 import { ThemeStoreService } from 'src/core/providers/theme-store.service';
 
 @Component({
@@ -15,15 +15,14 @@ export class AppComponent implements OnInit {
 
   constructor(
     private themeStore: ThemeStoreService,
+    private snackBarService: SnackBarService,
     private locationStore: LocationStoreService,
-    private errorHandlerService: ErrorHandlerService,
     private ngRxLocalStorage: NgRxLocalStorageService
   ) {}
 
   ngOnInit(): void {
     this.handleGeoPosition();
     this.ngRxLocalStorage.initialization();
-    this.errorHandlerService.handleError$(this.locationStore.locationFailure$);
   }
 
   private handleGeoPosition(): void {
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(
         (position) => this.locationStore.dispatchLocation(position.coords),
         (error) => {
-          this.errorHandlerService.handleError(error.message);
+          this.snackBarService.open(error.message, 'X');
           this.locationStore.dispatchLocation(KyivGeoLocation);
         }
       );

@@ -6,8 +6,6 @@ import { IWeather } from './types/weather.interface';
 import { IForecast } from './types/forecast.interface';
 import { LocationStoreService } from 'src/core/providers/location-store.service';
 import { ILocation } from 'src/core/types/location.interface';
-import { ErrorHandlerService } from 'src/core/providers/error-handler.service';
-import { LocationsStoreService } from './providers/locations-store.service';
 import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
 import { IFavorite } from 'src/core/types/favorite.interface';
 import { ThemeStoreService } from 'src/core/providers/theme-store.service';
@@ -67,9 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private themeStore: ThemeStoreService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
-    private locationsStore: LocationsStoreService,
-    private favoritesStore: FavoritesStoreService,
-    private errorHandlerService: ErrorHandlerService
+    private favoritesStore: FavoritesStoreService
   ) {}
 
   ngOnInit(): void {
@@ -78,9 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.handleForecasts();
     this.handleFavorites();
     this.handleTemperature();
-    this.errorHandlerService.handleError$(this.weatherStore.weatherFailure$);
-    this.errorHandlerService.handleError$(this.weatherStore.forecastsFailure$);
-    this.errorHandlerService.handleError$(this.locationsStore.locationsFailure$);
   }
 
   addToFavorites(): void {
