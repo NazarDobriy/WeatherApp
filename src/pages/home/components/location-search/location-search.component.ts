@@ -6,7 +6,13 @@ import {
   Validators
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import {
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  skip,
+  takeUntil
+} from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
@@ -78,6 +84,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     this.formGroup
       .get('searchInput')
       ?.valueChanges.pipe(
+        skip(1),
         debounceTime(700),
         distinctUntilChanged(),
         takeUntil(this.destroy$)
@@ -91,6 +98,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
             this.locationsStore.dispatchLocations(text);
           }
         }
+
         if (!text.length) {
           this.locationsStore.dispatchClearLocations();
         }
