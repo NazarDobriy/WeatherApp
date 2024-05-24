@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FavoritesComponent } from './favorites.component';
 import { FavoriteCartComponent } from './components/favorite-cart/favorite-cart.component';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [{ path: '', component: FavoritesComponent }];
 

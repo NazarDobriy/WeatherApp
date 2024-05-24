@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IWeather } from '../../types/weather.interface';
-import { IForecast } from '../../types/forecast.interface';
+import { IWeather } from '@pages/home/types/weather.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
 
 export const getWeather = createAction(
   '[Weather] Get Weather',

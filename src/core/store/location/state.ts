@@ -1,4 +1,4 @@
-import { ILocation } from 'src/core/types/location.interface';
+import { ILocation } from '@core/types/location.interface';
 
 export interface ILocationState {
   isLoading: boolean;

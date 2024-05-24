@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 
 import * as LocationsActions from './actions';
-import { LocationsService } from 'src/pages/home/providers/locations.service';
-import { ILocation } from 'src/core/types/location.interface';
+import { LocationsService } from '@pages/home/providers/locations.service';
+import { ILocation } from '@core/types/location.interface';
 
 @Injectable()
 export class LocationsEffects {

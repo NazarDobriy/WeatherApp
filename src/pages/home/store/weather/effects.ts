@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 
 import * as WeatherActions from './actions';
-import { WeatherService } from '../../providers/weather.service';
-import { IWeather } from '../../types/weather.interface';
-import { IForecast } from '../../types/forecast.interface';
+import { WeatherService } from '@pages/home/providers/weather.service';
+import { IWeather } from '@pages/home/types/weather.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
 
 @Injectable()
 export class WeatherEffects {

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ILocation } from 'src/core/types/location.interface';
+import { ILocation } from '@core/types/location.interface';
 
 export const getLocations = createAction(
   '[Locations] Get Locations',

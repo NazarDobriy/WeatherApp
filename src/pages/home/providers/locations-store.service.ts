@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as LocationsActions from '../store/locations/actions';
-import * as LocationsSelectors from '../store/locations/selectors';
+import * as LocationsActions from '@pages/home/store/locations/actions';
+import * as LocationsSelectors from '@pages/home/store/locations/selectors';
 
 @Injectable()
 export class LocationsStoreService {

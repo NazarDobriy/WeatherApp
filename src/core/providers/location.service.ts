@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ILocation } from '../types/location.interface';
-import { IGeoLocation } from '../types/geo-location';
+import { ILocation } from '@core/types/location.interface';
+import { IGeoLocation } from '@core/types/geo-location';
 
 @Injectable()
 export class LocationService {

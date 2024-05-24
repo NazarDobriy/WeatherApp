@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as LocationActions from '../store/location/actions';
-import * as LocationSelectors from '../store/location/selectors';
-import { IGeoLocation } from '../types/geo-location';
-import { ILocation } from '../types/location.interface';
+import * as LocationActions from '@core/store/location/actions';
+import * as LocationSelectors from '@core/store/location/selectors';
+import { IGeoLocation } from '@core/types/geo-location';
+import { ILocation } from '@core/types/location.interface';
 
 @Injectable()
 export class LocationStoreService {

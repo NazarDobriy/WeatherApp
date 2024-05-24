@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as FavoritesActions from '../store/favorites/actions';
-import * as FavoritesSelectors from '../store/favorites/selectors';
-import { IFavorite } from '../types/favorite.interface';
+import * as FavoritesActions from '@core/store/favorites/actions';
+import * as FavoritesSelectors from '@core/store/favorites/selectors';
+import { IFavorite } from '@core/types/favorite.interface';
 
 @Injectable()
 export class FavoritesStoreService {

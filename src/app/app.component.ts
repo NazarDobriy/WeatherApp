@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { KyivGeoLocation } from 'src/core/consts/location.const';
-import { LocationStoreService } from 'src/core/providers/location-store.service';
-import { NgRxLocalStorageService } from 'src/core/providers/ng-rx-local-storage.service';
-import { SnackBarService } from 'src/core/providers/snack-bar.service';
-import { ThemeStoreService } from 'src/core/providers/theme-store.service';
+import { KyivGeoLocation } from '@core/consts/location.const';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.service';
+import { SnackBarService } from '@core/providers/snack-bar.service';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Component({
   selector: 'app-root',

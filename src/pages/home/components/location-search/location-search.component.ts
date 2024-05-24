@@ -9,9 +9,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
-import { LocationsStoreService } from '../../providers/locations-store.service';
-import { LocationStoreService } from 'src/core/providers/location-store.service';
-import { ILocation } from 'src/core/types/location.interface';
+import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { ILocation } from '@core/types/location.interface';
 
 @Component({
   selector: 'app-location-search',

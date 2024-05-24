@@ -4,12 +4,12 @@ import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 import { WeatherStoreService } from './providers/weather-store.service';
 import { IWeather } from './types/weather.interface';
 import { IForecast } from './types/forecast.interface';
-import { LocationStoreService } from 'src/core/providers/location-store.service';
-import { ILocation } from 'src/core/types/location.interface';
-import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
-import { IFavorite } from 'src/core/types/favorite.interface';
-import { ThemeStoreService } from 'src/core/providers/theme-store.service';
-import { temperatureConverter } from 'src/utils';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { ILocation } from '@core/types/location.interface';
+import { FavoritesStoreService } from '@core/providers/favorites-store.service';
+import { IFavorite } from '@core/types/favorite.interface';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { temperatureConverter } from '@utils/index';
 
 @Component({
   selector: 'app-home',

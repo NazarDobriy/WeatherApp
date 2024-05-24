@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { IFavorite } from 'src/core/types/favorite.interface';
-import { ThemeStoreService } from 'src/core/providers/theme-store.service';
+import { IFavorite } from '@core/types/favorite.interface';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Component({
   selector: 'app-favorite-cart',
