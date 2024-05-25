@@ -108,11 +108,9 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   private handleLocation(): void {
     this.locationStore.location$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((location) => {
-        if (location) {
-          this.formGroup.get('searchInput')?.setValue(location.LocalizedName);
-        }
-      });
+      .subscribe((location) =>
+        this.formGroup.get('searchInput')?.setValue(location.LocalizedName)
+      );
   }
 
   ngOnDestroy(): void {

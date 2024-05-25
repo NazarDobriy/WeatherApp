@@ -129,12 +129,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.locationStore.location$
       .pipe(takeUntil(this.destroy$))
       .subscribe((location) => {
-        if (location) {
-          this.location = location;
-          const key = location.Key;
-          this.weatherStore.dispatchWeather(key);
-          this.weatherStore.dispatchForecasts(key);
-        }
+        this.location = location;
+        const key = location.Key;
+        this.weatherStore.dispatchWeather(key);
+        this.weatherStore.dispatchForecasts(key);
       });
   }
 
