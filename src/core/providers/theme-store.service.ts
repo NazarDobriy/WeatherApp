@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as ThemeActions from '../store/theme/actions';
-import * as ThemeSelectors from '../store/theme/selectors';
+import * as ThemeActions from '@core/store/theme/actions';
+import * as ThemeSelectors from '@core/store/theme/selectors';
 
 @Injectable()
 export class ThemeStoreService {

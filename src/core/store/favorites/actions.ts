@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IFavorite } from 'src/core/types/favorite.interface';
+import { IFavorite } from '@core/types/favorite.interface';
 
 export const getFavorites = createAction('[Favorites] Get Favorites');
 export const addFavorite = createAction(

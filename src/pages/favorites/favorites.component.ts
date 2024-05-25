@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
-import { LocationStoreService } from 'src/core/providers/location-store.service';
-import { IFavorite } from 'src/core/types/favorite.interface';
+import { FavoritesStoreService } from '@core/providers/favorites-store.service';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { IFavorite } from '@core/types/favorite.interface';
 
 @Component({
   selector: 'app-favorites',

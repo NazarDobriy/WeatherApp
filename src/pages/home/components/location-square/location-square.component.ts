@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ThemeStoreService } from 'src/core/providers/theme-store.service';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Component({
   selector: 'app-location-square',

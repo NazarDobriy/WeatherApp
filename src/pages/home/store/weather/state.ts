@@ -1,5 +1,5 @@
-import { IForecast } from '../../types/forecast.interface';
-import { IWeather } from '../../types/weather.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
+import { IWeather } from '@pages/home/types/weather.interface';
 
 export interface IWeatherState {
   weather: {

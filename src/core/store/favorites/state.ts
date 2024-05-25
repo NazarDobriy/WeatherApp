@@ -1,4 +1,4 @@
-import { IFavorite } from 'src/core/types/favorite.interface';
+import { IFavorite } from '@core/types/favorite.interface';
 
 export interface IFavoritesState {
   favorites: IFavorite[];

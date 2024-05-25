@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as WeatherActions from '../store/weather/actions';
-import * as WeatherSelectors from '../store/weather/selectors';
+import * as WeatherActions from '@pages/home/store/weather/actions';
+import * as WeatherSelectors from '@pages/home/store/weather/selectors';
 
 @Injectable()
 export class WeatherStoreService {

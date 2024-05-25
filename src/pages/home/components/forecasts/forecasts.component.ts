@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { IForecast } from '../../types/forecast.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
 
 @Component({
   selector: 'app-forecasts',

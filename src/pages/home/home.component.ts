@@ -4,14 +4,14 @@ import { Subject, combineLatest, map, takeUntil } from 'rxjs';
 import { WeatherStoreService } from './providers/weather-store.service';
 import { IWeather } from './types/weather.interface';
 import { IForecast } from './types/forecast.interface';
-import { LocationStoreService } from 'src/core/providers/location-store.service';
-import { ILocation } from 'src/core/types/location.interface';
-import { ErrorHandlerService } from 'src/core/providers/error-handler.service';
-import { LocationsStoreService } from './providers/locations-store.service';
-import { FavoritesStoreService } from 'src/core/providers/favorites-store.service';
-import { IFavorite } from 'src/core/types/favorite.interface';
-import { ThemeStoreService } from 'src/core/providers/theme-store.service';
-import { temperatureConverter } from 'src/utils';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { ILocation } from '@core/types/location.interface';
+import { FavoritesStoreService } from '@core/providers/favorites-store.service';
+import { IFavorite } from '@core/types/favorite.interface';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { temperatureConverter } from '@utils/index';
+import { SnackBarService } from '@core/providers/snack-bar.service';
+import { KyivGeoLocation } from './consts/location.const';
 
 @Component({
   selector: 'app-home',
@@ -65,11 +65,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private themeStore: ThemeStoreService,
+    private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
-    private locationsStore: LocationsStoreService,
-    private favoritesStore: FavoritesStoreService,
-    private errorHandlerService: ErrorHandlerService
+    private favoritesStore: FavoritesStoreService
   ) {}
 
   ngOnInit(): void {
@@ -78,9 +77,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.handleForecasts();
     this.handleFavorites();
     this.handleTemperature();
-    this.errorHandlerService.handleError$(this.weatherStore.weatherFailure$);
-    this.errorHandlerService.handleError$(this.weatherStore.forecastsFailure$);
-    this.errorHandlerService.handleError$(this.locationsStore.locationsFailure$);
+    this.handleGeoPosition();
   }
 
   addToFavorites(): void {
@@ -97,6 +94,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   removeFromFavorites(): void {
     if (this.location) {
       this.favoritesStore.dispatchFavoriteRemove(this.location.Key);
+    }
+  }
+
+  private handleGeoPosition(): void {
+    if (navigator.geolocation && !this.location) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => this.locationStore.dispatchLocation(position.coords),
+        (error) => {
+          this.snackBarService.open(error.message, 'X');
+          this.locationStore.dispatchLocation(KyivGeoLocation);
+        }
+      );
     }
   }
 
@@ -120,12 +129,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.locationStore.location$
       .pipe(takeUntil(this.destroy$))
       .subscribe((location) => {
-        if (location) {
-          this.location = location;
-          const key = location.Key;
-          this.weatherStore.dispatchWeather(key);
-          this.weatherStore.dispatchForecasts(key);
-        }
+        this.location = location;
+        const key = location.Key;
+        this.weatherStore.dispatchWeather(key);
+        this.weatherStore.dispatchForecasts(key);
       });
   }
 

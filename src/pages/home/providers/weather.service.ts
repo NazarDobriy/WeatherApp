@@ -2,8 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
-import { IWeather } from '../types/weather.interface';
-import { IForecast } from '../types/forecast.interface';
+import { IWeather } from '@pages/home/types/weather.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
 
 @Injectable()
 export class WeatherService {

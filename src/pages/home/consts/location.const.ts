@@ -1,4 +1,4 @@
-import { IGeoLocation } from '../types/geo-location';
+import { IGeoLocation } from '@core/types/geo-location';
 
 export const KyivGeoLocation: IGeoLocation = {
   latitude: 50.450001,

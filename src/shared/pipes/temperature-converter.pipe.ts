@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { temperatureConverter } from 'src/utils';
+import { temperatureConverter } from '@utils/index';
 
 @Pipe({
   name: 'temperatureConverter'
