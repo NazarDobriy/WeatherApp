@@ -3,7 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { temperatureConverter } from '@utils/index';
 
 @Pipe({
-  name: 'temperatureConverter'
+  name: 'temperatureConverter',
+  standalone: true,
 })
 export class TemperatureConverterPipe implements PipeTransform {
   transform(value: number, isCelsius: boolean): string {

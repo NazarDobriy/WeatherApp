@@ -6,7 +6,10 @@
     *ngIf="isDarkMode$ | async; else lightSign"
     src="assets/img/sun.svg"
     alt="Sun"
+    height="20"
+    width="20"
   />
+
   <ng-template #lightSign>
     <img src="assets/img/moon.svg" alt="Moon" />
   </ng-template>

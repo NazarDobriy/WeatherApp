@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 import { WeatherStoreService } from './providers/weather-store.service';
 import { IWeather } from './types/weather.interface';
@@ -12,10 +17,27 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { temperatureConverter } from '@utils/index';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { KyivGeoLocation } from './consts/location.const';
+import { LocationSearchComponent } from '@pages/home/components/location-search/location-search.component';
+import { LocationSquareComponent } from '@pages/home/components/location-square/location-square.component';
+import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
+import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    MatIconModule,
+    MatButtonModule,
+    ForecastsComponent,
+    LineChartComponent,
+    MatSlideToggleModule,
+    LocationSearchComponent,
+    MatProgressSpinnerModule,
+    LocationSquareComponent,
+  ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   location: ILocation | null = null;
@@ -128,11 +150,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   private handleLocation(): void {
     this.locationStore.location$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((location) => {
-        this.location = location;
-        const key = location.Key;
-        this.weatherStore.dispatchWeather(key);
-        this.weatherStore.dispatchForecasts(key);
+      .subscribe((location: ILocation | null) => {
+        if (!!location) {
+          this.location = location;
+          const key = location.Key;
+          this.weatherStore.dispatchWeather(key);
+          this.weatherStore.dispatchForecasts(key);
+        }
       });
   }
 

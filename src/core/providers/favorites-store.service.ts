@@ -11,10 +11,6 @@ export class FavoritesStoreService {
 
   constructor(private store: Store) {}
 
-  dispatchFavorites(): void {
-    this.store.dispatch(FavoritesActions.getFavorites());
-  }
-
   dispatchFavoriteAdd(favorite: IFavorite): void {
     this.store.dispatch(FavoritesActions.addFavorite({ favorite }));
   }

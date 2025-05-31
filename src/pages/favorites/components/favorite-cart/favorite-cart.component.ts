@@ -3,10 +3,14 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { IFavorite } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { CardComponent } from '@shared/components/card/card.component';
+import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 
 @Component({
   selector: 'app-favorite-cart',
-  templateUrl: './favorite-cart.component.html'
+  templateUrl: './favorite-cart.component.html',
+  standalone: true,
+  imports: [CardComponent, TemperatureConverterPipe],
 })
 export class FavoriteCartComponent implements OnInit, OnDestroy {
   @Input() favorite!: IFavorite;
