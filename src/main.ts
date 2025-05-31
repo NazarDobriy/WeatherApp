@@ -1,12 +1,56 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { importProvidersFrom, isDevMode } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
+import { provideStore } from '@ngrx/store';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { AppComponent } from '@app/app.component';
+import { appRoutes } from '@app/app.routes';
+import { reducers } from '@app/store/reducer';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.service';
+import { FavoritesStoreService } from '@core/providers/favorites-store.service';
+import { SnackBarService } from '@core/providers/snack-bar.service';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { LocationService } from '@core/providers/location.service';
+import { LocationEffects } from '@core/store/location/effects';
+import { ApiInterceptor } from '@core/interceptors/api.interceptor';
+import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(appRoutes),
+    provideStore(reducers),
+    provideEffects([LocationEffects]),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+    }),
+    importProvidersFrom(
+      BrowserAnimationsModule,
+      HttpClientModule,
+      MatSnackBarModule,
+    ),
+    ThemeStoreService,
+    NgRxLocalStorageService,
+    FavoritesStoreService,
+    SnackBarService,
+    LocationStoreService,
+    LocationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+  ],
+});

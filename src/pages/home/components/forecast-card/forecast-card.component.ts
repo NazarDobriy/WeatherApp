@@ -1,12 +1,17 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
 
 import { IForecast } from '@pages/home/types/forecast.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { CardComponent } from '@shared/components/card/card.component';
+import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 
 @Component({
   selector: 'app-forecast-card',
-  templateUrl: './forecast-card.component.html'
+  templateUrl: './forecast-card.component.html',
+  standalone: true,
+  imports: [CardComponent, DatePipe, TemperatureConverterPipe],
 })
 export class ForecastCardComponent implements OnInit, OnDestroy {
   @Input() forecast!: IForecast;

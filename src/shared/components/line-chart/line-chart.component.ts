@@ -14,7 +14,8 @@ Chart.register(...registerables);
 
 @Component({
   selector: 'app-line-chart',
-  templateUrl: './line-chart.component.html'
+  templateUrl: './line-chart.component.html',
+  standalone: true,
 })
 export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() labelX = '';

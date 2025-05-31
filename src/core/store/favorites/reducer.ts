@@ -5,7 +5,6 @@ import { favoritesInitialState } from './state';
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
-  on(FavoritesActions.getFavorites, (state) => state),
   on(FavoritesActions.addFavorite, (state, action) => {
     return {
       ...state,

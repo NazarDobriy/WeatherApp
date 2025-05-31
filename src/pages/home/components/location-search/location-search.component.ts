@@ -3,6 +3,8 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   Validators
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -13,7 +15,13 @@ import {
   skip,
   takeUntil
 } from 'rxjs';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -21,7 +29,21 @@ import { ILocation } from '@core/types/location.interface';
 
 @Component({
   selector: 'app-location-search',
-  templateUrl: './location-search.component.html'
+  templateUrl: './location-search.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    AsyncPipe,
+    FormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
 })
 export class LocationSearchComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
@@ -108,9 +130,11 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   private handleLocation(): void {
     this.locationStore.location$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((location) =>
-        this.formGroup.get('searchInput')?.setValue(location.LocalizedName)
-      );
+      .subscribe((location: ILocation | null) => {
+       if (!!location) {
+         this.formGroup.get('searchInput')?.setValue(location.LocalizedName);
+       }
+      });
   }
 
   ngOnDestroy(): void {

@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { ThemeStoreService } from '@core/providers/theme-store.service';
+import {
+  ThemeTemperatureComponent
+} from '@core/components/header/components/theme-temperature/theme-temperature.component';
+import { ThemeModeComponent } from '@core/components/header/components/theme-mode/theme-mode.component';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  standalone: true,
+  imports: [RouterModule, ThemeModeComponent, ThemeTemperatureComponent],
 })
-export class HeaderComponent {
-  constructor(private themeStore: ThemeStoreService) {}
-
-  changeThemeMode(): void {
-    this.themeStore.dispatchMode();
-  }
-
-  changeThemeTemperature(): void {
-    this.themeStore.dispatchTemperature();
-  }
-}
+export class HeaderComponent {}
