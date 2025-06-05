@@ -1,5 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 import { IFavorite } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -10,24 +11,29 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
   selector: 'app-favorite-cart',
   templateUrl: './favorite-cart.component.html',
   standalone: true,
-  imports: [CardComponent, TemperatureConverterPipe],
+  imports: [NgIf, CardComponent, TemperatureConverterPipe],
 })
-export class FavoriteCartComponent implements OnInit, OnDestroy {
-  @Input() favorite!: IFavorite;
+export class FavoriteCartComponent implements OnInit, OnChanges, OnDestroy {
+  @Input() favorite: IFavorite | null = null;
 
   isCelsius = true;
+  temperature: number | null = null;
   private destroy$ = new Subject<void>();
-
-  get temperature(): number {
-    return parseFloat(this.favorite.temperature.Value);
-  }
 
   constructor(private themeStore: ThemeStoreService) {}
 
   ngOnInit(): void {
-    this.themeStore.isCelsius$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isCelsius) => (this.isCelsius = isCelsius));
+    this.themeStore.isCelsius$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes['favorite'] && !!changes['favorite'].currentValue) {
+      this.temperature = parseFloat(changes['favorite'].currentValue.temperature.Value);
+    }
   }
 
   ngOnDestroy(): void {

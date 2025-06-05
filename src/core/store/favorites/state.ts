@@ -5,5 +5,5 @@ export interface IFavoritesState {
 }
 
 export const favoritesInitialState: IFavoritesState = {
-  favorites: []
+  favorites: [],
 };

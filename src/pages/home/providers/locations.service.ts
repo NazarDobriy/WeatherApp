@@ -10,8 +10,6 @@ export class LocationsService {
 
   getLocations(query: string): Observable<ILocation[]> {
     const params = new HttpParams().set('q', query);
-    return this.http.get<ILocation[]>('/locations/v1/cities/autocomplete', {
-      params
-    });
+    return this.http.get<ILocation[]>('/locations/v1/cities/autocomplete', { params });
   }
 }

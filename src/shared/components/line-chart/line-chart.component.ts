@@ -25,8 +25,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   @ViewChild('lineChart') donut!: ElementRef;
 
-  chart: Chart | null = null;
-  private options: ChartOptions = {
+  private chart: Chart | null = null;
+  private readonly options: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false
   };

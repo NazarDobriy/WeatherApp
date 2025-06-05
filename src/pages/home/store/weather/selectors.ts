@@ -1,13 +1,33 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { IWeatherState } from "./state";
+import { IWeather } from '@pages/home/types/weather.interface';
+import { IForecast } from '@pages/home/types/forecast.interface';
 
 const selectFeature = createFeatureSelector<IWeatherState>('weather');
 
-export const selectWeather = createSelector(selectFeature, ({ weather }) => weather.data);
-export const selectIsLoadingWeather = createSelector(selectFeature, ({ weather }) => weather.isLoading);
-export const selectFailureWeather = createSelector(selectFeature, ({ weather }) => weather.error);
+export const selectWeather = createSelector(
+  selectFeature,
+  ({ weather }: Pick<IWeatherState, 'weather'>): IWeather | null => weather.data,
+);
+export const selectIsLoadingWeather = createSelector(
+  selectFeature,
+  ({ weather }: Pick<IWeatherState, 'weather'>): boolean => weather.isLoading,
+);
+export const selectFailureWeather = createSelector(
+  selectFeature,
+  ({ weather }: Pick<IWeatherState, 'weather'>): string | null => weather.error,
+);
 
-export const selectForecasts = createSelector(selectFeature, ({ forecasts }) => forecasts.data);
-export const selectIsLoadingForecasts = createSelector(selectFeature, ({ forecasts }) => forecasts.isLoading);
-export const selectFailureForecasts = createSelector(selectFeature, ({ forecasts }) => forecasts.error);
+export const selectForecasts = createSelector(
+  selectFeature,
+  ({ forecasts }: Pick<IWeatherState, 'forecasts'>): IForecast[] => forecasts.data,
+);
+export const selectIsLoadingForecasts = createSelector(
+  selectFeature,
+  ({ forecasts }: Pick<IWeatherState, 'forecasts'>): boolean => forecasts.isLoading,
+);
+export const selectFailureForecasts = createSelector(
+  selectFeature,
+  ({ forecasts }: Pick<IWeatherState, 'forecasts'>): string | null => forecasts.error
+);

@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as WeatherActions from './actions';
-import { weatherInitialState } from './state';
+import { IWeatherState, weatherInitialState } from './state';
 
 export const weatherReducer = createReducer(
   weatherInitialState,
-  on(WeatherActions.getWeather, (state) => {
+  on(WeatherActions.getWeather, (state: IWeatherState) => {
     return {
       ...state,
       weather: {
@@ -14,7 +14,7 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getWeatherSuccess, (state, action) => {
+  on(WeatherActions.getWeatherSuccess, (state: IWeatherState, action) => {
     return {
       ...state,
       weather: {
@@ -24,7 +24,7 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getWeatherFailure, (state, action) => {
+  on(WeatherActions.getWeatherFailure, (state: IWeatherState, action) => {
     return {
       ...state,
       weather: {
@@ -34,7 +34,7 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getForecasts, (state) => {
+  on(WeatherActions.getForecasts, (state: IWeatherState) => {
     return {
       ...state,
       forecasts: {
@@ -43,7 +43,7 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getForecastsSuccess, (state, action) => {
+  on(WeatherActions.getForecastsSuccess, (state: IWeatherState, action) => {
     return {
       ...state,
       forecasts: {
@@ -53,7 +53,7 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getForecastsFailure, (state, action) => {
+  on(WeatherActions.getForecastsFailure, (state: IWeatherState, action) => {
     return {
       ...state,
       forecasts: {

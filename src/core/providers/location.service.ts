@@ -14,8 +14,9 @@ export class LocationService {
       'q',
       `${getPosition.latitude},${getPosition.longitude}`
     );
-    return this.http.get<ILocation>('/locations/v1/cities/geoposition/search', {
-      params
-    });
+    return this.http.get<ILocation>(
+      '/locations/v1/cities/geoposition/search',
+      { params }
+    );
   }
 }

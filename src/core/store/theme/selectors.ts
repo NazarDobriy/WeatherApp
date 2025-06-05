@@ -4,5 +4,11 @@ import { IThemeState } from './state';
 
 const selectFeature = createFeatureSelector<IThemeState>('theme');
 
-export const selectMode = createSelector(selectFeature, ({ isDarkMode }) => isDarkMode);
-export const selectTemperature = createSelector(selectFeature, ({ isCelsius }) => isCelsius);
+export const selectMode = createSelector(
+  selectFeature,
+  ({ isDarkMode }: IThemeState): boolean => isDarkMode,
+);
+export const selectTemperature = createSelector(
+  selectFeature,
+  ({ isCelsius }: IThemeState): boolean => isCelsius,
+);

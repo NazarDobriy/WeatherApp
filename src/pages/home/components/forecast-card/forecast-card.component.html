@@ -1,4 +1,7 @@
 <app-card>
-  <div>{{ forecast.Date | date : 'EEEE' }}</div>
-  {{ averageTemperature | temperatureConverter : isCelsius }}
+  <div>{{ forecast?.Date | date : 'EEEE' }}</div>
+
+  <ng-container *ngIf="averageTemperature !== null">
+    {{ averageTemperature | temperatureConverter : isCelsius }}
+  </ng-container>
 </app-card>

@@ -3,13 +3,14 @@ import { Store } from '@ngrx/store';
 
 import * as ThemeActions from '@core/store/theme/actions';
 import * as ThemeSelectors from '@core/store/theme/selectors';
+import { IThemeState } from '@core/store/theme/state';
 
 @Injectable()
 export class ThemeStoreService {
-  isDarkMode$ = this.store.select(ThemeSelectors.selectMode);
-  isCelsius$ = this.store.select(ThemeSelectors.selectTemperature);
+  readonly isDarkMode$ = this.store.select(ThemeSelectors.selectMode);
+  readonly isCelsius$ = this.store.select(ThemeSelectors.selectTemperature);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<IThemeState>) {}
 
   dispatchMode(): void {
     this.store.dispatch(ThemeActions.toggleThemeMode());

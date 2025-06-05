@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, combineLatest, map, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +21,7 @@ import { LocationSearchComponent } from '@pages/home/components/location-search/
 import { LocationSquareComponent } from '@pages/home/components/location-square/location-square.component';
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
+import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 
 @Component({
   selector: 'app-home',
@@ -44,48 +45,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   forecasts: IForecast[] = [];
   weather: IWeather | null = null;
   isLineChart = false;
-  isLoading$ = combineLatest([
-    this.weatherStore.isLoadingWeather$,
-    this.weatherStore.isLoadingForecasts$,
-    this.locationStore.isLoadingLocation$
-  ]).pipe(
-    map(([isLoadingWeather, isLoadingForecasts, isLoadingLocation]) => {
-      return isLoadingWeather || isLoadingForecasts || isLoadingLocation;
-    })
-  );
-  isCelsius$ = this.themeStore.isCelsius$;
-  private isCelsius = true;
-  private favorites: IFavorite[] = [];
-  private destroy$ = new Subject<void>();
-
-  get dayDataset(): number[] {
-    return this.forecasts.map((forecast) =>
-      temperatureConverter(
-        parseFloat(forecast.Temperature.Maximum.Value),
-        this.isCelsius
-      )
-    );
-  }
-
-  get nightDataset(): number[] {
-    return this.forecasts.map((forecast) =>
-      temperatureConverter(
-        parseFloat(forecast.Temperature.Minimum.Value),
-        this.isCelsius
-      )
-    );
-  }
-
-  get isFavorite(): boolean {
-    if (this.favorites.length > 0 && this.location) {
-      return this.favorites.some(
-        (favorite) => favorite.id === this.location?.Key
-      );
-    }
-    return false;
-  }
+  isFavorite = false;
+  dayDataset: number[] = [];
+  nightDataset: number[] = [];
+  readonly isCelsius$ = this.themeStore.isCelsius$;
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
+    public homeFacadeService: HomeFacadeService,
     private themeStore: ThemeStoreService,
     private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
@@ -97,13 +64,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
-    this.handleFavorites();
-    this.handleTemperature();
     this.handleGeoPosition();
   }
 
   addToFavorites(): void {
-    if (this.location && this.weather) {
+    if (!!this.location && !!this.weather) {
       this.favoritesStore.dispatchFavoriteAdd({
         id: this.location.Key,
         name: this.location.LocalizedName,
@@ -114,7 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   removeFromFavorites(): void {
-    if (this.location) {
+    if (!!this.location) {
       this.favoritesStore.dispatchFavoriteRemove(this.location.Key);
     }
   }
@@ -122,8 +87,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   private handleGeoPosition(): void {
     if (navigator.geolocation && !this.location) {
       navigator.geolocation.getCurrentPosition(
-        (position) => this.locationStore.dispatchLocation(position.coords),
-        (error) => {
+        (position: GeolocationPosition) => this.locationStore.dispatchLocation(position.coords),
+        (error: GeolocationPositionError) => {
           this.snackBarService.open(error.message, 'X');
           this.locationStore.dispatchLocation(KyivGeoLocation);
         }
@@ -132,46 +97,51 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private handleWeather(): void {
-    this.weatherStore.weather$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((weather) => {
-        this.weather = weather;
-      });
+    this.weatherStore.weather$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (weather: IWeather) => this.weather = weather,
+    });
   }
 
   private handleForecasts(): void {
-    this.weatherStore.forecasts$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((forecasts) => {
+    this.weatherStore.forecasts$.pipe(
+      switchMap((forecasts: IForecast[]) => {
         this.forecasts = forecasts;
-      });
+        return this.themeStore.isCelsius$;
+      }),
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (isCelsius: boolean) => {
+        this.dayDataset = this.forecasts.map((forecast: IForecast) => {
+          return temperatureConverter(parseFloat(forecast.Temperature.Maximum.Value), isCelsius);
+        });
+
+        this.nightDataset = this.forecasts.map((forecast: IForecast) => {
+          return temperatureConverter(parseFloat(forecast.Temperature.Minimum.Value), isCelsius);
+        });
+      },
+    });
   }
 
   private handleLocation(): void {
-    this.locationStore.location$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((location: ILocation | null) => {
-        if (!!location) {
-          this.location = location;
-          const key = location.Key;
-          this.weatherStore.dispatchWeather(key);
-          this.weatherStore.dispatchForecasts(key);
+    this.locationStore.location$.pipe(
+      switchMap((location: ILocation) => {
+        this.location = location;
+        const key = location.Key;
+        this.weatherStore.dispatchWeather(key);
+        this.weatherStore.dispatchForecasts(key);
+
+        return this.favoritesStore.favorites$;
+      }),
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (favorites: IFavorite[]) => {
+        if (favorites.length > 0 && !!this.location) {
+          this.isFavorite = favorites.some((item: IFavorite) => item.id === this.location?.Key);
         }
-      });
-  }
-
-  private handleFavorites(): void {
-    this.favoritesStore.favorites$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((favorites) => {
-        this.favorites = favorites;
-      });
-  }
-
-  private handleTemperature(): void {
-    this.themeStore.isCelsius$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isCelsius) => (this.isCelsius = isCelsius));
+      },
+    });
   }
 
   ngOnDestroy(): void {

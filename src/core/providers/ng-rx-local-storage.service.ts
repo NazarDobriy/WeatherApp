@@ -2,11 +2,12 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { FavoritesStoreService } from './favorites-store.service';
+import { IFavorite } from '@core/types/favorite.interface';
 
 @Injectable()
 export class NgRxLocalStorageService implements OnDestroy {
   private isInitialized = false;
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private readonly FAVORITES_KEY = 'favorites';
 
   constructor(private favoritesStore: FavoritesStoreService) {}
@@ -20,11 +21,11 @@ export class NgRxLocalStorageService implements OnDestroy {
 
     this.loadFromStorage();
 
-    this.favoritesStore.favorites$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((favorites) => {
-        localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites));
-      });
+    this.favoritesStore.favorites$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (favorites: IFavorite[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites)),
+    });
 
     window.addEventListener('storage', () => this.loadFromStorage());
   }

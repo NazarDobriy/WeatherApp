@@ -8,6 +8,7 @@ import { LocationsStoreService } from '@pages/home/providers/locations-store.ser
 import { WeatherService } from '@pages/home/providers/weather.service';
 import { WeatherStoreService } from '@pages/home/providers/weather-store.service';
 import { LocationsService } from '@pages/home/providers/locations.service';
+import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 
 export const homeRoutes: Routes = [
   {
@@ -19,6 +20,7 @@ export const homeRoutes: Routes = [
       WeatherService,
       WeatherStoreService,
       LocationsService,
+      HomeFacadeService,
     ],
     pathMatch: 'full',
   }
