@@ -10,7 +10,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   imports: [AsyncPipe],
 })
 export class LocationSquareComponent {
-  isDarkMode$ = this.themeStore.isDarkMode$;
+  readonly isDarkMode$ = this.themeStore.isDarkMode$;
 
   constructor(private themeStore: ThemeStoreService) {}
 }

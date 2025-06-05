@@ -5,15 +5,14 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
   Subject,
   debounceTime,
   distinctUntilChanged,
-  skip,
-  takeUntil
+  takeUntil,
 } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -26,6 +25,8 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
+import { lettersWithSpacesValidator } from '@core/validators/validators.constants';
+import { ILocationSearchForm } from '@pages/home/components/location-search/types/location-search.interface';
 
 @Component({
   selector: 'app-location-search',
@@ -46,27 +47,31 @@ import { ILocation } from '@core/types/location.interface';
   ],
 })
 export class LocationSearchComponent implements OnInit, OnDestroy {
-  formGroup: FormGroup;
-  locations$ = this.locationsStore.locations$;
-  isLoading$ = this.locationsStore.isLoadingLocations$;
-  matcher: ErrorStateMatcher = {
+  formGroup: FormGroup<ILocationSearchForm>;
+  readonly locations$ = this.locationsStore.locations$;
+  readonly isLoading$ = this.locationsStore.isLoadingLocations$;
+  readonly matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
-      return control.invalid && (control.dirty || control.touched);
+      return control?.invalid && (control?.dirty || control?.touched);
     }
   };
-  private destroy$ = new Subject<void>();
   private selectedOption: string | null = null;
+  private readonly destroy$ = new Subject<void>();
+
+  get searchControl(): FormControl<string> {
+    return this.formGroup.get<string>('searchInput') as FormControl<string>;
+  }
 
   get searchInput(): string {
-    return this.formGroup.get('searchInput')?.value;
+    return this.searchControl?.value;
   }
 
   get requiredError(): boolean | undefined {
-    return this.formGroup.get('searchInput')?.hasError('required');
+    return this.searchControl?.hasError('required');
   }
 
   get patternError(): boolean | undefined {
-    return this.formGroup.get('searchInput')?.hasError('pattern');
+    return this.searchControl?.hasError('pattern');
   }
 
   constructor(
@@ -74,13 +79,11 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     private locationsStore: LocationsStoreService,
     private locationStore: LocationStoreService
   ) {
-    this.formGroup = this.formBuilder.group({
-      searchInput: [
-        '',
-        {
-          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]
-        }
-      ]
+    this.formGroup = this.formBuilder.group<ILocationSearchForm>({
+      searchInput: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(lettersWithSpacesValidator)],
+        nonNullable: true,
+      }),
     });
   }
 
@@ -90,7 +93,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   clearSearchInput(): void {
-    this.formGroup.get('searchInput')?.setValue('');
+    this.searchControl?.setValue('');
     this.locationsStore.dispatchClearLocations();
   }
 
@@ -103,38 +106,37 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   private handleInputChanges(): void {
-    this.formGroup
-      .get('searchInput')
-      ?.valueChanges.pipe(
-        skip(1),
-        debounceTime(700),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((text: string) => {
-        if (this.formGroup.get('searchInput')?.valid) {
-          if (
-            !this.selectedOption ||
-            this.selectedOption.toLowerCase() !== text.toLowerCase()
-          ) {
+    this.searchControl?.valueChanges.pipe(
+      debounceTime(700),
+      distinctUntilChanged(),
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (text: string) => {
+        if (!text) {
+          this.locationsStore.dispatchClearLocations();
+          return;
+        }
+
+        if (this.searchControl.valid) {
+          const current = text.toLowerCase();
+          const selected = this.selectedOption?.toLowerCase();
+
+          if (!selected || selected !== current) {
             this.locationsStore.dispatchLocations(text);
           }
         }
-
-        if (!text.length) {
-          this.locationsStore.dispatchClearLocations();
-        }
-      });
+      },
+    });
   }
 
   private handleLocation(): void {
-    this.locationStore.location$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((location: ILocation | null) => {
-       if (!!location) {
-         this.formGroup.get('searchInput')?.setValue(location.LocalizedName);
-       }
-      });
+    this.locationStore.location$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (location: ILocation) => {
+        this.searchControl?.setValue(location.LocalizedName, { emitEvent: false });
+      },
+    });
   }
 
   ngOnDestroy(): void {

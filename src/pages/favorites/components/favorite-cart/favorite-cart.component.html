@@ -1,7 +1,9 @@
 <app-card class="cursor-pointer text-center">
-  <div class="line-clamp-1">{{ favorite.name }}</div>
+  <div class="line-clamp-1">{{ favorite?.name }}</div>
 
-  {{ temperature | temperatureConverter : isCelsius }}
+  <ng-container *ngIf="temperature !== null">
+    {{ temperature | temperatureConverter : isCelsius }}
+  </ng-container>
 
-  <div>{{ favorite.weatherText }}</div>
+  <div>{{ favorite?.weatherText }}</div>
 </app-card>

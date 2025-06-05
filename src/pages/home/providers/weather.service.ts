@@ -10,17 +10,18 @@ export class WeatherService {
   constructor(private http: HttpClient) {}
 
   getWeather(key: string): Observable<IWeather> {
-    return this.http
-      .get<[IWeather]>(`/currentconditions/v1/${key}`)
-      .pipe(map((response) => response[0]));
+    return this.http.get<[IWeather]>(
+      `/currentconditions/v1/${key}`,
+    ).pipe(map((response: [IWeather]) => response[0]));
   }
 
   getForecasts(key: string): Observable<IForecast[]> {
     const params = new HttpParams().set('metric', true);
-    return this.http
-      .get<{ DailyForecasts: IForecast[] }>(`/forecasts/v1/daily/5day/${key}`, {
-        params
-      })
-      .pipe(map((response) => response.DailyForecasts));
+    return this.http.get<{ DailyForecasts: IForecast[] }>(
+      `/forecasts/v1/daily/5day/${key}`,
+      { params }
+    ).pipe(
+      map((response: { DailyForecasts: IForecast[] }) => response.DailyForecasts),
+    );
   }
 }

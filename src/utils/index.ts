@@ -1,9 +1,6 @@
 import { Observable, filter } from 'rxjs';
 
-export function temperatureConverter(
-  temperature: number,
-  isCelsius: boolean
-): number {
+export function temperatureConverter(temperature: number, isCelsius: boolean): number {
   if (isCelsius) {
     return temperature;
   }
@@ -11,11 +8,7 @@ export function temperatureConverter(
 }
 
 export function filterDefined<T>(
-  source$: Observable<T>
-): Observable<NonNullable<T>> {
-  return source$.pipe(filter(isDefined));
-}
-
-function isDefined<T>(value: T): value is NonNullable<T> {
-  return value !== undefined;
+  source$: Observable<T | null>
+): Observable<T> {
+  return source$.pipe(filter((item: T | null): item is T => !!item));
 }

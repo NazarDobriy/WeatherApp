@@ -14,7 +14,7 @@ import { FavoriteCartComponent } from '@pages/favorites/components/favorite-cart
   imports: [NgFor, AsyncPipe, FavoriteCartComponent],
 })
 export class FavoritesComponent {
-  favorites$ = this.favoritesStore.favorites$;
+  readonly favorites$ = this.favoritesStore.favorites$;
 
   constructor(
     private router: Router,

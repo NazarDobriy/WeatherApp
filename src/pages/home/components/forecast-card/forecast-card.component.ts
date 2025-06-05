@@ -1,42 +1,43 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DatePipe, NgIf } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
 
 import { IForecast } from '@pages/home/types/forecast.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
+import { ForecastCardService } from '@pages/home/components/forecast-card/providers/forecast-card.service';
 
 @Component({
   selector: 'app-forecast-card',
   templateUrl: './forecast-card.component.html',
   standalone: true,
-  imports: [CardComponent, DatePipe, TemperatureConverterPipe],
+  imports: [NgIf, DatePipe, CardComponent, TemperatureConverterPipe],
+  providers: [ForecastCardService],
 })
-export class ForecastCardComponent implements OnInit, OnDestroy {
-  @Input() forecast!: IForecast;
+export class ForecastCardComponent implements OnInit, OnChanges {
+  @Input() forecast: IForecast | null = null;
 
   isCelsius = true;
+  averageTemperature: number | null = null;
   private destroy$ = new Subject<void>();
 
-  get averageTemperature(): number {
-    return (
-      (parseFloat(this.forecast.Temperature.Minimum.Value) +
-        parseFloat(this.forecast.Temperature.Maximum.Value)) /
-      2
-    );
-  }
-
-  constructor(private themeStore: ThemeStoreService) {}
+  constructor(
+    private themeStore: ThemeStoreService,
+    private forecastCardService: ForecastCardService,
+  ) {}
 
   ngOnInit(): void {
-    this.themeStore.isCelsius$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isCelsius) => (this.isCelsius = isCelsius));
+    this.themeStore.isCelsius$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
+    });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes['forecast'] && changes['forecast']?.currentValue) {
+      this.averageTemperature = this.forecastCardService.getAverageTemperature(changes['forecast']?.currentValue);
+    }
   }
 }

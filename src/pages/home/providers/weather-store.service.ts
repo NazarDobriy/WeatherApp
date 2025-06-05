@@ -3,18 +3,20 @@ import { Store } from '@ngrx/store';
 
 import * as WeatherActions from '@pages/home/store/weather/actions';
 import * as WeatherSelectors from '@pages/home/store/weather/selectors';
+import { IWeatherState } from '@pages/home/store/weather/state';
+import { filterDefined } from '@utils/index';
 
 @Injectable()
 export class WeatherStoreService {
-  weather$ = this.store.select(WeatherSelectors.selectWeather);
-  weatherFailure$ = this.store.select(WeatherSelectors.selectFailureWeather);
-  isLoadingWeather$ = this.store.select(WeatherSelectors.selectIsLoadingWeather);
+  readonly weather$ = this.store.select(WeatherSelectors.selectWeather).pipe(filterDefined);
+  readonly weatherFailure$ = this.store.select(WeatherSelectors.selectFailureWeather);
+  readonly isLoadingWeather$ = this.store.select(WeatherSelectors.selectIsLoadingWeather);
 
-  forecasts$ = this.store.select(WeatherSelectors.selectForecasts);
-  forecastsFailure$ = this.store.select(WeatherSelectors.selectFailureForecasts);
-  isLoadingForecasts$ = this.store.select(WeatherSelectors.selectIsLoadingForecasts);
+  readonly forecasts$ = this.store.select(WeatherSelectors.selectForecasts);
+  readonly forecastsFailure$ = this.store.select(WeatherSelectors.selectFailureForecasts);
+  readonly isLoadingForecasts$ = this.store.select(WeatherSelectors.selectIsLoadingForecasts);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<IWeatherState>) {}
 
   dispatchWeather(key: string): void {
     this.store.dispatch(WeatherActions.getWeather({ key }));

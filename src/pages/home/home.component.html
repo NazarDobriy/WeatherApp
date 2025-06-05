@@ -4,7 +4,7 @@
   ></app-location-search>
 
   <section
-    *ngIf="isLoading$ | async; else content"
+    *ngIf="homeFacadeService.isLoading$ | async; else content"
     class="flex justify-center items-center mt-24"
   >
     <mat-spinner></mat-spinner>
@@ -35,7 +35,7 @@
         </div>
       </section>
 
-      <section class="flex items-center gap-3">
+      <section *ngIf="!!this.location && !!this.weather" class="flex items-center gap-3">
         <mat-icon
           class="cursor-pointer"
           (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
