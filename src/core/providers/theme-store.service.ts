@@ -17,6 +17,14 @@ export class ThemeStoreService {
   }
 
   dispatchTemperature(): void {
-    this.store.dispatch(ThemeActions.toggleThemeTemperature());
+    this.store.dispatch(ThemeActions.toggleTemperature());
+  }
+
+  dispatchSetThemeMode(isDarkMode: boolean): void {
+    this.store.dispatch(ThemeActions.setThemeMode({ isDarkMode }));
+  }
+
+  dispatchSetTemperature(isCelsius: boolean): void {
+    this.store.dispatch(ThemeActions.setTemperature({ isCelsius }));
   }
 }
