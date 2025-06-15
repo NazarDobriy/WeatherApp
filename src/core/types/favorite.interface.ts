@@ -1,8 +1,8 @@
-import { ITemperature } from './temperature.interface';
+import { IWeather } from '@pages/home/types/weather.interface';
 
-export interface IFavorite {
+export interface IFavoriteShortInfo {
   id: string;
   name: string;
-  weatherText: string;
-  temperature: ITemperature;
 }
+
+export interface IFavoriteDetailedInfo extends IFavoriteShortInfo, IWeather {}

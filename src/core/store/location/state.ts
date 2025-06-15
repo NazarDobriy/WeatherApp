@@ -9,5 +9,5 @@ export interface ILocationState {
 export const locationInitialState: ILocationState = {
   isLoading: false,
   location: null,
-  error: null
+  error: null,
 };

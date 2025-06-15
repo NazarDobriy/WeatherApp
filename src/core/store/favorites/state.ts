@@ -1,9 +1,15 @@
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 export interface IFavoritesState {
-  favorites: IFavorite[];
+  shortFavorites: IFavoriteShortInfo[];
+  detailedFavorites: IFavoriteDetailedInfo[];
+  isLoading: boolean;
+  error: string | null;
 }
 
 export const favoritesInitialState: IFavoritesState = {
-  favorites: [],
+  shortFavorites: [],
+  detailedFavorites:[],
+  isLoading: false,
+  error: null,
 };

@@ -20,12 +20,15 @@ import { LocationService } from '@core/providers/location.service';
 import { LocationEffects } from '@core/store/location/effects';
 import { ApiInterceptor } from '@core/interceptors/api.interceptor';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
+import { FavoritesService } from '@core/providers/favorites.service';
+import { FavoritesEffects } from '@core/store/favorites/effects';
+import { WeatherService } from '@pages/home/providers/weather.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes),
     provideStore(reducers),
-    provideEffects([LocationEffects]),
+    provideEffects([LocationEffects, FavoritesEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
@@ -42,6 +45,8 @@ bootstrapApplication(AppComponent, {
     SnackBarService,
     LocationStoreService,
     LocationService,
+    FavoritesService,
+    WeatherService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,

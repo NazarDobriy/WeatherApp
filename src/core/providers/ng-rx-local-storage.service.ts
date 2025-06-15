@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { FavoritesStoreService } from './favorites-store.service';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class NgRxLocalStorageService implements OnDestroy {
 
     this.isInitialized = true;
 
-    this.loadFavoritesFromStorage();
+    this.loadShortFavoritesFromStorage();
     this.loadTemperatureFromStorage();
     this.loadThemeFromStorage();
 
@@ -41,16 +41,16 @@ export class NgRxLocalStorageService implements OnDestroy {
       next: (isCelsius: boolean) => localStorage.setItem(this.TEMPERATURE_KEY, JSON.stringify(isCelsius)),
     });
 
-    this.favoritesStore.favorites$.pipe(
+    this.favoritesStore.shortFavorites$.pipe(
       takeUntil(this.destroy$),
     ).subscribe({
-      next: (favorites: IFavorite[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites)),
+      next: (shortFavorites: IFavoriteShortInfo[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(shortFavorites)),
     });
 
     window.addEventListener('storage', () => {
       this.loadThemeFromStorage();
       this.loadTemperatureFromStorage();
-      this.loadFavoritesFromStorage();
+      this.loadShortFavoritesFromStorage();
     });
   }
 
@@ -68,10 +68,10 @@ export class NgRxLocalStorageService implements OnDestroy {
     }
   }
 
-  private loadFavoritesFromStorage(): void {
+  private loadShortFavoritesFromStorage(): void {
     const storageState = localStorage.getItem(this.FAVORITES_KEY);
     if (storageState) {
-      this.favoritesStore.dispatchSetFavorites(JSON.parse(storageState));
+      this.favoritesStore.dispatchSetShortFavorites(JSON.parse(storageState));
     }
   }
 

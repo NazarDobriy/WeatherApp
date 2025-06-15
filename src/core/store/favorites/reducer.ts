@@ -2,26 +2,46 @@ import { createReducer, on } from '@ngrx/store';
 
 import * as FavoritesActions from './actions';
 import { favoritesInitialState, IFavoritesState } from './state';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
-  on(FavoritesActions.addFavorite, (state: IFavoritesState, action) => {
+  on(FavoritesActions.addShortFavorite, (state: IFavoritesState, action) => {
     return {
       ...state,
-      favorites: [...state.favorites, action.favorite]
+      shortFavorites: [...state.shortFavorites, action.shortFavorite],
     };
   }),
-  on(FavoritesActions.removeFavorite, (state: IFavoritesState, action) => {
+  on(FavoritesActions.removeShortFavorite, (state: IFavoritesState, action) => {
     return {
       ...state,
-      favorites: state.favorites.filter((favorite: IFavorite) => favorite.id !== action.id)
+      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== action.id)
     };
   }),
-  on(FavoritesActions.setFavorites, (state: IFavoritesState, action) => {
+  on(FavoritesActions.setShortFavorites, (state: IFavoritesState, action) => {
     return {
       ...state,
-      favorites: action.favorites
+      shortFavorites: action.shortFavorites,
     };
-  })
+  }),
+  on(FavoritesActions.getDetailedFavorites, (state: IFavoritesState) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
+  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      detailedFavorites: action.detailedFavorites,
+    };
+  }),
+  on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error,
+    };
+  }),
 );

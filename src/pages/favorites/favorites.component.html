@@ -1,8 +1,14 @@
 <section class="flex flex-wrap justify-center gap-14 px-32 lg:px-44 py-24">
-  <div
-    *ngFor="let favorite of favorites$ | async"
-    (click)="selectFavorite(favorite)"
-  >
-    <app-favorite-cart [favorite]="favorite"></app-favorite-cart>
-  </div>
+  <section *ngIf="isLoadingDetailedFavorites$ | async; else content">
+    <mat-spinner></mat-spinner>
+  </section>
+
+  <ng-template #content>
+    <div
+      *ngFor="let detailedFavorite of detailedFavorites$ | async"
+      (click)="selectFavorite(detailedFavorite)"
+    >
+      <app-favorite-cart [favorite]="detailedFavorite"></app-favorite-cart>
+    </div>
+  </ng-template>
 </section>

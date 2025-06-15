@@ -17,7 +17,7 @@ export const homeRoutes: Routes = [
     providers: [
       provideEffects([LocationsEffects, WeatherEffects]),
       LocationsStoreService,
-      WeatherService,
+      // WeatherService,
       WeatherStoreService,
       LocationsService,
       HomeFacadeService,
