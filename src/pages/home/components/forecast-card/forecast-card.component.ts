@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { DatePipe, NgIf } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
 
-import { IForecast } from '@pages/home/types/forecast.interface';
+import { IForecast } from '@core/types/forecast.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { Subject, takeUntil } from 'rxjs';
 import { NgIf } from '@angular/common';
 
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
@@ -14,7 +14,7 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
   imports: [NgIf, CardComponent, TemperatureConverterPipe],
 })
 export class FavoriteCartComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() favorite: IFavorite | null = null;
+  @Input() favorite: IFavoriteDetailedInfo | null = null;
 
   isCelsius = true;
   temperature: number | null = null;
@@ -32,7 +32,7 @@ export class FavoriteCartComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!!changes['favorite'] && !!changes['favorite'].currentValue) {
-      this.temperature = parseFloat(changes['favorite'].currentValue.temperature.Value);
+      this.temperature = parseFloat(changes['favorite'].currentValue.Temperature.Metric.Value);
     }
   }
 

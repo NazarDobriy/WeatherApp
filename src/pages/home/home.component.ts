@@ -7,12 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 import { WeatherStoreService } from './providers/weather-store.service';
-import { IWeather } from './types/weather.interface';
-import { IForecast } from './types/forecast.interface';
+import { IWeather } from '@core/types/weather.interface';
+import { IForecast } from '@core/types/forecast.interface';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { temperatureConverter } from '@utils/index';
 import { SnackBarService } from '@core/providers/snack-bar.service';
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
-    private favoritesStore: FavoritesStoreService
+    private favoritesStore: FavoritesStoreService,
   ) {}
 
   ngOnInit(): void {
@@ -69,18 +69,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   addToFavorites(): void {
     if (!!this.location && !!this.weather) {
-      this.favoritesStore.dispatchFavoriteAdd({
+      this.favoritesStore.dispatchAddShortFavorite({
         id: this.location.Key,
         name: this.location.LocalizedName,
-        weatherText: this.weather.WeatherText,
-        temperature: this.weather.Temperature.Metric
       });
     }
   }
 
   removeFromFavorites(): void {
     if (!!this.location) {
-      this.favoritesStore.dispatchFavoriteRemove(this.location.Key);
+      this.favoritesStore.dispatchRemoveShortFavorite(this.location.Key);
     }
   }
 
@@ -132,13 +130,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.weatherStore.dispatchWeather(key);
         this.weatherStore.dispatchForecasts(key);
 
-        return this.favoritesStore.favorites$;
+        return this.favoritesStore.shortFavorites$;
       }),
       takeUntil(this.destroy$),
     ).subscribe({
-      next: (favorites: IFavorite[]) => {
+      next: (favorites: IFavoriteShortInfo[]) => {
         if (favorites.length > 0 && !!this.location) {
-          this.isFavorite = favorites.some((item: IFavorite) => item.id === this.location?.Key);
+          this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
         }
       },
     });

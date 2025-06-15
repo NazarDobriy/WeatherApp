@@ -2,15 +2,21 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { FavoritesStoreService } from './favorites-store.service';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Injectable()
 export class NgRxLocalStorageService implements OnDestroy {
   private isInitialized = false;
+  private readonly THEME_KEY = 'weather_theme';
+  private readonly TEMPERATURE_KEY = 'weather_temperature';
+  private readonly FAVORITES_KEY = 'weather_favorites';
   private readonly destroy$ = new Subject<void>();
-  private readonly FAVORITES_KEY = 'favorites';
 
-  constructor(private favoritesStore: FavoritesStoreService) {}
+  constructor(
+    private themeStore: ThemeStoreService,
+    private favoritesStore: FavoritesStoreService,
+  ) {}
 
   initialization(): void {
     if (this.isInitialized) {
@@ -19,21 +25,53 @@ export class NgRxLocalStorageService implements OnDestroy {
 
     this.isInitialized = true;
 
-    this.loadFromStorage();
+    this.loadShortFavoritesFromStorage();
+    this.loadTemperatureFromStorage();
+    this.loadThemeFromStorage();
 
-    this.favoritesStore.favorites$.pipe(
+    this.themeStore.isDarkMode$.pipe(
       takeUntil(this.destroy$),
     ).subscribe({
-      next: (favorites: IFavorite[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites)),
+      next: (isDarkMode: boolean) => localStorage.setItem(this.THEME_KEY, JSON.stringify(isDarkMode)),
     });
 
-    window.addEventListener('storage', () => this.loadFromStorage());
+    this.themeStore.isCelsius$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (isCelsius: boolean) => localStorage.setItem(this.TEMPERATURE_KEY, JSON.stringify(isCelsius)),
+    });
+
+    this.favoritesStore.shortFavorites$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe({
+      next: (shortFavorites: IFavoriteShortInfo[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(shortFavorites)),
+    });
+
+    window.addEventListener('storage', () => {
+      this.loadThemeFromStorage();
+      this.loadTemperatureFromStorage();
+      this.loadShortFavoritesFromStorage();
+    });
   }
 
-  private loadFromStorage(): void {
+  private loadThemeFromStorage(): void {
+    const storageState = localStorage.getItem(this.THEME_KEY);
+    if (storageState) {
+      this.themeStore.dispatchSetThemeMode(JSON.parse(storageState));
+    }
+  }
+
+  private loadTemperatureFromStorage(): void {
+    const storageState = localStorage.getItem(this.TEMPERATURE_KEY);
+    if (storageState) {
+      this.themeStore.dispatchSetTemperature(JSON.parse(storageState));
+    }
+  }
+
+  private loadShortFavoritesFromStorage(): void {
     const storageState = localStorage.getItem(this.FAVORITES_KEY);
     if (storageState) {
-      this.favoritesStore.dispatchSetFavorites(JSON.parse(storageState));
+      this.favoritesStore.dispatchSetShortFavorites(JSON.parse(storageState));
     }
   }
 

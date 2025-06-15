@@ -3,24 +3,31 @@ import { Store } from '@ngrx/store';
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { IFavoritesState } from '@core/store/favorites/state';
 
 @Injectable()
 export class FavoritesStoreService {
-  readonly favorites$ = this.store.select(FavoritesSelectors.selectFavorites);
+  readonly shortFavorites$ = this.store.select(FavoritesSelectors.selectShortFavorites);
+  readonly detailedFavorites$ = this.store.select(FavoritesSelectors.selectDetailedFavorites);
+  readonly detailedFavoritesFailure$ = this.store.select(FavoritesSelectors.selectFailureDetailedFavorites);
+  readonly isLoadingDetailedFavorites$ = this.store.select(FavoritesSelectors.selectIsLoadingDetailedFavorites);
 
   constructor(private store: Store<IFavoritesState>) {}
 
-  dispatchFavoriteAdd(favorite: IFavorite): void {
-    this.store.dispatch(FavoritesActions.addFavorite({ favorite }));
+  dispatchAddShortFavorite(shortFavorite: IFavoriteShortInfo): void {
+    this.store.dispatch(FavoritesActions.addShortFavorite({ shortFavorite }));
   }
 
-  dispatchFavoriteRemove(id: string): void {
-    this.store.dispatch(FavoritesActions.removeFavorite({ id }));
+  dispatchRemoveShortFavorite(id: string): void {
+    this.store.dispatch(FavoritesActions.removeShortFavorite({ id }));
   }
 
-  dispatchSetFavorites(favorites: IFavorite[]): void {
-    this.store.dispatch(FavoritesActions.setFavorites({ favorites }));
+  dispatchSetShortFavorites(shortFavorites: IFavoriteShortInfo[]): void {
+    this.store.dispatch(FavoritesActions.setShortFavorites({ shortFavorites }));
+  }
+
+  dispatchDetailedFavorites(shortFavorites: IFavoriteShortInfo[]): void {
+    this.store.dispatch(FavoritesActions.getDetailedFavorites({ shortFavorites }));
   }
 }

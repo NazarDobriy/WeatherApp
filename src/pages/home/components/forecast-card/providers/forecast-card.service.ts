@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { IForecast } from '@pages/home/types/forecast.interface';
+import { IForecast } from '@core/types/forecast.interface';
 
 @Injectable()
 export class ForecastCardService {

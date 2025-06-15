@@ -23,7 +23,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() datasetX: number[] = [];
   @Input() datasetY: number[] = [];
 
-  @ViewChild('lineChart') donut!: ElementRef;
+  @ViewChild('lineChart') donut!: ElementRef<HTMLCanvasElement>;
 
   private chart: Chart | null = null;
   private readonly options: ChartOptions = {

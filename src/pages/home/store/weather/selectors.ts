@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 import { IWeatherState } from "./state";
-import { IWeather } from '@pages/home/types/weather.interface';
-import { IForecast } from '@pages/home/types/forecast.interface';
+import { IWeather } from '@core/types/weather.interface';
+import { IForecast } from '@core/types/forecast.interface';
 
 const selectFeature = createFeatureSelector<IWeatherState>('weather');
 

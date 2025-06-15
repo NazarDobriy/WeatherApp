@@ -11,10 +11,22 @@ export const themeReducer = createReducer(
       isDarkMode: !state.isDarkMode
     };
   }),
-  on(ThemeActions.toggleThemeTemperature, (state: IThemeState) => {
+  on(ThemeActions.toggleTemperature, (state: IThemeState) => {
     return {
       ...state,
       isCelsius: !state.isCelsius
     };
-  })
+  }),
+  on(ThemeActions.setThemeMode, (state: IThemeState, action) => {
+    return {
+      ...state,
+      isDarkMode: action.isDarkMode,
+    };
+  }),
+  on(ThemeActions.setTemperature, (state: IThemeState, action) => {
+    return {
+      ...state,
+      isCelsius: action.isCelsius,
+    };
+  }),
 );

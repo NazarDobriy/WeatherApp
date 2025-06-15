@@ -1,11 +1,25 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IFavoritesState } from './state';
-import { IFavorite } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 const selectFeature = createFeatureSelector<IFavoritesState>('favorites');
 
-export const selectFavorites = createSelector(
+export const selectShortFavorites = createSelector(
   selectFeature,
-  ({ favorites }: IFavoritesState): IFavorite[] => favorites,
+  ({ shortFavorites }: IFavoritesState): IFavoriteShortInfo[] => shortFavorites,
+);
+
+export const selectDetailedFavorites = createSelector(
+  selectFeature,
+  ({ detailedFavorites }: IFavoritesState): IFavoriteDetailedInfo[] => detailedFavorites,
+);
+
+export const selectIsLoadingDetailedFavorites = createSelector(
+  selectFeature,
+  ({ isLoading }: IFavoritesState): boolean => isLoading,
+);
+
+export const selectFailureDetailedFavorites = createSelector(
+  selectFeature, ({ error }: IFavoritesState): string | null => error
 );
