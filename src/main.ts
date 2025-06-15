@@ -22,7 +22,7 @@ import { ApiInterceptor } from '@core/interceptors/api.interceptor';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { FavoritesService } from '@core/providers/favorites.service';
 import { FavoritesEffects } from '@core/store/favorites/effects';
-import { WeatherService } from '@pages/home/providers/weather.service';
+import { WeatherService } from '@core/providers/weather.service';
 
 bootstrapApplication(AppComponent, {
   providers: [

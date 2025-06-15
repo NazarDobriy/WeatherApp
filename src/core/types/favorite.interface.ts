@@ -1,4 +1,4 @@
-import { IWeather } from '@pages/home/types/weather.interface';
+import { IWeather } from '@core/types/weather.interface';
 
 export interface IFavoriteShortInfo {
   id: string;

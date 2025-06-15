@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgFor } from '@angular/common';
 
-import { IForecast } from '@pages/home/types/forecast.interface';
+import { IForecast } from '@core/types/forecast.interface';
 import { ForecastCardComponent } from '@pages/home/components/forecast-card/forecast-card.component';
 
 @Component({

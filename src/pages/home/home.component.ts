@@ -7,8 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 import { WeatherStoreService } from './providers/weather-store.service';
-import { IWeather } from './types/weather.interface';
-import { IForecast } from './types/forecast.interface';
+import { IWeather } from '@core/types/weather.interface';
+import { IForecast } from '@core/types/forecast.interface';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';

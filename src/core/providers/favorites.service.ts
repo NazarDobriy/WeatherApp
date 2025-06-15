@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, map } from 'rxjs';
 
-import { IWeather } from '@pages/home/types/weather.interface';
-import { WeatherService } from '@pages/home/providers/weather.service';
+import { IWeather } from '@core/types/weather.interface';
+import { WeatherService } from '@core/providers/weather.service';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 @Injectable()
