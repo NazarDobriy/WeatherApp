@@ -1,12 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
   Subject,
@@ -25,8 +18,9 @@ import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
-import { lettersWithSpacesValidator } from '@core/validators/validators.constants';
-import { ILocationSearchForm } from '@pages/home/components/location-search/types/location-search.interface';
+import {
+  LocationSearchFormService,
+} from '@pages/home/components/location-search/providers/location-search-form.service';
 
 @Component({
   selector: 'app-location-search',
@@ -45,9 +39,9 @@ import { ILocationSearchForm } from '@pages/home/components/location-search/type
     MatInputModule,
     MatButtonModule,
   ],
+  providers: [LocationSearchFormService],
 })
 export class LocationSearchComponent implements OnInit, OnDestroy {
-  formGroup: FormGroup<ILocationSearchForm>;
   readonly locations$ = this.locationsStore.locations$;
   readonly isLoading$ = this.locationsStore.isLoadingLocations$;
   readonly matcher: ErrorStateMatcher = {
@@ -59,7 +53,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   get searchControl(): FormControl<string> {
-    return this.formGroup.get<string>('searchInput') as FormControl<string>;
+    return this.locationSearchFormService.formGroup?.controls?.searchInput;
   }
 
   get searchInput(): string {
@@ -75,17 +69,10 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private formBuilder: FormBuilder,
+    public locationSearchFormService: LocationSearchFormService,
     private locationsStore: LocationsStoreService,
-    private locationStore: LocationStoreService
-  ) {
-    this.formGroup = this.formBuilder.group<ILocationSearchForm>({
-      searchInput: this.formBuilder.control('', {
-        validators: [Validators.required, Validators.pattern(lettersWithSpacesValidator)],
-        nonNullable: true,
-      }),
-    });
-  }
+    private locationStore: LocationStoreService,
+  ) { }
 
   ngOnInit(): void {
     this.handleInputChanges();

@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup">
+<form *ngIf="locationSearchFormService.formGroup" [formGroup]="locationSearchFormService.formGroup">
   <mat-form-field
     class="2xl:w-[700px] xl:w-[600px] md:w-[500px] sm:w-[400px] w-72"
     appearance="fill"
