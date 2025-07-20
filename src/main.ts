@@ -28,7 +28,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes),
     provideStore(reducers),
-    provideEffects([LocationEffects, FavoritesEffects]),
+    provideEffects(LocationEffects, FavoritesEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

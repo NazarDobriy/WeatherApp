@@ -14,7 +14,7 @@ export const homeRoutes: Routes = [
     path: '',
     component: HomeComponent,
     providers: [
-      provideEffects([LocationsEffects, WeatherEffects]),
+      provideEffects(LocationsEffects, WeatherEffects),
       LocationsStoreService,
       WeatherStoreService,
       LocationsService,
