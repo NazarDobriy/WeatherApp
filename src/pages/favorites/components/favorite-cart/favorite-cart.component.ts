@@ -31,7 +31,7 @@ export class FavoriteCartComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes['favorite'] && !!changes['favorite'].currentValue) {
+    if (changes['favorite']?.currentValue) {
       this.temperature = parseFloat(changes['favorite'].currentValue.Temperature.Metric.Value);
     }
   }
