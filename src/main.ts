@@ -1,10 +1,10 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { importProvidersFrom, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -28,17 +28,15 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes),
     provideStore(reducers),
-    provideEffects([LocationEffects, FavoritesEffects]),
+    provideEffects(LocationEffects, FavoritesEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
       autoPause: true,
     }),
-    importProvidersFrom(
-      BrowserAnimationsModule,
-      HttpClientModule,
-      MatSnackBarModule,
-    ),
+    provideAnimations(),
+    importProvidersFrom(MatSnackBarModule),
+    provideHttpClient(withInterceptorsFromDi()),
     ThemeStoreService,
     NgRxLocalStorageService,
     FavoritesStoreService,
@@ -58,4 +56,4 @@ bootstrapApplication(AppComponent, {
       multi: true
     },
   ],
-});
+}).catch((err) => console.error('Bootstrap failed:', err));
