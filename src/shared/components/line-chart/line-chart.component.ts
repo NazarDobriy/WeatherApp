@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  Attribute,
   Component,
   ElementRef,
   Input,
@@ -18,8 +19,6 @@ Chart.register(...registerables);
   standalone: true,
 })
 export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
-  @Input() labelX = '';
-  @Input() labelY = '';
   @Input() datasetX: number[] = [];
   @Input() datasetY: number[] = [];
 
@@ -31,12 +30,18 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
     maintainAspectRatio: false
   };
 
+  constructor(
+    @Attribute('labelX') private labelX: string,
+    @Attribute('labelY') private labelY: string,
+  ) {}
+
+
   ngAfterViewInit(): void {
     this.createChart();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['datasetX'] || changes['datasetY']) {
+    if (changes['datasetX']?.currentValue?.length || changes['datasetY']?.currentValue?.length) {
       this.updateChart();
     }
   }
