@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
 
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 
@@ -7,7 +7,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   selector: 'app-theme-mode',
   templateUrl: './theme-mode.component.html',
   standalone: true,
-  imports: [NgIf, AsyncPipe]
+  imports: [NgIf, AsyncPipe, NgOptimizedImage],
 })
 export class ThemeModeComponent {
   isDarkMode$ = this.themeStore.isDarkMode$;
