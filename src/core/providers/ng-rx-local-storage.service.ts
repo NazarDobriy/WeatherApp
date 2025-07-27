@@ -1,19 +1,19 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FavoritesStoreService } from './favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 @Injectable()
-export class NgRxLocalStorageService implements OnDestroy {
+export class NgRxLocalStorageService {
   private isInitialized = false;
   private readonly THEME_KEY = 'weather_theme';
   private readonly TEMPERATURE_KEY = 'weather_temperature';
   private readonly FAVORITES_KEY = 'weather_favorites';
-  private readonly destroy$ = new Subject<void>();
 
   constructor(
+    private destroyRef: DestroyRef,
     private themeStore: ThemeStoreService,
     private favoritesStore: FavoritesStoreService,
   ) {}
@@ -30,19 +30,19 @@ export class NgRxLocalStorageService implements OnDestroy {
     this.loadThemeFromStorage();
 
     this.themeStore.isDarkMode$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (isDarkMode: boolean) => localStorage.setItem(this.THEME_KEY, JSON.stringify(isDarkMode)),
     });
 
     this.themeStore.isCelsius$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (isCelsius: boolean) => localStorage.setItem(this.TEMPERATURE_KEY, JSON.stringify(isCelsius)),
     });
 
     this.favoritesStore.shortFavorites$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (shortFavorites: IFavoriteShortInfo[]) => localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(shortFavorites)),
     });
@@ -75,8 +75,4 @@ export class NgRxLocalStorageService implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }

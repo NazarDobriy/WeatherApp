@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DestroyRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DatePipe, NgIf } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
 
 import { IForecast } from '@core/types/forecast.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -20,24 +20,25 @@ export class ForecastCardComponent implements OnInit, OnChanges {
 
   isCelsius = true;
   averageTemperature: number | null = null;
-  private destroy$ = new Subject<void>();
 
   constructor(
+    private destroyRef: DestroyRef,
     private themeStore: ThemeStoreService,
     private forecastCardService: ForecastCardService,
   ) {}
-
-  ngOnInit(): void {
-    this.themeStore.isCelsius$.pipe(
-      takeUntil(this.destroy$),
-    ).subscribe({
-      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
-    });
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!!changes['forecast'] && changes['forecast']?.currentValue) {
       this.averageTemperature = this.forecastCardService.getAverageTemperature(changes['forecast']?.currentValue);
     }
   }
+
+  ngOnInit(): void {
+    this.themeStore.isCelsius$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
+    });
+  }
+
 }

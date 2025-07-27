@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
 import { IWeather } from '@core/types/weather.interface';
@@ -40,7 +41,7 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
     LocationSquareComponent,
   ],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   location: ILocation | null = null;
   forecasts: IForecast[] = [];
   weather: IWeather | null = null;
@@ -49,10 +50,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   dayDataset: number[] = [];
   nightDataset: number[] = [];
   readonly isCelsius$ = this.themeStore.isCelsius$;
-  private readonly destroy$ = new Subject<void>();
 
   constructor(
     public homeFacadeService: HomeFacadeService,
+    private destroyRef: DestroyRef,
     private themeStore: ThemeStoreService,
     private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
@@ -96,7 +97,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private handleWeather(): void {
     this.weatherStore.weather$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (weather: IWeather) => this.weather = weather,
     });
@@ -108,7 +109,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.forecasts = forecasts;
         return this.themeStore.isCelsius$;
       }),
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (isCelsius: boolean) => {
         this.dayDataset = this.forecasts.map((forecast: IForecast) => {
@@ -132,7 +133,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         return this.favoritesStore.shortFavorites$;
       }),
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (favorites: IFavoriteShortInfo[]) => {
         if (favorites.length > 0 && !!this.location) {
@@ -142,8 +143,4 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }

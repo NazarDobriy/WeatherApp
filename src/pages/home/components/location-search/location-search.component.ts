@@ -1,12 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {
-  Subject,
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-} from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -41,7 +37,7 @@ import {
   ],
   providers: [LocationSearchFormService],
 })
-export class LocationSearchComponent implements OnInit, OnDestroy {
+export class LocationSearchComponent implements OnInit {
   readonly locations$ = this.locationsStore.locations$;
   readonly isLoading$ = this.locationsStore.isLoadingLocations$;
   readonly matcher: ErrorStateMatcher = {
@@ -50,7 +46,6 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     }
   };
   private selectedOption: string | null = null;
-  private readonly destroy$ = new Subject<void>();
 
   get searchControl(): FormControl<string> {
     return this.locationSearchFormService.formGroup?.controls?.searchInput;
@@ -72,6 +67,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     public locationSearchFormService: LocationSearchFormService,
     private locationsStore: LocationsStoreService,
     private locationStore: LocationStoreService,
+    private destroyRef: DestroyRef,
   ) { }
 
   ngOnInit(): void {
@@ -96,7 +92,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     this.searchControl?.valueChanges.pipe(
       debounceTime(700),
       distinctUntilChanged(),
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (text: string) => {
         if (!text) {
@@ -118,7 +114,7 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
 
   private handleLocation(): void {
     this.locationStore.location$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (location: ILocation) => {
         this.searchControl?.setValue(location.LocalizedName, { emitEvent: false });
@@ -126,8 +122,4 @@ export class LocationSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }
