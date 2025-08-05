@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -19,17 +19,17 @@ export class FavoritesComponent implements OnInit {
   readonly shortFavorites$ = this.favoritesStore.shortFavorites$;
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;
   readonly isLoadingDetailedFavorites$ = this.favoritesStore.isLoadingDetailedFavorites$;
-  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
+    private destroyRef: DestroyRef,
     private favoritesStore: FavoritesStoreService,
-    private locationStore: LocationStoreService
+    private locationStore: LocationStoreService,
   ) {}
 
   ngOnInit(): void {
     this.shortFavorites$.pipe(
-      takeUntil(this.destroy$),
+      takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (shortFavorites: IFavoriteShortInfo[]) => {
         this.favoritesStore.dispatchDetailedFavorites(shortFavorites);
