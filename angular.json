@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "WeatherApp:build:production"
+              "buildTarget": "WeatherApp:build:production"
             },
             "development": {
-              "browserTarget": "WeatherApp:build:development"
+              "buildTarget": "WeatherApp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WeatherApp:build"
+            "buildTarget": "WeatherApp:build"
           }
         },
         "test": {
