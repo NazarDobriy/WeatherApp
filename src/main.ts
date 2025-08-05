@@ -33,6 +33,7 @@ bootstrapApplication(AppComponent, {
       maxAge: 25,
       logOnly: !isDevMode(),
       autoPause: true,
+      connectInZone: true,
     }),
     provideAnimations(),
     importProvidersFrom(MatSnackBarModule),
