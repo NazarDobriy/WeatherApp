@@ -1,14 +1,16 @@
 <section class="flex flex-wrap justify-center gap-14 px-32 lg:px-44 py-24">
-  <section *ngIf="isLoadingDetailedFavorites$ | async; else content">
+  @if (isLoadingDetailedFavorites$ | async) {
     <mat-spinner></mat-spinner>
-  </section>
-
-  <ng-template #content>
-    <div
-      *ngFor="let detailedFavorite of detailedFavorites$ | async"
-      (click)="selectFavorite(detailedFavorite)"
-    >
-      <app-favorite-cart [favorite]="detailedFavorite"></app-favorite-cart>
-    </div>
-  </ng-template>
+  } @else {
+    @for (detailedFavorite of detailedFavorites$ | async; track detailedFavorite.id) {
+      <app-favorite-cart
+        [favorite]="detailedFavorite"
+        (click)="selectFavorite(detailedFavorite)"
+      ></app-favorite-cart>
+    } @empty {
+      <div class="text-center">
+        No favourite weather items. Go to <a routerLink="" class="text-blue-500">Home page</a> to add weather.
+      </div>
+    }
+  }
 </section>

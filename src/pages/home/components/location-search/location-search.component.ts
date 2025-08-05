@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -23,8 +23,6 @@ import {
   templateUrl: './location-search.component.html',
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     AsyncPipe,
     FormsModule,
     MatIconModule,

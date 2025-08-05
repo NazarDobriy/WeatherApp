@@ -1,16 +1,11 @@
 <section class="px-32 lg:px-44 py-9">
-  <app-location-search
-    class="flex justify-center items-center"
-  ></app-location-search>
+  <app-location-search class="flex justify-center items-center"></app-location-search>
 
-  <section
-    *ngIf="homeFacadeService.isLoading$ | async; else content"
-    class="flex justify-center items-center mt-24"
-  >
-    <mat-spinner></mat-spinner>
-  </section>
-
-  <ng-template #content>
+  @if (homeFacadeService.isLoading$ | async) {
+    <section class="flex justify-center items-center mt-24">
+      <mat-spinner></mat-spinner>
+    </section>
+  } @else if (location && weather) {
     <section
       class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12"
     >
@@ -18,24 +13,19 @@
         <app-location-square></app-location-square>
 
         <div class="flex flex-col items-center gap-4 ml-8">
-          <div *ngIf="location">
-            {{ location.LocalizedName }}
-          </div>
+          <div>{{ location.LocalizedName }}</div>
 
-          <div *ngIf="weather">
-            <div *ngIf="isCelsius$ | async; else fahrenheit">
-              {{ weather.Temperature.Metric.Value }}&deg;
-              {{ weather.Temperature.Metric.Unit }}
-            </div>
-            <ng-template #fahrenheit>
-              {{ weather.Temperature.Imperial.Value }}
-              {{ weather.Temperature.Imperial.Unit }}
-            </ng-template>
-          </div>
+          @if (isCelsius$ | async) {
+            {{ weather.Temperature.Metric.Value }}&deg;
+            {{ weather.Temperature.Metric.Unit }}
+          } @else {
+            {{ weather.Temperature.Imperial.Value }}
+            {{ weather.Temperature.Imperial.Unit }}
+          }
         </div>
       </section>
 
-      <section *ngIf="!!this.location && !!this.weather" class="flex items-center gap-3">
+      <section class="flex items-center gap-3">
         <mat-icon
           class="cursor-pointer"
           (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
@@ -62,19 +52,18 @@
     </section>
 
     <section class="flex justify-center mt-32">
-      <app-forecasts
-        *ngIf="!isLineChart; else lineChart"
-        [forecasts]="forecasts"
-      ></app-forecasts>
-
-      <ng-template #lineChart>
+      @if (isLineChart) {
         <app-line-chart
           labelX="Day"
           labelY="Night"
           [datasetX]="dayDataset"
           [datasetY]="nightDataset"
         ></app-line-chart>
-      </ng-template>
+      } @else {
+        <app-forecasts [forecasts]="forecasts"></app-forecasts>
+      }
     </section>
-  </ng-template>
+  } @else {
+    No eny items.
+  }
 </section>

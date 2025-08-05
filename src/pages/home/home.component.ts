@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
@@ -29,7 +29,6 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
   templateUrl: './home.component.html',
   standalone: true,
   imports: [
-    NgIf,
     AsyncPipe,
     MatIconModule,
     MatButtonModule,
@@ -69,7 +68,7 @@ export class HomeComponent implements OnInit {
   }
 
   addToFavorites(): void {
-    if (!!this.location && !!this.weather) {
+    if (this.location && this.weather) {
       this.favoritesStore.dispatchAddShortFavorite({
         id: this.location.Key,
         name: this.location.LocalizedName,
@@ -78,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
 
   removeFromFavorites(): void {
-    if (!!this.location) {
+    if (this.location) {
       this.favoritesStore.dispatchRemoveShortFavorite(this.location.Key);
     }
   }
@@ -136,7 +135,7 @@ export class HomeComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (favorites: IFavoriteShortInfo[]) => {
-        if (favorites.length > 0 && !!this.location) {
+        if (favorites.length > 0 && this.location) {
           this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
         }
       },

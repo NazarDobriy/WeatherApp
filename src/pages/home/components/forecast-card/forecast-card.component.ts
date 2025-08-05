@@ -1,6 +1,6 @@
 import { Component, DestroyRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { IForecast } from '@core/types/forecast.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -12,7 +12,7 @@ import { ForecastCardService } from '@pages/home/components/forecast-card/provid
   selector: 'app-forecast-card',
   templateUrl: './forecast-card.component.html',
   standalone: true,
-  imports: [NgIf, DatePipe, CardComponent, TemperatureConverterPipe],
+  imports: [DatePipe, CardComponent, TemperatureConverterPipe],
   providers: [ForecastCardService],
 })
 export class ForecastCardComponent implements OnInit, OnChanges {
@@ -28,7 +28,7 @@ export class ForecastCardComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes['forecast'] && changes['forecast']?.currentValue) {
+    if (changes['forecast']?.currentValue) {
       this.averageTemperature = this.forecastCardService.getAverageTemperature(changes['forecast']?.currentValue);
     }
   }
