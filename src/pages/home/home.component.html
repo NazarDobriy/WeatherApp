@@ -15,12 +15,8 @@
         <div class="flex flex-col items-center gap-4 ml-8">
           <div>{{ location.LocalizedName }}</div>
 
-          @if (isCelsius$ | async) {
-            {{ weather.Temperature.Metric.Value }}&deg;
-            {{ weather.Temperature.Metric.Unit }}
-          } @else {
-            {{ weather.Temperature.Imperial.Value }}
-            {{ weather.Temperature.Imperial.Unit }}
+          @if (temperature !== null) {
+            {{ temperature | temperatureConverter : isCelsius }}
           }
         </div>
       </section>
@@ -64,6 +60,6 @@
       }
     </section>
   } @else {
-    No eny items.
+    <div>No available weather.</div>
   }
 </section>

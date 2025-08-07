@@ -23,6 +23,7 @@ import { LocationSquareComponent } from '@pages/home/components/location-square/
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
+import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
     LocationSearchComponent,
     MatProgressSpinnerModule,
     LocationSquareComponent,
-  ],
+    TemperatureConverterPipe,
+  ]
 })
 export class HomeComponent implements OnInit {
   location: ILocation | null = null;
@@ -48,7 +50,8 @@ export class HomeComponent implements OnInit {
   isFavorite = false;
   dayDataset: number[] = [];
   nightDataset: number[] = [];
-  readonly isCelsius$ = this.themeStore.isCelsius$;
+  isCelsius = true;
+  temperature: number | null = null;
 
   constructor(
     public homeFacadeService: HomeFacadeService,
@@ -65,6 +68,7 @@ export class HomeComponent implements OnInit {
     this.handleWeather();
     this.handleForecasts();
     this.handleGeoPosition();
+    this.handleTemperature();
   }
 
   addToFavorites(): void {
@@ -98,7 +102,10 @@ export class HomeComponent implements OnInit {
     this.weatherStore.weather$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (weather: IWeather) => this.weather = weather,
+      next: (weather: IWeather) => {
+        this.weather = weather;
+        this.temperature = parseFloat(weather.Temperature.Metric.Value);
+      },
     });
   }
 
@@ -139,6 +146,14 @@ export class HomeComponent implements OnInit {
           this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
         }
       },
+    });
+  }
+
+  private handleTemperature(): void {
+    this.themeStore.isCelsius$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
     });
   }
 
