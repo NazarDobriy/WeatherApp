@@ -1,10 +1,9 @@
-import { Component, DestroyRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
-import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
+import { TemperatureUnit } from '@shared/abstract/temperature-unit';
 
 @Component({
   selector: 'app-favorite-cart',
@@ -12,29 +11,19 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
   standalone: true,
   imports: [CardComponent, TemperatureConverterPipe],
 })
-export class FavoriteCartComponent implements OnInit, OnChanges {
+export class FavoriteCartComponent extends TemperatureUnit implements OnChanges {
   @Input() favorite: IFavoriteDetailedInfo | null = null;
 
-  isCelsius = true;
   temperature: number | null = null;
 
-  constructor(
-    private destroyRef: DestroyRef,
-    private themeStore: ThemeStoreService,
-  ) {}
+  constructor() {
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['favorite']?.currentValue) {
       this.temperature = parseFloat(changes['favorite'].currentValue.Temperature.Metric.Value);
     }
-  }
-
-  ngOnInit(): void {
-    this.themeStore.isCelsius$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
-      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
-    });
   }
 
 }
