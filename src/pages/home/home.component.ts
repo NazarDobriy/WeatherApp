@@ -14,7 +14,6 @@ import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
-import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { temperatureConverter } from '@utils/index';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { KyivGeoLocation } from './consts/location.const';
@@ -24,6 +23,7 @@ import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.c
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
+import { TemperatureUnit } from '@shared/abstract/temperature-unit';
 
 @Component({
   selector: 'app-home',
@@ -42,7 +42,7 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
     TemperatureConverterPipe,
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent extends TemperatureUnit implements OnInit {
   location: ILocation | null = null;
   forecasts: IForecast[] = [];
   weather: IWeather | null = null;
@@ -50,25 +50,24 @@ export class HomeComponent implements OnInit {
   isFavorite = false;
   dayDataset: number[] = [];
   nightDataset: number[] = [];
-  isCelsius = true;
   temperature: number | null = null;
 
   constructor(
     public homeFacadeService: HomeFacadeService,
     private destroyRef: DestroyRef,
-    private themeStore: ThemeStoreService,
     private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
     private favoritesStore: FavoritesStoreService,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
     this.handleGeoPosition();
-    this.handleTemperature();
   }
 
   addToFavorites(): void {
@@ -146,14 +145,6 @@ export class HomeComponent implements OnInit {
           this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
         }
       },
-    });
-  }
-
-  private handleTemperature(): void {
-    this.themeStore.isCelsius$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
-      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
     });
   }
 
