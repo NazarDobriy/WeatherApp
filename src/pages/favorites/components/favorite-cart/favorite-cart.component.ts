@@ -1,6 +1,5 @@
 import { Component, DestroyRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NgIf } from '@angular/common';
 
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -11,7 +10,7 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
   selector: 'app-favorite-cart',
   templateUrl: './favorite-cart.component.html',
   standalone: true,
-  imports: [NgIf, CardComponent, TemperatureConverterPipe],
+  imports: [CardComponent, TemperatureConverterPipe],
 })
 export class FavoriteCartComponent implements OnInit, OnChanges {
   @Input() favorite: IFavoriteDetailedInfo | null = null;

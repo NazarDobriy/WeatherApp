@@ -1,9 +1,9 @@
 <app-card class="cursor-pointer text-center">
   <div class="line-clamp-1">{{ favorite?.name }}</div>
 
-  <ng-container *ngIf="temperature !== null">
+  @if (temperature !== null) {
     {{ temperature | temperatureConverter : isCelsius }}
-  </ng-container>
+  }
 
   <div>{{ favorite?.WeatherText }}</div>
 </app-card>

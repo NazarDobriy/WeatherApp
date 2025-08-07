@@ -2,8 +2,9 @@
   class="flex justify-center items-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
   (click)="changeThemeTemperature()"
 >
-  <div *ngIf="isCelsius$ | async; else temperatureSign">F</div>
-  <ng-template #temperatureSign>
+  @if (isCelsius$ | async) {
+    <div>F</div>
+  } @else {
     <div>&deg;C</div>
-  </ng-template>
+  }
 </section>

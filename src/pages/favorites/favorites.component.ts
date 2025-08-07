@@ -1,7 +1,7 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   standalone: true,
-  imports: [NgFor, AsyncPipe, FavoriteCartComponent, NgIf, MatProgressSpinnerModule]
+  imports: [AsyncPipe, FavoriteCartComponent, MatProgressSpinnerModule, RouterLink]
 })
 export class FavoritesComponent implements OnInit {
   readonly shortFavorites$ = this.favoritesStore.shortFavorites$;

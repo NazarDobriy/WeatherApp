@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
@@ -23,13 +23,13 @@ import { LocationSquareComponent } from '@pages/home/components/location-square/
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
+import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   standalone: true,
   imports: [
-    NgIf,
     AsyncPipe,
     MatIconModule,
     MatButtonModule,
@@ -39,7 +39,8 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
     LocationSearchComponent,
     MatProgressSpinnerModule,
     LocationSquareComponent,
-  ],
+    TemperatureConverterPipe,
+  ]
 })
 export class HomeComponent implements OnInit {
   location: ILocation | null = null;
@@ -49,7 +50,8 @@ export class HomeComponent implements OnInit {
   isFavorite = false;
   dayDataset: number[] = [];
   nightDataset: number[] = [];
-  readonly isCelsius$ = this.themeStore.isCelsius$;
+  isCelsius = true;
+  temperature: number | null = null;
 
   constructor(
     public homeFacadeService: HomeFacadeService,
@@ -66,10 +68,11 @@ export class HomeComponent implements OnInit {
     this.handleWeather();
     this.handleForecasts();
     this.handleGeoPosition();
+    this.handleTemperature();
   }
 
   addToFavorites(): void {
-    if (!!this.location && !!this.weather) {
+    if (this.location && this.weather) {
       this.favoritesStore.dispatchAddShortFavorite({
         id: this.location.Key,
         name: this.location.LocalizedName,
@@ -78,7 +81,7 @@ export class HomeComponent implements OnInit {
   }
 
   removeFromFavorites(): void {
-    if (!!this.location) {
+    if (this.location) {
       this.favoritesStore.dispatchRemoveShortFavorite(this.location.Key);
     }
   }
@@ -99,7 +102,10 @@ export class HomeComponent implements OnInit {
     this.weatherStore.weather$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (weather: IWeather) => this.weather = weather,
+      next: (weather: IWeather) => {
+        this.weather = weather;
+        this.temperature = parseFloat(weather.Temperature.Metric.Value);
+      },
     });
   }
 
@@ -136,10 +142,18 @@ export class HomeComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (favorites: IFavoriteShortInfo[]) => {
-        if (favorites.length > 0 && !!this.location) {
+        if (favorites.length > 0 && this.location) {
           this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
         }
       },
+    });
+  }
+
+  private handleTemperature(): void {
+    this.themeStore.isCelsius$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (isCelsius: boolean) => (this.isCelsius = isCelsius),
     });
   }
 

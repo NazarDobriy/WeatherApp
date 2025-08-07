@@ -2,15 +2,9 @@
   class="flex justify-center items-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
   (click)="changeThemeMode()"
 >
-  <img
-    *ngIf="isDarkMode$ | async; else lightSign"
-    ngSrc="assets/img/sun.svg"
-    alt="Sun"
-    height="20"
-    width="20"
-  />
-
-  <ng-template #lightSign>
+  @if (isDarkMode$ | async) {
+    <img ngSrc="assets/img/sun.svg" alt="Sun" height="20" width="20" />
+  } @else {
     <img ngSrc="assets/img/moon.svg" alt="Moon" height="20" width="20" />
-  </ng-template>
+  }
 </section>
