@@ -1,13 +1,14 @@
 import {
   AfterViewInit,
   Attribute,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
   OnChanges,
   OnDestroy,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
 
@@ -17,6 +18,7 @@ Chart.register(...registerables);
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() datasetX: number[] = [];

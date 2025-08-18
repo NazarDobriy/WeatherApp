@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -8,6 +8,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   templateUrl: './theme-mode.component.html',
   standalone: true,
   imports: [AsyncPipe, NgOptimizedImage],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeModeComponent {
   isDarkMode$ = this.themeStore.isDarkMode$;

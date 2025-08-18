@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IForecast } from '@core/types/forecast.interface';
@@ -13,11 +13,12 @@ import { TemperatureUnit } from '@shared/abstract/temperature-unit';
   standalone: true,
   imports: [DatePipe, CardComponent, TemperatureConverterPipe],
   providers: [ForecastCardService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastCardComponent extends TemperatureUnit implements OnChanges {
-  @Input() forecast: IForecast | null = null;
+  forecast = input.required<IForecast>();
 
-  averageTemperature: number | null = null;
+  averageTemperature = signal<number | null>(null);
 
   constructor(private forecastCardService: ForecastCardService) {
     super();
@@ -25,7 +26,7 @@ export class ForecastCardComponent extends TemperatureUnit implements OnChanges 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['forecast']?.currentValue) {
-      this.averageTemperature = this.forecastCardService.getAverageTemperature(changes['forecast']?.currentValue);
+      this.averageTemperature.set(this.forecastCardService.getAverageTemperature(changes['forecast']?.currentValue));
     }
   }
 

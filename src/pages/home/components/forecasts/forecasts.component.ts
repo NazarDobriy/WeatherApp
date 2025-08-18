@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { IForecast } from '@core/types/forecast.interface';
 import { ForecastCardComponent } from '@pages/home/components/forecast-card/forecast-card.component';
@@ -8,7 +8,8 @@ import { ForecastCardComponent } from '@pages/home/components/forecast-card/fore
   templateUrl: './forecasts.component.html',
   standalone: true,
   imports: [ForecastCardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastsComponent {
-  @Input() forecasts: IForecast[] = [];
+  forecasts = input.required<IForecast[]>();
 }

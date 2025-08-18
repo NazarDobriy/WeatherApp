@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import {
@@ -11,5 +11,6 @@ import { ThemeModeComponent } from '@core/components/header/components/theme-mod
   templateUrl: './header.component.html',
   standalone: true,
   imports: [RouterModule, ThemeModeComponent, ThemeTemperatureComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {}
