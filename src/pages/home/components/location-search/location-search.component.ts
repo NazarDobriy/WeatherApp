@@ -1,8 +1,8 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,6 +34,7 @@ import {
     MatButtonModule,
   ],
   providers: [LocationSearchFormService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationSearchComponent implements OnInit {
   readonly locations$ = this.locationsStore.locations$;
@@ -43,23 +44,11 @@ export class LocationSearchComponent implements OnInit {
       return control?.invalid && (control?.dirty || control?.touched);
     }
   };
+  private readonly searchControl = this.locationSearchFormService.searchControl;
+  readonly searchInput = toSignal(this.searchControl.valueChanges, { initialValue: this.searchControl.value });
+  readonly requiredError = computed<boolean>(() => this.searchControl.hasError('required'));
+  readonly patternError  = computed<boolean>(() => this.searchControl.hasError('pattern'));
   private selectedOption: string | null = null;
-
-  get searchControl(): FormControl<string> {
-    return this.locationSearchFormService.formGroup?.controls?.searchInput;
-  }
-
-  get searchInput(): string {
-    return this.searchControl?.value;
-  }
-
-  get requiredError(): boolean | undefined {
-    return this.searchControl?.hasError('required');
-  }
-
-  get patternError(): boolean | undefined {
-    return this.searchControl?.hasError('pattern');
-  }
 
   constructor(
     public locationSearchFormService: LocationSearchFormService,

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnChanges, signal, SimpleChanges } from '@angular/core';
 
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { CardComponent } from '@shared/components/card/card.component';
@@ -10,11 +10,12 @@ import { TemperatureUnit } from '@shared/abstract/temperature-unit';
   templateUrl: './favorite-cart.component.html',
   standalone: true,
   imports: [CardComponent, TemperatureConverterPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteCartComponent extends TemperatureUnit implements OnChanges {
-  @Input() favorite: IFavoriteDetailedInfo | null = null;
+  favorite = input.required<IFavoriteDetailedInfo>();
 
-  temperature: number | null = null;
+  temperature = signal<number | null>(null);
 
   constructor() {
     super();
@@ -22,7 +23,7 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnChanges 
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['favorite']?.currentValue) {
-      this.temperature = parseFloat(changes['favorite'].currentValue.Temperature.Metric.Value);
+      this.temperature.set(parseFloat(changes['favorite'].currentValue.Temperature.Metric.Value));
     }
   }
 

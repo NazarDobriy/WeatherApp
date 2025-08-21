@@ -5,7 +5,7 @@
     <section class="flex justify-center items-center mt-24">
       <mat-spinner></mat-spinner>
     </section>
-  } @else if (location && weather) {
+  } @else if (location() && weather()) {
     <section
       class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12"
     >
@@ -13,34 +13,32 @@
         <app-location-square></app-location-square>
 
         <div class="flex flex-col items-center gap-4 ml-8">
-          <div>{{ location.LocalizedName }}</div>
+          <div>{{ location()?.LocalizedName }}</div>
 
-          @if (temperature !== null) {
-            {{ temperature | temperatureConverter : isCelsius }}
-          }
+          {{ temperature() | temperatureConverter : isCelsius() }}
         </div>
       </section>
 
       <section class="flex items-center gap-3">
         <mat-icon
           class="cursor-pointer"
-          (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
+          (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
         >
-          {{ isFavorite ? 'favorite' : 'favorite_border' }}
+          {{ isFavorite() ? 'favorite' : 'favorite_border' }}
         </mat-icon>
         <button
           class="w-52"
           mat-flat-button
-          color="{{ isFavorite ? 'warn' : 'primary' }}"
-          (click)="isFavorite ? removeFromFavorites() : addToFavorites()"
+          color="{{ isFavorite() ? 'warn' : 'primary' }}"
+          (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
         >
-          {{ isFavorite ? 'Remove from favorite' : 'Add to favorite' }}
+          {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}
         </button>
       </section>
     </section>
 
     <section class="flex justify-center md:justify-start mt-12">
-      <mat-slide-toggle (toggleChange)="isLineChart = !isLineChart">
+      <mat-slide-toggle (toggleChange)="toggleLineChart()">
         <span class="md:block hidden">
           Click to change daily forecast representation!
         </span>
@@ -48,15 +46,15 @@
     </section>
 
     <section class="flex justify-center mt-32">
-      @if (isLineChart) {
+      @if (isLineChart()) {
         <app-line-chart
           labelX="Day"
           labelY="Night"
-          [datasetX]="dayDataset"
-          [datasetY]="nightDataset"
+          [datasetX]="dayDataset()"
+          [datasetY]="nightDataset()"
         ></app-line-chart>
       } @else {
-        <app-forecasts [forecasts]="forecasts"></app-forecasts>
+        <app-forecasts [forecasts]="forecasts()"></app-forecasts>
       }
     </section>
   } @else {

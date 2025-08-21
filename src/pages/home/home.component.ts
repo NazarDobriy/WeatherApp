@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -40,17 +40,22 @@ import { TemperatureUnit } from '@shared/abstract/temperature-unit';
     MatProgressSpinnerModule,
     LocationSquareComponent,
     TemperatureConverterPipe,
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
-  location: ILocation | null = null;
-  forecasts: IForecast[] = [];
-  weather: IWeather | null = null;
-  isLineChart = false;
-  isFavorite = false;
-  dayDataset: number[] = [];
-  nightDataset: number[] = [];
-  temperature: number | null = null;
+  readonly location = signal<ILocation | null>(null);
+  readonly forecasts = signal<IForecast[]>([]);
+  readonly weather = signal<IWeather | null>(null);
+  readonly isLineChart = signal<boolean>(false);
+  readonly isFavorite = signal<boolean>(false);
+  readonly dayDataset = computed<number[]>(() =>
+    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Maximum.Value),
+  );
+  readonly nightDataset = computed<number[]>(() =>
+    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Minimum.Value),
+  );
+  readonly temperature = signal<number | null>(null);
 
   constructor(
     public homeFacadeService: HomeFacadeService,
@@ -70,23 +75,32 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.handleGeoPosition();
   }
 
+  toggleLineChart(): void {
+    this.isLineChart.update((item: boolean) => !item);
+  }
+
   addToFavorites(): void {
-    if (this.location && this.weather) {
+    const location = this.location();
+    const weather = this.weather();
+
+    if (location && weather) {
       this.favoritesStore.dispatchAddShortFavorite({
-        id: this.location.Key,
-        name: this.location.LocalizedName,
+        id: location.Key,
+        name: location.LocalizedName,
       });
     }
   }
 
   removeFromFavorites(): void {
-    if (this.location) {
-      this.favoritesStore.dispatchRemoveShortFavorite(this.location.Key);
+    const location = this.location();
+
+    if (location) {
+      this.favoritesStore.dispatchRemoveShortFavorite(location.Key);
     }
   }
 
   private handleGeoPosition(): void {
-    if (navigator.geolocation && !this.location) {
+    if (navigator.geolocation && !this.location()) {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => this.locationStore.dispatchLocation(position.coords),
         (error: GeolocationPositionError) => {
@@ -102,8 +116,8 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (weather: IWeather) => {
-        this.weather = weather;
-        this.temperature = parseFloat(weather.Temperature.Metric.Value);
+        this.weather.set(weather);
+        this.temperature.set(parseFloat(weather.Temperature.Metric.Value));
       },
     });
   }
@@ -111,27 +125,19 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   private handleForecasts(): void {
     this.weatherStore.forecasts$.pipe(
       switchMap((forecasts: IForecast[]) => {
-        this.forecasts = forecasts;
+        this.forecasts.set(forecasts);
         return this.themeStore.isCelsius$;
       }),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (isCelsius: boolean) => {
-        this.dayDataset = this.forecasts.map((forecast: IForecast) => {
-          return temperatureConverter(parseFloat(forecast.Temperature.Maximum.Value), isCelsius);
-        });
-
-        this.nightDataset = this.forecasts.map((forecast: IForecast) => {
-          return temperatureConverter(parseFloat(forecast.Temperature.Minimum.Value), isCelsius);
-        });
-      },
+      next: (isCelsius: boolean) => this.isCelsius.set(isCelsius),
     });
   }
 
   private handleLocation(): void {
     this.locationStore.location$.pipe(
       switchMap((location: ILocation) => {
-        this.location = location;
+        this.location.set(location);
         const key = location.Key;
         this.weatherStore.dispatchWeather(key);
         this.weatherStore.dispatchForecasts(key);
@@ -141,10 +147,18 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (favorites: IFavoriteShortInfo[]) => {
-        if (favorites.length > 0 && this.location) {
-          this.isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === this.location?.Key);
+        const location = this.location();
+
+        if (favorites.length > 0 && location) {
+          this.isFavorite.set(favorites.some((item: IFavoriteShortInfo) => item.id === location.Key));
         }
       },
+    });
+  }
+
+  private getTemperatureDataset(selector: (forecast: IForecast) => string): number[] {
+    return this.forecasts().map((forecast: IForecast) => {
+      return temperatureConverter(parseFloat(selector(forecast)), this.isCelsius());
     });
   }
 

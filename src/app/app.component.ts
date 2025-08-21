@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Inject, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, Inject, OnInit, Renderer2 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
@@ -12,9 +12,9 @@ import { HeaderComponent } from '@core/components/header/header.component';
   templateUrl: './app.component.html',
   standalone: true,
   imports: [RouterOutlet, HeaderComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  isDarkMode$ = this.themeStore.isDarkMode$;
 
   constructor(
     private renderer: Renderer2,
@@ -26,8 +26,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.ngRxLocalStorage.initialization();
+    this.handleBodyBackground();
+  }
 
-    this.isDarkMode$.pipe(
+  private handleBodyBackground(): void {
+    this.themeStore.isDarkMode$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (isDark: boolean) => {
@@ -41,4 +44,5 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
 }

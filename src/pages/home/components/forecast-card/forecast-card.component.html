@@ -1,7 +1,5 @@
 <app-card>
-  <div>{{ forecast?.Date | date : 'EEEE' }}</div>
+  <div>{{ forecast().Date | date : 'EEEE' }}</div>
 
-  @if (averageTemperature !== null) {
-    {{ averageTemperature | temperatureConverter : isCelsius }}
-  }
+  {{ averageTemperature() | temperatureConverter : isCelsius() }}
 </app-card>

@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -13,7 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   standalone: true,
-  imports: [AsyncPipe, FavoriteCartComponent, MatProgressSpinnerModule, RouterLink]
+  imports: [AsyncPipe, FavoriteCartComponent, MatProgressSpinnerModule, RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit {
   readonly shortFavorites$ = this.favoritesStore.shortFavorites$;

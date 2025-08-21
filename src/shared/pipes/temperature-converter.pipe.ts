@@ -7,7 +7,11 @@ import { temperatureConverter } from '@utils/index';
   standalone: true,
 })
 export class TemperatureConverterPipe implements PipeTransform {
-  transform(value: number, isCelsius: boolean): string {
+  transform(value: number | null, isCelsius: boolean): string {
+    if (!value) {
+      return '';
+    }
+
     const convertedValue = temperatureConverter(value, isCelsius);
     const formattedValue =
       convertedValue % 1 === 0

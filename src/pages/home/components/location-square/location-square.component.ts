@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 import { ThemeStoreService } from '@core/providers/theme-store.service';
@@ -8,6 +8,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   templateUrl: './location-square.component.html',
   standalone: true,
   imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationSquareComponent {
   readonly isDarkMode$ = this.themeStore.isDarkMode$;

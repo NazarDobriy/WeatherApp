@@ -14,7 +14,7 @@
         [errorStateMatcher]="matcher"
       />
 
-      @if (searchInput) {
+      @if (searchInput()) {
         <button
           matSuffix
           mat-icon-button
@@ -25,11 +25,11 @@
         </button>
       }
 
-      @if (requiredError) {
+      @if (requiredError()) {
         <mat-error>Please enter a location.</mat-error>
       }
 
-      @if (patternError) {
+      @if (patternError()) {
         <mat-error>Please enter only English characters.</mat-error>
       }
 

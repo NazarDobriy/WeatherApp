@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 
@@ -7,7 +7,8 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   selector: 'app-theme-temperature',
   templateUrl: './theme-temperature.component.html',
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeTemperatureComponent {
   isCelsius$ = this.themeStore.isCelsius$;

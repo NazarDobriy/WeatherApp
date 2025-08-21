@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ILocationSearchForm } from '@pages/home/components/location-search/types/location-search.interface';
 import { lettersWithSpacesValidator } from '@core/validators/validators.constants';
 
 @Injectable()
 export class LocationSearchFormService {
+  searchControl: FormControl<string>;
   formGroup: FormGroup<ILocationSearchForm>;
 
   constructor(private fb: FormBuilder) {
@@ -15,5 +16,7 @@ export class LocationSearchFormService {
         nonNullable: true,
       }),
     });
+
+    this.searchControl = this.formGroup.controls?.searchInput;
   }
 }

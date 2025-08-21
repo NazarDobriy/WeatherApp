@@ -1,9 +1,7 @@
 <app-card class="cursor-pointer text-center">
-  <div class="line-clamp-1">{{ favorite?.name }}</div>
+  <div class="line-clamp-1">{{ favorite().name }}</div>
 
-  @if (temperature !== null) {
-    {{ temperature | temperatureConverter : isCelsius }}
-  }
+  {{ temperature() | temperatureConverter : isCelsius() }}
 
-  <div>{{ favorite?.WeatherText }}</div>
+  <div>{{ favorite().WeatherText }}</div>
 </app-card>
