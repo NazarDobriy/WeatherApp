@@ -3,12 +3,11 @@ import {
   Attribute,
   ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
-  Input,
-  OnChanges,
+  input,
   OnDestroy,
-  SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
 
@@ -20,9 +19,9 @@ Chart.register(...registerables);
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
-  @Input() datasetX: number[] = [];
-  @Input() datasetY: number[] = [];
+export class LineChartComponent implements AfterViewInit, OnDestroy {
+  readonly datasetX = input.required<number[]>();
+  readonly datasetY = input.required<number[]>();
 
   @ViewChild('lineChart') donut!: ElementRef<HTMLCanvasElement>;
 
@@ -35,17 +34,16 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   constructor(
     @Attribute('labelX') private labelX: string,
     @Attribute('labelY') private labelY: string,
-  ) {}
-
+  ) {
+    effect(() => {
+      if (this.datasetX().length > 0 || this.datasetY().length > 0) {
+        this.updateChart();
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     this.createChart();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['datasetX']?.currentValue?.length || changes['datasetY']?.currentValue?.length) {
-      this.updateChart();
-    }
   }
 
   private createChart(): void {
@@ -60,13 +58,13 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
           datasets: [
             {
               label: this.labelX,
-              data: this.datasetX,
+              data: this.datasetX(),
               borderColor: 'rgba(255, 99, 132, 1)',
               fill: false
             },
             {
               label: this.labelY,
-              data: this.datasetY,
+              data: this.datasetY(),
               borderColor: 'rgba(54, 162, 235, 1)',
               fill: false
             }
@@ -79,8 +77,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   private updateChart(): void {
     if (this.chart) {
-      this.chart.data.datasets[0].data = this.datasetX;
-      this.chart.data.datasets[1].data = this.datasetY;
+      this.chart.data.datasets[0].data = this.datasetX();
+      this.chart.data.datasets[1].data = this.datasetY();
       this.chart.update();
     }
   }
