@@ -23,7 +23,7 @@ import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.c
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
-import { TemperatureUnit } from '@shared/abstract/temperature-unit';
+import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 
 @Component({
   selector: 'app-home',

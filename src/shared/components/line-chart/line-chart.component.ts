@@ -70,7 +70,7 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
             }
           ]
         },
-        options: this.options
+        options: this.options,
       });
     }
   }

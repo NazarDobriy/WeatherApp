@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
-import { TemperatureUnit } from '@shared/abstract/temperature-unit';
+import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 
 @Component({
   selector: 'app-favorite-cart',

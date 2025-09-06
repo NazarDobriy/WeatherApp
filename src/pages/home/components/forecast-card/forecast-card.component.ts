@@ -5,7 +5,7 @@ import { IForecast } from '@core/types/forecast.interface';
 import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { ForecastCardService } from '@pages/home/components/forecast-card/providers/forecast-card.service';
-import { TemperatureUnit } from '@shared/abstract/temperature-unit';
+import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 
 @Component({
   selector: 'app-forecast-card',
