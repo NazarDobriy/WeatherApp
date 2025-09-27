@@ -5,4 +5,8 @@ export interface ILocation {
     ID: string;
     LocalizedName: string;
   };
+  Country?: {
+    ID: string;
+    LocalizedName: string;
+  };
 }
