@@ -50,9 +50,11 @@
               [value]="location.LocalizedName"
               (click)="onSelectionChange(location)"
             >
-              <section class="flex justify-between">
+              <section class="flex justify-between gap-3">
                 <div>{{ location.LocalizedName }}</div>
-                <div>{{ location.AdministrativeArea?.LocalizedName }}</div>
+                <div>
+                  ({{ location.Country?.LocalizedName }}, {{ location.AdministrativeArea?.LocalizedName }})
+                </div>
               </section>
             </mat-option>
           }
