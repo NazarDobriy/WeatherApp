@@ -1,4 +1,4 @@
-export const Notification = {
+export const NOTIFICATION = {
   ERROR_GETTING_FAVOURITES: 'Http failure response for getting favorites weather',
   ERROR_SEARCHING_LOCATION: 'Error while searching location',
   ERROR_GETTING_WEATHER: 'Http failure response for getting weather',

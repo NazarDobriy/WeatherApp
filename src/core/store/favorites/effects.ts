@@ -6,7 +6,7 @@ import * as FavoritesActions from '@core/store/favorites/actions';
 import { FavoritesService } from '@core/providers/favorites.service';
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
-import { Notification } from '@core/constants/notification.constants';
+import { NOTIFICATION } from '@core/constants/notification.constants';
 
 @Injectable()
 export class FavoritesEffects {
@@ -29,21 +29,21 @@ export class FavoritesEffects {
   failureDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavoritesFailure),
-      tap(() => this.snackBarService.open(Notification.ERROR_GETTING_FAVOURITES, 'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_FAVOURITES, 'X')),
     );
   }, { dispatch: false });
 
   successAddShortFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.addShortFavorite),
-      tap(() => this.snackBarService.open(Notification.SUCCESS_ADDING_FAVOURITE,'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.SUCCESS_ADDING_FAVOURITE,'X')),
     );
   }, { dispatch: false });
 
   successRemoveShortFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.removeShortFavorite),
-      tap(() => this.snackBarService.open(Notification.SUCCESS_REMOVING_FAVOURITE,'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.SUCCESS_REMOVING_FAVOURITE,'X')),
     );
   }, { dispatch: false });
 

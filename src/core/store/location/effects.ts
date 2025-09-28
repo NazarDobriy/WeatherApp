@@ -5,7 +5,7 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import * as LocationActions from './actions';
 import { LocationService } from '@core/providers/location.service';
 import { ILocation } from '@core/types/location.interface';
-import { Notification } from '@core/constants/notification.constants';
+import { NOTIFICATION } from '@core/constants/notification.constants';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class LocationEffects {
   failureLocation$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationActions.getLocationFailure),
-      tap(() => this.snackBarService.open(Notification.ERROR_GETTING_LOCATION, 'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_LOCATION, 'X')),
     );
   }, { dispatch: false });
 

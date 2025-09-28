@@ -7,7 +7,7 @@ import { WeatherService } from '@core/providers/weather.service';
 import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
-import { Notification } from '@core/constants/notification.constants';
+import { NOTIFICATION } from '@core/constants/notification.constants';
 
 @Injectable()
 export class WeatherEffects {
@@ -30,7 +30,7 @@ export class WeatherEffects {
   failureGetWeather$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(WeatherActions.getWeatherFailure),
-      tap(() => this.snackBarService.open(Notification.ERROR_GETTING_WEATHER,'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_WEATHER,'X')),
     );
   }, { dispatch: false });
 
@@ -53,7 +53,7 @@ export class WeatherEffects {
   failureGetForecasts$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(WeatherActions.getForecastsFailure),
-      tap(() => this.snackBarService.open(Notification.ERROR_GETTING_FORECAST,'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_FORECAST,'X')),
     );
   }, { dispatch: false });
 
