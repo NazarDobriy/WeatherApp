@@ -6,7 +6,7 @@ import * as LocationsActions from './actions';
 import { LocationsService } from '@pages/home/providers/locations.service';
 import { ILocation } from '@core/types/location.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
-import { Notification } from '@core/constants/notification.constants';
+import { NOTIFICATION } from '@core/constants/notification.constants';
 
 @Injectable()
 export class LocationsEffects {
@@ -29,7 +29,7 @@ export class LocationsEffects {
   failureGetLocations$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationsActions.getLocationsFailure),
-      tap(() => this.snackBarService.open(Notification.ERROR_SEARCHING_LOCATION,'X')),
+      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_SEARCHING_LOCATION,'X')),
     );
   }, { dispatch: false });
 

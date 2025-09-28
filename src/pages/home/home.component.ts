@@ -73,10 +73,12 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.handleWeather();
     this.handleForecasts();
     this.handleGeoPosition();
+    this.listenDailyRepresentation();
   }
 
   toggleLineChart(): void {
     this.isLineChart.update((item: boolean) => !item);
+    this.themeStore.dispatchDailyRepresentation();
   }
 
   addToFavorites(): void {
@@ -159,6 +161,14 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   private getTemperatureDataset(selector: (forecast: IForecast) => string): number[] {
     return this.forecasts().map((forecast: IForecast) => {
       return temperatureConverter(parseFloat(selector(forecast)), this.isCelsius());
+    });
+  }
+
+  private listenDailyRepresentation(): void {
+    this.themeStore.isChartRepresentation$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (isChartRepresentation: boolean) => this.isLineChart.set(isChartRepresentation),
     });
   }
 
