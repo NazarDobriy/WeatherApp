@@ -33,7 +33,9 @@ export class FavoritesComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (shortFavorites: IFavoriteShortInfo[]) => {
-        this.favoritesStore.dispatchDetailedFavorites(shortFavorites);
+        if (shortFavorites.length > 0) {
+          this.favoritesStore.dispatchDetailedFavorites(shortFavorites);
+        }
       },
     });
   }
