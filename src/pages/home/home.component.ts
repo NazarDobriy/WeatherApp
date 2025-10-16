@@ -151,7 +151,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
       next: (favorites: IFavoriteShortInfo[]) => {
         const location = this.location();
 
-        if (favorites.length > 0 && location) {
+        if (location) {
           this.isFavorite.set(favorites.some((item: IFavoriteShortInfo) => item.id === location.Key));
         }
       },
