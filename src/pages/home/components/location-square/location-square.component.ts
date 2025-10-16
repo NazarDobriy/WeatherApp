@@ -6,7 +6,6 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
 @Component({
   selector: 'app-location-square',
   templateUrl: './location-square.component.html',
-  standalone: true,
   imports: [AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

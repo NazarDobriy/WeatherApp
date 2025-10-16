@@ -12,7 +12,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
-  standalone: true,
   imports: [AsyncPipe, FavoriteCartComponent, MatProgressSpinnerModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

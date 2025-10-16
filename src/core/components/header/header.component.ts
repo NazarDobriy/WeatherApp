@@ -9,7 +9,6 @@ import { ThemeModeComponent } from '@core/components/header/components/theme-mod
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  standalone: true,
   imports: [RouterModule, ThemeModeComponent, ThemeTemperatureComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

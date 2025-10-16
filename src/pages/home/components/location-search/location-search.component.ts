@@ -21,7 +21,6 @@ import {
 @Component({
   selector: 'app-location-search',
   templateUrl: './location-search.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     FormsModule,

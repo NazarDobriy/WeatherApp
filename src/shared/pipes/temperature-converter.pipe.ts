@@ -4,7 +4,6 @@ import { temperatureConverter } from '@utils/index';
 
 @Pipe({
   name: 'temperatureConverter',
-  standalone: true,
 })
 export class TemperatureConverterPipe implements PipeTransform {
   transform(value: number | null, isCelsius: boolean): string {

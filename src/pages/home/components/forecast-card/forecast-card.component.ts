@@ -10,7 +10,6 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 @Component({
   selector: 'app-forecast-card',
   templateUrl: './forecast-card.component.html',
-  standalone: true,
   imports: [DatePipe, CardComponent, TemperatureConverterPipe],
   providers: [ForecastCardService],
   changeDetection: ChangeDetectionStrategy.OnPush,
