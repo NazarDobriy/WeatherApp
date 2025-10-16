@@ -28,7 +28,6 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  standalone: true,
   imports: [
     AsyncPipe,
     MatIconModule,

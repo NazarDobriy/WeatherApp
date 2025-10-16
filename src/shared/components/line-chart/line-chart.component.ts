@@ -16,7 +16,6 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LineChartComponent implements AfterViewInit, OnDestroy {

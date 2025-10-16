@@ -6,7 +6,6 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
 @Component({
   selector: 'app-theme-temperature',
   templateUrl: './theme-temperature.component.html',
-  standalone: true,
   imports: [AsyncPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

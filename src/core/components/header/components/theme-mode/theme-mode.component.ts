@@ -6,7 +6,6 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
 @Component({
   selector: 'app-theme-mode',
   templateUrl: './theme-mode.component.html',
-  standalone: true,
   imports: [AsyncPipe, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

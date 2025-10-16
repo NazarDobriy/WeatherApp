@@ -8,7 +8,6 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 @Component({
   selector: 'app-favorite-cart',
   templateUrl: './favorite-cart.component.html',
-  standalone: true,
   imports: [CardComponent, TemperatureConverterPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

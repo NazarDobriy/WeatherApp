@@ -6,7 +6,6 @@ import { ForecastCardComponent } from '@pages/home/components/forecast-card/fore
 @Component({
   selector: 'app-forecasts',
   templateUrl: './forecasts.component.html',
-  standalone: true,
   imports: [ForecastCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
