@@ -3,5 +3,10 @@
 
   {{ temperature() | temperatureConverter : isCelsius() }}
 
-  <div>{{ favorite().WeatherText }}</div>
+  <img
+    ngSrc="assets/weather/{{ favorite()?.WeatherIcon }}.svg"
+    height="48"
+    width="48"
+    alt="{{ favorite()?.WeatherText ?? 'Weather icon' }}"
+  />
 </app-card>

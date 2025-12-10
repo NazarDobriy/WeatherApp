@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
+import {AsyncPipe, NgOptimizedImage} from '@angular/common';
 import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
@@ -18,7 +18,6 @@ import { temperatureConverter } from '@utils/index';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { KyivGeoLocation } from './consts/location.constants';
 import { LocationSearchComponent } from '@pages/home/components/location-search/location-search.component';
-import { LocationSquareComponent } from '@pages/home/components/location-square/location-square.component';
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
@@ -37,8 +36,8 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
     MatSlideToggleModule,
     LocationSearchComponent,
     MatProgressSpinnerModule,
-    LocationSquareComponent,
     TemperatureConverterPipe,
+    NgOptimizedImage,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
