@@ -22,7 +22,7 @@
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
     <linearGradient id="paint4_linear_0_85" x1="27.7152" y1="8.23612" x2="32.02" y2="42.485" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>
