@@ -19,15 +19,15 @@
   <path d="M36.8598 56.8783C36.8598 55.9661 36.1204 55.2267 35.2083 55.2267H14.5641C13.652 55.2267 12.9126 55.9661 12.9126 56.8783C12.9126 57.7904 13.652 58.5298 14.5641 58.5298H35.2083C36.1204 58.5298 36.8598 57.7904 36.8598 56.8783Z" fill="url(#paint6_linear_0_294)"/>
   <defs>
     <linearGradient id="paint0_linear_0_294" x1="28.4714" y1="2.14503" x2="28.4714" y2="54.5237" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A38FEE"/>
+      <stop offset="0" stop-color="#A38FEE"/>
       <stop offset="0.853177" stop-color="#5D4ADE"/>
     </linearGradient>
     <radialGradient id="paint1_radial_0_294" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(33.5531 46.7991) rotate(105) scale(3.67102 3.46811)">
-      <stop stop-color="#0B17A1" stop-opacity="0.7"/>
+      <stop offset="0" stop-color="#0B17A1" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <radialGradient id="paint2_radial_0_294" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49.0661 33.6181) rotate(105) scale(5.03194 4.75381)">
-      <stop stop-color="#0B17A1" stop-opacity="0.7"/>
+      <stop offset="0" stop-color="#0B17A1" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <radialGradient id="paint3_radial_0_294" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(45.3686 20.8928) rotate(-75) scale(2.5684 2.42644)">
@@ -35,17 +35,17 @@
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <linearGradient id="paint4_linear_0_294" x1="58.0542" y1="50.7125" x2="6.85669" y2="50.7125" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#DFE5F5"/>
+      <stop offset="0" stop-color="#DFE5F5"/>
       <stop offset="0.521025" stop-color="#A690E4"/>
       <stop offset="1" stop-color="#9F84E0"/>
     </linearGradient>
     <linearGradient id="paint5_linear_0_294" x1="51.4483" y1="56.8783" x2="39.6123" y2="56.8783" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#DFE5F5"/>
+      <stop offset="0" stop-color="#DFE5F5"/>
       <stop offset="0.521025" stop-color="#A690E4"/>
       <stop offset="1" stop-color="#9F84E0"/>
     </linearGradient>
     <linearGradient id="paint6_linear_0_294" x1="36.8598" y1="56.8783" x2="12.9126" y2="56.8783" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#DFE5F5"/>
+      <stop offset="0" stop-color="#DFE5F5"/>
       <stop offset="0.521025" stop-color="#A690E4"/>
       <stop offset="1" stop-color="#9F84E0"/>
     </linearGradient>

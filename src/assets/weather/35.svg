@@ -12,23 +12,23 @@
   <path d="M27.4798 33.2947C28.2741 26.3322 34.0243 20.9645 40.8214 20.9645C46.834 20.9645 52.0523 25.0674 53.7209 31.0219C53.7573 31.0156 53.7974 31.0181 53.8351 31.0131C54.1763 30.9713 54.5212 30.941 54.8734 30.941C59.6424 30.941 63.52 34.9819 63.52 39.9474C63.52 44.9128 59.6424 48.9525 54.8734 48.9525H28.0482C23.8973 48.9525 20.52 45.4352 20.52 41.1109C20.52 36.9979 23.5767 33.6134 27.4798 33.2947Z" fill="url(#paint4_linear_0_279)"/>
   <defs>
     <linearGradient id="paint0_linear_0_279" x1="25.639" y1="3.16193" x2="25.639" y2="55.6149" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A38FEE"/>
+      <stop offset="0" stop-color="#A38FEE"/>
       <stop offset="0.853177" stop-color="#5D4ADE"/>
     </linearGradient>
     <radialGradient id="paint1_radial_0_279" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(30.7287 47.8794) rotate(105) scale(3.67622 3.47304)">
-      <stop stop-color="#0B17A1" stop-opacity="0.7"/>
+      <stop offset="0" stop-color="#0B17A1" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <radialGradient id="paint2_radial_0_279" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(46.2637 34.6798) rotate(105) scale(5.03908 4.76057)">
-      <stop stop-color="#0B17A1" stop-opacity="0.7"/>
+      <stop offset="0" stop-color="#0B17A1" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <radialGradient id="paint3_radial_0_279" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(42.5609 21.9363) rotate(-74.9999) scale(2.57204 2.42989)">
-      <stop stop-color="#0B17A1" stop-opacity="0.7"/>
+      <stop offset="0" stop-color="#0B17A1" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#0B17A1"/>
     </radialGradient>
     <linearGradient id="paint4_linear_0_279" x1="38.9349" y1="24.4075" x2="42.02" y2="48.9525" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>

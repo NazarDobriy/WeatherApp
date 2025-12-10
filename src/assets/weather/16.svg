@@ -29,11 +29,11 @@
       <stop offset="0.7986" stop-color="#FFBF29"/>
     </linearGradient>
     <linearGradient id="paint5_linear_0_133" x1="32.1405" y1="49.75" x2="23.5245" y2="46.5913" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFD100"/>
+      <stop offset="0" stop-color="#FFD100"/>
       <stop offset="1" stop-color="#FFF0AA"/>
     </linearGradient>
     <linearGradient id="paint6_linear_0_133" x1="30.2175" y1="9.95373" x2="34.02" y2="40.2069" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>

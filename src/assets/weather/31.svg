@@ -8,11 +8,11 @@
   <rect width="3" height="8" rx="1.5" transform="matrix(-3.40966e-08 -1 1 0.000877983 42 38.1862)" fill="url(#paint6_radial_0_247)" fill-opacity="0.9"/>
   <defs>
     <linearGradient id="paint0_linear_0_247" x1="34.0198" y1="3" x2="24.1822" y2="59.2804" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EAF6FF"/>
+      <stop offset="0" stop-color="#EAF6FF"/>
       <stop offset="1" stop-color="#4AB4FF"/>
     </linearGradient>
     <linearGradient id="paint1_linear_0_247" x1="33.9701" y1="51.5" x2="30.7612" y2="29.4673" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4AB4FF"/>
+      <stop offset="0" stop-color="#4AB4FF"/>
       <stop offset="0.952779" stop-color="#98D4FF"/>
     </linearGradient>
     <radialGradient id="paint2_radial_0_247" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1.5105 -0.225837) rotate(89.3245) scale(10.8895 3.31393)">

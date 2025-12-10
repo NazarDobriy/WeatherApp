@@ -17,7 +17,7 @@
       <stop offset="1" stop-color="#5ECFFF"/>
     </radialGradient>
     <linearGradient id="paint3_linear_0_221" x1="28.1457" y1="9.70836" x2="32.02" y2="40.5323" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>

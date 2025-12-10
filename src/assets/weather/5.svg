@@ -42,15 +42,15 @@
       <stop offset="0.7986" stop-color="#FFBF29"/>
     </linearGradient>
     <radialGradient id="paint6_radial_0_58" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(31.4781 54.1841) scale(26.8577 1.73276)">
-      <stop stop-color="#D3E0E8"/>
+      <stop offset="0" stop-color="#D3E0E8"/>
       <stop offset="1" stop-color="#D3E0E8"/>
     </radialGradient>
     <radialGradient id="paint7_radial_0_58" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(16.0625 47.6532) scale(15.0625 1.73276)">
-      <stop stop-color="#D3E0E8"/>
+      <stop offset="0" stop-color="#D3E0E8"/>
       <stop offset="1" stop-color="#D3E0E8"/>
     </radialGradient>
     <radialGradient id="paint8_radial_0_58" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(40.5881 41.4561) scale(16.5625 1.73276)">
-      <stop stop-color="#D3E0E8"/>
+      <stop offset="0" stop-color="#D3E0E8"/>
       <stop offset="1" stop-color="#D3E0E8"/>
     </radialGradient>
     <clipPath id="clip0_0_58">

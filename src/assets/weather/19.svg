@@ -7,7 +7,7 @@
       <stop offset="1" stop-color="#5ECFFF"/>
     </radialGradient>
     <linearGradient id="paint1_linear_0_182" x1="27.7152" y1="6.23612" x2="32.02" y2="40.485" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>

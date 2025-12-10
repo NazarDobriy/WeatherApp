@@ -53,7 +53,7 @@
       <stop offset="0.7986" stop-color="#FFBF29"/>
     </linearGradient>
     <linearGradient id="paint10_linear_0_32" x1="34.5044" y1="30.9352" x2="38.02" y2="58.9051" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#EEFAFE"/>
+      <stop offset="0" stop-color="#EEFAFE"/>
       <stop offset="1" stop-color="#BACFDB"/>
     </linearGradient>
   </defs>
