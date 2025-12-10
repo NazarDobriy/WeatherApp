@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import {NgOptimizedImage} from "@angular/common";
 
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { CardComponent } from '@shared/components/card/card.component';
@@ -8,7 +9,7 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 @Component({
   selector: 'app-favorite-cart',
   templateUrl: './favorite-cart.component.html',
-  imports: [CardComponent, TemperatureConverterPipe],
+  imports: [CardComponent, TemperatureConverterPipe, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteCartComponent extends TemperatureUnit {
