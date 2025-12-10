@@ -103,7 +103,7 @@ export class LocationSearchComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (location: ILocation) => {
-        this.searchControl?.setValue(location.LocalizedName, { emitEvent: false });
+        this.searchControl?.setValue(location.LocalizedName);
       },
     });
   }
