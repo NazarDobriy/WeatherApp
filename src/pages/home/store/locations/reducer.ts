@@ -5,25 +5,26 @@ import { ILocationsState, locationsInitialState } from './state';
 
 export const locationsReducer = createReducer(
   locationsInitialState,
-  on(LocationsActions.getLocations, (state: ILocationsState) => {
+  on(LocationsActions.getLocations, (state: ILocationsState, { query }) => {
     return {
       ...state,
-      isLoading: true
+      isLoading: true,
+      lastSearchedQuery: query,
     };
   }),
-  on(LocationsActions.getLocationsSuccess, (state: ILocationsState, action) => {
-    return {
-      ...state,
-      isLoading: false,
-      locations: action.locations
-    };
-  }),
-  on(LocationsActions.getLocationsFailure, (state: ILocationsState, action) => {
+  on(LocationsActions.getLocationsSuccess, (state: ILocationsState, { locations }) => {
     return {
       ...state,
       isLoading: false,
-      error: action.error
+      locations,
     };
   }),
-  on(LocationsActions.clearLocations, () => locationsInitialState)
+  on(LocationsActions.getLocationsFailure, (state: ILocationsState, { error }) => {
+    return {
+      ...state,
+      isLoading: false,
+      error,
+    };
+  }),
+  on(LocationsActions.clearLocations, () => locationsInitialState),
 );

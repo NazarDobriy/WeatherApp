@@ -3,17 +3,24 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { ILocationsState } from "./state";
 import { ILocation } from '@core/types/location.interface';
 
-const selectFeature = createFeatureSelector<ILocationsState>('locations');
+const selectLocationsFeature = createFeatureSelector<ILocationsState>('locations');
 
 export const selectLocations = createSelector(
-  selectFeature,
+  selectLocationsFeature,
   ({ locations }: ILocationsState): ILocation[] => locations,
 );
+
 export const selectIsLoadingLocations = createSelector(
-  selectFeature,
-  ({ isLoading }: ILocationsState): boolean => isLoading
+  selectLocationsFeature,
+  ({ isLoading }: ILocationsState): boolean => isLoading,
 );
+
 export const selectFailureLocations = createSelector(
-  selectFeature,
-  ({ error }: ILocationsState): string | null => error
+  selectLocationsFeature,
+  ({ error }: ILocationsState): string | null => error,
+);
+
+export const selectLastSearchedQueryLocations = createSelector(
+  selectLocationsFeature,
+  state => state.lastSearchedQuery,
 );

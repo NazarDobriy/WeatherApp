@@ -10,6 +10,7 @@ export class LocationsStoreService {
   readonly locations$ = this.store.select(LocationsSelectors.selectLocations);
   readonly locationsFailure$ = this.store.select(LocationsSelectors.selectFailureLocations);
   readonly isLoadingLocations$ = this.store.select(LocationsSelectors.selectIsLoadingLocations);
+  readonly lastSearchedQueryLocations$ = this.store.select(LocationsSelectors.selectLastSearchedQueryLocations);
 
   constructor(private store: Store<ILocationsState>) {}
 
