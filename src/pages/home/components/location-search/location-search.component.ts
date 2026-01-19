@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,22 +32,42 @@ import {
     MatInputModule,
     MatButtonModule,
   ],
-  providers: [LocationSearchFormService],
+  providers: [
+    LocationSearchFormService,
+    {
+      provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,
+      useValue: { overlayPanelClass: 'location-autocomplete' },
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationSearchComponent implements OnInit {
   readonly locations$ = this.locationsStore.locations$;
   readonly isLoading$ = this.locationsStore.isLoadingLocations$;
+  readonly lastSearchedQuery$ = this.locationsStore.lastSearchedQueryLocations$;
   readonly matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
       return control?.invalid && (control?.dirty || control?.touched);
     }
   };
-  private readonly searchControl = this.locationSearchFormService.searchControl;
-  readonly searchInput = toSignal(this.searchControl.valueChanges, { initialValue: this.searchControl.value });
-  readonly requiredError = computed<boolean>(() => this.searchControl.hasError('required'));
-  readonly patternError  = computed<boolean>(() => this.searchControl.hasError('pattern'));
-  private selectedOption: string | null = null;
+  readonly searchControl = this.locationSearchFormService.searchControl;
+  readonly searchInput = toSignal<string>(
+    this.searchControl.valueChanges.pipe(
+      startWith(this.searchControl.value),
+    ),
+  );
+  readonly requiredError = toSignal<boolean>(
+    this.searchControl.statusChanges.pipe(
+      startWith(this.searchControl.status),
+      map(() => this.searchControl.hasError('required'))
+    )
+  );
+  readonly patternError = toSignal<boolean>(
+    this.searchControl.statusChanges.pipe(
+      startWith(this.searchControl.status),
+      map(() => this.searchControl.hasError('pattern'))
+    )
+  );
 
   constructor(
     public locationSearchFormService: LocationSearchFormService,
@@ -62,12 +82,9 @@ export class LocationSearchComponent implements OnInit {
   }
 
   clearSearchInput(): void {
+    this.searchControl?.markAsTouched();
     this.searchControl?.setValue('');
     this.locationsStore.dispatchClearLocations();
-  }
-
-  onOptionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedOption = event.option.value;
   }
 
   onSelectionChange(location: ILocation): void {
@@ -75,26 +92,20 @@ export class LocationSearchComponent implements OnInit {
   }
 
   private handleInputChanges(): void {
-    this.searchControl?.valueChanges.pipe(
+    this.searchControl.valueChanges.pipe(
       debounceTime(700),
+      filter((text: string): text is string => true),
       distinctUntilChanged(),
       takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
-      next: (text: string) => {
-        if (!text) {
-          this.locationsStore.dispatchClearLocations();
-          return;
-        }
+    ).subscribe((text: string) => {
+      if (!text) {
+        this.locationsStore.dispatchClearLocations();
+        return;
+      }
 
-        if (this.searchControl.valid) {
-          const current = text.toLowerCase();
-          const selected = this.selectedOption?.toLowerCase();
-
-          if (!selected || selected !== current) {
-            this.locationsStore.dispatchLocations(text);
-          }
-        }
-      },
+      if (this.searchControl.valid) {
+        this.locationsStore.dispatchLocations(text);
+      }
     });
   }
 

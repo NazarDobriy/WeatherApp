@@ -19,6 +19,7 @@
           matSuffix
           mat-icon-button
           aria-label="Clear"
+          type="button"
           (click)="clearSearchInput()"
         >
           <mat-icon>close</mat-icon>
@@ -33,30 +34,38 @@
         <mat-error>Please enter only English characters.</mat-error>
       }
 
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="onOptionSelected($event)"
-      >
-        @if (isLoading$ | async) {
-          <mat-option disabled>
-            <div class="flex justify-center items-center w-full h-full">
-              <mat-spinner diameter="32"></mat-spinner>
-            </div>
-          </mat-option>
-        } @else {
-          @for (location of locations$ | async; track location.Key) {
-            <mat-option
-              [id]="location.Key"
-              [value]="location.LocalizedName"
-              (click)="onSelectionChange(location)"
-            >
-              <section class="flex justify-between gap-3">
-                <div>{{ location.LocalizedName }}</div>
-                <div>
-                  ({{ location.Country?.LocalizedName }}, {{ location.AdministrativeArea?.LocalizedName }})
-                </div>
-              </section>
+      <mat-autocomplete #auto="matAutocomplete">
+        @if(searchControl.valid) {
+          @if (isLoading$ | async) {
+            <mat-option disabled>
+              <div class="absolute inset-0 flex justify-center items-center">
+                <mat-spinner diameter="32"></mat-spinner>
+              </div>
             </mat-option>
+          } @else {
+            @for (location of locations$ | async; track location.Key) {
+              <mat-option
+                [id]="location.Key"
+                [value]="location.LocalizedName"
+                (click)="onSelectionChange(location)"
+              >
+                <section class="flex justify-between gap-2">
+                  <div>{{ location.LocalizedName }}</div>
+                  <div>
+                    ({{ location.Country?.LocalizedName }}, {{ location.AdministrativeArea?.LocalizedName }})
+                  </div>
+                </section>
+              </mat-option>
+            } @empty {
+              @if (!(isLoading$ | async) && (lastSearchedQuery$ | async)) {
+                <mat-option disabled>
+                  <div class="absolute inset-0 flex justify-center items-center italic">
+                    No results for
+                    <span class="font-medium">&nbsp;{{ lastSearchedQuery$ | async }}</span>
+                  </div>
+                </mat-option>
+              }
+            }
           }
         }
       </mat-autocomplete>
