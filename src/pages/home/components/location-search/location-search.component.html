@@ -10,7 +10,7 @@
         matInput
         formControlName="searchInput"
         type="text"
-        [matAutocomplete]="auto"
+        [matAutocomplete]="autoCmp.autocomplete"
         [errorStateMatcher]="matcher"
       />
 
@@ -19,6 +19,7 @@
           matSuffix
           mat-icon-button
           aria-label="Clear"
+          type="button"
           (click)="clearSearchInput()"
         >
           <mat-icon>close</mat-icon>
@@ -33,33 +34,7 @@
         <mat-error>Please enter only English characters.</mat-error>
       }
 
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="onOptionSelected($event)"
-      >
-        @if (isLoading$ | async) {
-          <mat-option disabled>
-            <div class="flex justify-center items-center w-full h-full">
-              <mat-spinner diameter="32"></mat-spinner>
-            </div>
-          </mat-option>
-        } @else {
-          @for (location of locations$ | async; track location.Key) {
-            <mat-option
-              [id]="location.Key"
-              [value]="location.LocalizedName"
-              (click)="onSelectionChange(location)"
-            >
-              <section class="flex justify-between gap-3">
-                <div>{{ location.LocalizedName }}</div>
-                <div>
-                  ({{ location.Country?.LocalizedName }}, {{ location.AdministrativeArea?.LocalizedName }})
-                </div>
-              </section>
-            </mat-option>
-          }
-        }
-      </mat-autocomplete>
+      <app-location-search-dropdown #autoCmp></app-location-search-dropdown>
     </mat-form-field>
   </form>
 }
