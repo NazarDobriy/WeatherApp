@@ -4,12 +4,10 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatAutocompleteModule, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS } from '@angular/material/autocomplete';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AsyncPipe } from '@angular/common';
 
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -17,20 +15,22 @@ import { ILocation } from '@core/types/location.interface';
 import {
   LocationSearchFormService,
 } from '@pages/home/components/location-search/providers/location-search-form.service';
+import {
+  LocationSearchDropdownComponent,
+} from "@pages/home/components/location-search/components/location-search-dropdown/location-search-dropdown.component";
 
 @Component({
   selector: 'app-location-search',
   templateUrl: './location-search.component.html',
   imports: [
-    AsyncPipe,
     FormsModule,
     MatIconModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatProgressSpinnerModule,
     MatInputModule,
     MatButtonModule,
+    LocationSearchDropdownComponent,
+    MatAutocompleteTrigger,
   ],
   providers: [
     LocationSearchFormService,
@@ -42,15 +42,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationSearchComponent implements OnInit {
-  readonly locations$ = this.locationsStore.locations$;
-  readonly isLoading$ = this.locationsStore.isLoadingLocations$;
-  readonly lastSearchedQuery$ = this.locationsStore.lastSearchedQueryLocations$;
   readonly matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
       return control?.invalid && (control?.dirty || control?.touched);
     }
   };
-  readonly searchControl = this.locationSearchFormService.searchControl;
+  private readonly searchControl = this.locationSearchFormService.searchControl;
   readonly searchInput = toSignal<string>(
     this.searchControl.valueChanges.pipe(
       startWith(this.searchControl.value),
@@ -85,10 +82,6 @@ export class LocationSearchComponent implements OnInit {
     this.searchControl?.markAsTouched();
     this.searchControl?.setValue('');
     this.locationsStore.dispatchClearLocations();
-  }
-
-  onSelectionChange(location: ILocation): void {
-    this.locationStore.dispatchLocationChange(location);
   }
 
   private handleInputChanges(): void {
