@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {AsyncPipe, NgOptimizedImage} from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';

@@ -3,16 +3,16 @@ import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { ILocationState } from "./state";
 import { ILocation } from '@core/types/location.interface';
 
-const selectFeature = createFeatureSelector<ILocationState>('location');
+const selectLocationFeature = createFeatureSelector<ILocationState>('location');
 
 export const selectLocation = createSelector(
-  selectFeature,
+  selectLocationFeature,
   ({ location }: ILocationState): ILocation | null => location,
 );
 export const selectIsLoadingLocation = createSelector(
-  selectFeature,
+  selectLocationFeature,
   ({ isLoading }: ILocationState): boolean => isLoading
 );
 export const selectFailureLocation = createSelector(
-  selectFeature, ({ error }: ILocationState): string | null => error
+  selectLocationFeature, ({ error }: ILocationState): string | null => error
 );
