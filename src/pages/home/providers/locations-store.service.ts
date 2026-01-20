@@ -9,7 +9,7 @@ import { ILocationsState } from '@pages/home/store/locations/state';
 export class LocationsStoreService {
   readonly locations$ = this.store.select(LocationsSelectors.selectLocations);
   readonly locationsFailure$ = this.store.select(LocationsSelectors.selectFailureLocations);
-  readonly isLoadingLocations$ = this.store.select(LocationsSelectors.selectIsLoadingLocations);
+  readonly dropdown$ = this.store.select(LocationsSelectors.selectDropdownLocations);
   readonly lastSearchedQueryLocations$ = this.store.select(LocationsSelectors.selectLastSearchedQueryLocations);
 
   constructor(private store: Store<ILocationsState>) {}

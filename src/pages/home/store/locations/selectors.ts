@@ -22,5 +22,16 @@ export const selectFailureLocations = createSelector(
 
 export const selectLastSearchedQueryLocations = createSelector(
   selectLocationsFeature,
-  state => state.lastSearchedQuery,
+  ({ lastSearchedQuery }: ILocationsState): string | null => lastSearchedQuery,
+);
+
+export const selectDropdownLocations = createSelector(
+  selectLocations,
+  selectIsLoadingLocations,
+  selectLastSearchedQueryLocations,
+  (locations: ILocation[], isLoading: boolean, lastSearchedQuery: string | null): Omit<ILocationsState, 'error'> => ({
+    locations,
+    isLoading,
+    lastSearchedQuery,
+  })
 );
