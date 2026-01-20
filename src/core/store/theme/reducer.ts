@@ -2,7 +2,6 @@ import { createReducer, on } from '@ngrx/store';
 
 import * as ThemeActions from './actions';
 import { IThemeState, themeInitialState } from './state';
-import { setDailyRepresentation } from './actions';
 
 export const themeReducer = createReducer(
   themeInitialState,
@@ -24,22 +23,13 @@ export const themeReducer = createReducer(
       isChartRepresentation: !state.isChartRepresentation
     };
   }),
-  on(ThemeActions.setThemeMode, (state: IThemeState, action) => {
-    return {
-      ...state,
-      isDarkMode: action.isDarkMode,
-    };
+  on(ThemeActions.setThemeMode, (state: IThemeState, { isDarkMode }) => {
+    return { ...state, isDarkMode };
   }),
-  on(ThemeActions.setTemperature, (state: IThemeState, action) => {
-    return {
-      ...state,
-      isCelsius: action.isCelsius,
-    };
+  on(ThemeActions.setTemperature, (state: IThemeState, { isCelsius }) => {
+    return { ...state, isCelsius };
   }),
-  on(ThemeActions.setDailyRepresentation, (state: IThemeState, action) => {
-    return {
-      ...state,
-      isChartRepresentation: action.isChartRepresentation,
-    };
+  on(ThemeActions.setDailyRepresentation, (state: IThemeState, { isChartRepresentation }) => {
+    return { ...state, isChartRepresentation };
   }),
 );

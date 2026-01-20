@@ -11,24 +11,21 @@ export const locationReducer = createReducer(
       isLoading: true
     };
   }),
-  on(LocationActions.getLocationSuccess, (state: ILocationState, action) => {
+  on(LocationActions.getLocationSuccess, (state: ILocationState, { location }) => {
     return {
       ...state,
       isLoading: false,
-      location: action.location
+      location
     };
   }),
-  on(LocationActions.getLocationFailure, (state: ILocationState, action) => {
+  on(LocationActions.getLocationFailure, (state: ILocationState, { error }) => {
     return {
       ...state,
       isLoading: false,
-      error: action.error
+      error,
     };
   }),
-  on(LocationActions.changeLocation, (state: ILocationState, action) => {
-    return {
-      ...state,
-      location: action.location
-    }
+  on(LocationActions.changeLocation, (state: ILocationState, { location }) => {
+    return { ...state, location };
   })
 );

@@ -2,19 +2,19 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IThemeState } from './state';
 
-const selectFeature = createFeatureSelector<IThemeState>('theme');
+const selectThemeFeature = createFeatureSelector<IThemeState>('theme');
 
 export const selectMode = createSelector(
-  selectFeature,
+  selectThemeFeature,
   ({ isDarkMode }: IThemeState): boolean => isDarkMode,
 );
 
 export const selectTemperature = createSelector(
-  selectFeature,
+  selectThemeFeature,
   ({ isCelsius }: IThemeState): boolean => isCelsius,
 );
 
 export const selectDailyRepresentation = createSelector(
-  selectFeature,
+  selectThemeFeature,
   ({ isChartRepresentation }: IThemeState): boolean => isChartRepresentation,
 );

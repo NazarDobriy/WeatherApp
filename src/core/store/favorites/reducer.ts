@@ -6,42 +6,36 @@ import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
-  on(FavoritesActions.addShortFavorite, (state: IFavoritesState, action) => {
+  on(FavoritesActions.addShortFavorite, (state: IFavoritesState, { shortFavorite }) => {
     return {
       ...state,
-      shortFavorites: [...state.shortFavorites, action.shortFavorite],
+      shortFavorites: [...state.shortFavorites, shortFavorite],
     };
   }),
-  on(FavoritesActions.removeShortFavorite, (state: IFavoritesState, action) => {
+  on(FavoritesActions.removeShortFavorite, (state: IFavoritesState, { id }) => {
     return {
       ...state,
-      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== action.id)
+      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id)
     };
   }),
-  on(FavoritesActions.setShortFavorites, (state: IFavoritesState, action) => {
-    return {
-      ...state,
-      shortFavorites: action.shortFavorites,
-    };
+  on(FavoritesActions.setShortFavorites, (state: IFavoritesState, { shortFavorites }) => {
+    return { ...state, shortFavorites };
   }),
   on(FavoritesActions.getDetailedFavorites, (state: IFavoritesState) => {
-    return {
-      ...state,
-      isLoading: true,
-    };
+    return { ...state, isLoading: true };
   }),
-  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, action) => {
+  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, { detailedFavorites }) => {
     return {
       ...state,
       isLoading: false,
-      detailedFavorites: action.detailedFavorites,
+      detailedFavorites,
     };
   }),
-  on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, action) => {
+  on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, { error }) => {
     return {
       ...state,
       isLoading: false,
-      error: action.error,
+      error,
     };
   }),
 );

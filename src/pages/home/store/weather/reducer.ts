@@ -14,24 +14,24 @@ export const weatherReducer = createReducer(
       }
     };
   }),
-  on(WeatherActions.getWeatherSuccess, (state: IWeatherState, action) => {
+  on(WeatherActions.getWeatherSuccess, (state: IWeatherState, { weather }) => {
     return {
       ...state,
       weather: {
         ...state.weather,
         isLoading: false,
-        data: action.weather
+        data: weather,
       }
     };
   }),
-  on(WeatherActions.getWeatherFailure, (state: IWeatherState, action) => {
+  on(WeatherActions.getWeatherFailure, (state: IWeatherState, { error }) => {
     return {
       ...state,
       weather: {
         ...state.weather,
         isLoading: false,
-        error: action.error
-      }
+        error,
+      },
     };
   }),
   on(WeatherActions.getForecasts, (state: IWeatherState) => {
@@ -39,27 +39,27 @@ export const weatherReducer = createReducer(
       ...state,
       forecasts: {
         ...state.forecasts,
-        isLoading: true
-      }
+        isLoading: true,
+      },
     };
   }),
-  on(WeatherActions.getForecastsSuccess, (state: IWeatherState, action) => {
+  on(WeatherActions.getForecastsSuccess, (state: IWeatherState, { forecasts }) => {
     return {
       ...state,
       forecasts: {
         ...state.forecasts,
         isLoading: false,
-        data: action.forecasts
+        data: forecasts
       }
     };
   }),
-  on(WeatherActions.getForecastsFailure, (state: IWeatherState, action) => {
+  on(WeatherActions.getForecastsFailure, (state: IWeatherState, { error }) => {
     return {
       ...state,
       forecasts: {
         ...state.forecasts,
         isLoading: false,
-        error: action.error
+        error,
       }
     };
   })
