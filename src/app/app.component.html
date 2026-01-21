@@ -1,4 +1,4 @@
-<div class="transition-colors">
+<main class="transition-colors min-h-full flex flex-col" [class.bg-black-30]="isDarkMode$ | async">
   <app-header></app-header>
   <router-outlet></router-outlet>
-</div>
+</main>
