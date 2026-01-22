@@ -1,4 +1,4 @@
-<header class="border-b-2 border-gray-300">
+<header class="border-b-2 border-neutral">
   <nav class="flex flex-col sm:flex-row justify-between items-center mx-0 sm:mx-12 py-4 gap-y-3">
     <div>My Weather</div>
     <section class="flex items-center gap-6">
@@ -9,14 +9,19 @@
         <div>
           <a
             routerLink="/home"
-            routerLinkActive="text-blue-500"
+            routerLinkActive="text-primary"
             [routerLinkActiveOptions]="{ exact: true }"
+            class="hover:text-primary"
           >
             Home
           </a>
         </div>
         <div>
-          <a routerLink="/favorites" routerLinkActive="text-blue-500">
+          <a
+            routerLink="/favorites"
+            routerLinkActive="text-primary"
+            class="hover:text-primary"
+          >
             Favorites
           </a>
         </div>
