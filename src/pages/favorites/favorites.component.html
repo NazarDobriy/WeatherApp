@@ -1,7 +1,9 @@
-<section class="flex flex-wrap justify-center gap-14 px-32 lg:px-44 py-24">
-  @if (isLoadingDetailedFavorites$ | async) {
+@if (isLoadingDetailedFavorites$ | async) {
+  <section class="flex flex-1 justify-center items-center">
     <mat-spinner></mat-spinner>
-  } @else {
+  </section>
+} @else {
+  <section class="flex flex-1 flex-wrap justify-center gap-14 px-32 lg:px-44 py-24 h-full">
     @for (detailedFavorite of detailedFavorites$ | async; track detailedFavorite.id) {
       <app-favorite-cart
         [favorite]="detailedFavorite"
@@ -9,8 +11,8 @@
       ></app-favorite-cart>
     } @empty {
       <div class="text-center">
-        No favourite weather items. Go to <a routerLink="/home" class="text-blue-500">Home page</a> to add weather.
+        No favourite weather items. Go to <a routerLink="/home" class="text-primary">Home page</a> to add weather.
       </div>
     }
-  }
-</section>
+  </section>
+}

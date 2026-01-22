@@ -1,12 +1,13 @@
-<app-card class="cursor-pointer text-center">
+<app-card class="cursor-pointer text-center hover:opacity-85">
   <div class="line-clamp-1">{{ favorite().name }}</div>
 
   {{ temperature() | temperatureConverter : isCelsius() }}
 
   <img
-    ngSrc="assets/weather/{{ favorite()?.WeatherIcon }}.svg"
+    ngSrc="assets/weather/{{ favorite().WeatherIcon }}.svg"
     height="48"
     width="48"
-    alt="{{ favorite()?.WeatherText ?? 'Weather icon' }}"
+    priority
+    alt="{{ favorite().WeatherText }}"
   />
 </app-card>

@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppComponent } from '@app/app.component';
 import { appRoutes } from '@app/app.routes';
 import { reducers } from '@app/store/reducer';
+import { ThemeService } from "@core/providers/theme.service";
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.service';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
@@ -39,6 +40,7 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
+    ThemeService,
     ThemeStoreService,
     NgRxLocalStorageService,
     FavoritesStoreService,

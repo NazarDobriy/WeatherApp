@@ -1,9 +1,14 @@
 module.exports = {
+  darkMode: 'class',
   content: ["./src/**/*.{html,js,ts}"],
   theme: {
     extend: {
       colors: {
-        'black-30': 'rgba(0, 0, 0, 0.3)',
+        main: 'var(--main-color)',
+        primary: 'var(--primary-color)',
+        ground: 'var(--ground-color)',
+        neutral: 'var(--neutral-color)',
+        'custom-white': 'var(--white-color)',
       }
     },
   },

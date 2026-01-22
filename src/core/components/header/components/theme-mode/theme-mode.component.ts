@@ -10,7 +10,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeModeComponent {
-  isDarkMode$ = this.themeStore.isDarkMode$;
+  readonly isDarkMode$ = this.themeStore.isDarkMode$;
 
   constructor(private themeStore: ThemeStoreService) {}
 

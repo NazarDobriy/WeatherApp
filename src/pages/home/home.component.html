@@ -6,14 +6,13 @@
       <mat-spinner></mat-spinner>
     </section>
   } @else if (location() && weather()) {
-    <section
-      class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12"
-    >
+    <section class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12">
       <section class="flex items-center">
         <img
           ngSrc="assets/weather/{{ weather()?.WeatherIcon }}.svg"
           height="64"
           width="64"
+          priority
           alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
         />
 
@@ -44,10 +43,11 @@
 
     <section class="flex justify-center md:justify-start mt-12">
       <mat-slide-toggle
+        color="primary"
         [checked]="isLineChart()"
         (toggleChange)="toggleLineChart()"
       >
-        <span class="md:block hidden">
+        <span class="md:block hidden text-neutral">
           Click to change daily forecast representation!
         </span>
       </mat-slide-toggle>
