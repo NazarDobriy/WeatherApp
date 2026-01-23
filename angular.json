@@ -104,7 +104,9 @@
   },
   "schematics": {
     "@schematics/angular:component": {
-      "type": "component"
+      "type": "component",
+      "displayBlock": true,
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "type": "directive"
