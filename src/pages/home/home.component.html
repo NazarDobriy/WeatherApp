@@ -30,14 +30,14 @@
         >
           {{ isFavorite() ? 'favorite' : 'favorite_border' }}
         </mat-icon>
-        <button
-          class="w-52"
-          mat-flat-button
-          color="{{ isFavorite() ? 'warn' : 'primary' }}"
+
+        <app-button
+          [width]="buttonWidth.MEDIUM"
+          [type]="isFavorite() ? buttonType.WARNING : buttonType.PRIMARY"
           (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
         >
           {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}
-        </button>
+        </app-button>
       </section>
     </section>
 

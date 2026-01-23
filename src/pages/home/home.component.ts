@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, OnInit, signa
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { switchMap } from 'rxjs';
@@ -23,6 +22,8 @@ import { LineChartComponent } from '@shared/components/line-chart/line-chart.com
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
+import { ButtonComponent } from "@shared/components/button/button.component";
+import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/button.enum";
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,6 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
   imports: [
     AsyncPipe,
     MatIconModule,
-    MatButtonModule,
     ForecastsComponent,
     LineChartComponent,
     MatSlideToggleModule,
@@ -39,10 +39,13 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
     MatProgressSpinnerModule,
     TemperatureConverterPipe,
     NgOptimizedImage,
+    ButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
+  readonly buttonType = ButtonEnum;
+  readonly buttonWidth = ButtonWidthEnum;
   readonly location = signal<ILocation | null>(null);
   readonly forecasts = signal<IForecast[]>([]);
   readonly weather = signal<IWeather | null>(null);
