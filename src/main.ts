@@ -1,5 +1,4 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { importProvidersFrom, isDevMode, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
@@ -37,7 +36,6 @@ bootstrapApplication(AppComponent, {
       autoPause: true,
       connectInZone: true,
     }),
-    provideAnimations(),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
     ThemeService,
