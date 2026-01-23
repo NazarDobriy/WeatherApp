@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+
+  .button-primary {
+    @include mat.button-overrides((
+      filled-container-color: var(--primary-color),
+      filled-label-text-color: var(--white-color),
+    ));
+  }
+
+  .button-warning {
+    @include mat.button-overrides((
+      filled-container-color: var(--error-color),
+      filled-label-text-color: var(--white-color),
+    ));
+  }
+}

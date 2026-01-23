@@ -1,6 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { importProvidersFrom, isDevMode, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { importProvidersFrom, isDevMode, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
@@ -27,7 +26,7 @@ import { WeatherService } from '@core/providers/weather.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideStore(reducers),
     provideEffects(LocationEffects, FavoritesEffects),
@@ -37,7 +36,6 @@ bootstrapApplication(AppComponent, {
       autoPause: true,
       connectInZone: true,
     }),
-    provideAnimations(),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
     ThemeService,
