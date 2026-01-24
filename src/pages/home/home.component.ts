@@ -23,7 +23,7 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 import { ButtonComponent } from "@shared/components/button/button.component";
-import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/button.enum";
+import { ButtonEnum } from "@shared/components/button/types/button.enum";
 
 @Component({
   selector: 'app-home',
@@ -45,7 +45,6 @@ import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/but
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly buttonType = ButtonEnum;
-  readonly buttonWidth = ButtonWidthEnum;
   readonly location = signal<ILocation | null>(null);
   readonly forecasts = signal<IForecast[]>([]);
   readonly weather = signal<IWeather | null>(null);
@@ -91,6 +90,8 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
       this.favoritesStore.dispatchAddShortFavorite({
         id: location.Key,
         name: location.LocalizedName,
+        isLoading: false,
+        error: null,
       });
     }
   }
