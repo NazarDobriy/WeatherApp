@@ -12,15 +12,17 @@ import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/but
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  readonly type = input.required<ButtonEnum>();
-  readonly width = input.required<ButtonWidthEnum>()
+  readonly type = input<ButtonEnum>(ButtonEnum.PRIMARY);
+  readonly width = input<ButtonWidthEnum>(ButtonWidthEnum.MEDIUM);
 
   readonly typeClass = computed<string>(() => {
     switch (this.type()) {
       case ButtonEnum.PRIMARY:
-        return 'button-primary';
-      case ButtonEnum.WARNING:
-        return 'button-warning';
+        return `button-${ButtonEnum.PRIMARY}`;
+      case ButtonEnum.UPDATING:
+        return `button-${ButtonEnum.UPDATING}`;
+      case ButtonEnum.ERROR:
+        return `button-${ButtonEnum.ERROR}`;
     }
   });
   readonly widthClass = computed<string>(() => {

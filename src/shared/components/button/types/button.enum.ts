@@ -1,6 +1,7 @@
 export enum ButtonEnum {
   PRIMARY = 'primary',
-  WARNING = 'warning',
+  UPDATING = 'updating',
+  ERROR = 'error',
 }
 
 export enum ButtonWidthEnum {
