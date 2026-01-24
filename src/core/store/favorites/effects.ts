@@ -7,19 +7,37 @@ import { FavoritesService } from '@core/providers/favorites.service';
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { NOTIFICATION } from '@core/constants/notification.constants';
+import { WeatherService } from "@core/providers/weather.service";
+import { IWeather } from "@core/types/weather.interface";
 
 @Injectable()
 export class FavoritesEffects {
   getDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavorites),
-      switchMap((action) => {
-        return this.favoritesService.getDetailedFavorites(action.shortFavorites).pipe(
+      switchMap(({ shortFavorites }) => {
+        return this.favoritesService.getDetailedFavorites(shortFavorites).pipe(
           map((detailedFavorites: IFavoriteDetailedInfo[]) =>
             FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites }),
           ),
           catchError((error: Error) =>
             of(FavoritesActions.getDetailedFavoritesFailure({ error: error.message })),
+          )
+        );
+      })
+    );
+  });
+
+  updateDetailedFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesActions.updateDetailedFavorite),
+      switchMap(({ id }) => {
+        return this.weatherService.getWeather(id).pipe(
+          map((weather: IWeather) =>
+            FavoritesActions.updateDetailedFavoriteSuccess({ id, weather }),
+          ),
+          catchError((error: Error) =>
+            of(FavoritesActions.updateDetailedFavoriteFailure({ id, error: error.message })),
           )
         );
       })
@@ -49,6 +67,7 @@ export class FavoritesEffects {
 
   constructor(
     private actions$: Actions,
+    private weatherService: WeatherService,
     private snackBarService: SnackBarService,
     private favoritesService: FavoritesService,
   ) {}

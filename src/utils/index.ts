@@ -8,7 +8,15 @@ export function temperatureConverter(temperature: number, isCelsius: boolean): n
 }
 
 export function filterDefined<T>(
-  source$: Observable<T | null>
+  source$: Observable<T | null | undefined>
 ): Observable<T> {
-  return source$.pipe(filter((item: T | null): item is T => !!item));
+  return source$.pipe(filter((item: T | null | undefined): item is T => !!item));
+}
+
+export function filterLoadingDefined<T>(
+  source$: Observable<T | null | undefined>
+): Observable<T> {
+  return source$.pipe(
+    filter((item: T | null | undefined): item is T => item !== null && item !== undefined)
+  );
 }

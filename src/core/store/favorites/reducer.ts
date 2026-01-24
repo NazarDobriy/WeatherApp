@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import * as FavoritesActions from './actions';
 import { favoritesInitialState, IFavoritesState } from './state';
-import { IFavoriteShortInfo } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
@@ -36,6 +36,38 @@ export const favoritesReducer = createReducer(
       ...state,
       isLoading: false,
       error,
+    };
+  }),
+  on(FavoritesActions.updateDetailedFavorite, (state: IFavoritesState, { id }) => {
+    return {
+      ...state,
+      detailedFavorites: state.detailedFavorites.map((item: IFavoriteDetailedInfo) => {
+        return item.id === id ? { ...item, isLoading: true } : item;
+      }),
+    };
+  }),
+  on(FavoritesActions.updateDetailedFavoriteSuccess, (state: IFavoritesState, { id, weather }) => {
+    return {
+      ...state,
+      detailedFavorites: state.detailedFavorites.map((item: IFavoriteDetailedInfo) => {
+        return item.id === id ? {
+          ...item,
+          isLoading: false,
+          ...weather,
+        } : item;
+      }),
+    };
+  }),
+  on(FavoritesActions.updateDetailedFavoriteFailure, (state: IFavoritesState, { id, error }) => {
+    return {
+      ...state,
+      detailedFavorites: state.detailedFavorites.map((item: IFavoriteDetailedInfo) => {
+        return item.id === id ? {
+          ...item,
+          isLoading: false,
+          error,
+        } : item;
+      }),
     };
   }),
 );

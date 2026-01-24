@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
+import { IWeather } from "@core/types/weather.interface";
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 export const addShortFavorite = createAction(
@@ -30,4 +31,19 @@ export const getDetailedFavoritesSuccess = createAction(
 export const getDetailedFavoritesFailure = createAction(
   '[Favorites] Get Detailed Favorites failure',
   props<{ error: string; }>()
+);
+
+export const updateDetailedFavorite = createAction(
+  '[Favorites] Update Detailed Favorite',
+  props<{ id: string; }>()
+);
+
+export const updateDetailedFavoriteSuccess = createAction(
+  '[Favorites] Update Detailed Favorite success',
+  props<{ id: string; weather: IWeather; }>()
+);
+
+export const updateDetailedFavoriteFailure = createAction(
+  '[Favorites] Update Detailed Favorite failure',
+  props<{ id: string; error: string; }>()
 );
