@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .theme-dark {
   --main-color: #0d0e0f;
   --primary-color: #3059ae;
@@ -5,4 +7,9 @@
   --white-color: #d6d4d8;
   --ground-color: #b3b3b3;
   --neutral-color: #555555;
+
+  @include mat.snack-bar-overrides((
+    supporting-text-color: var(--white-color),
+    button-color: var(--primary-color),
+  ));
 }
