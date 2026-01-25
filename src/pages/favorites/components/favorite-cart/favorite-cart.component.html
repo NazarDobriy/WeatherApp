@@ -10,4 +10,16 @@
     priority
     alt="{{ favorite().WeatherText }}"
   />
+
+  <app-button
+    [width]="buttonWidth.SMALL"
+    [type]="buttonType.UPDATING"
+    (click)="$event.stopPropagation(); refreshWeather()"
+  >
+    <section class="flex items-center gap-1">
+      <mat-icon [class.animate-spin-fast]="isLoading$ | async">
+        refresh
+      </mat-icon> Refresh
+    </section>
+  </app-button>
 </app-card>

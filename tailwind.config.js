@@ -9,7 +9,10 @@ module.exports = {
         ground: 'var(--ground-color)',
         neutral: 'var(--neutral-color)',
         'custom-white': 'var(--white-color)',
-      }
+      },
+      animation: {
+        'spin-fast': 'spin 0.4s linear infinite',
+      },
     },
   },
   plugins: [],

@@ -10,9 +10,16 @@
     ));
   }
 
-  .button-warning {
+  .button-error {
     @include mat.button-overrides((
       filled-container-color: var(--error-color),
+      filled-label-text-color: var(--white-color),
+    ));
+  }
+
+  .button-updating {
+    @include mat.button-overrides((
+      filled-container-color: var(--main-color),
       filled-label-text-color: var(--white-color),
     ));
   }

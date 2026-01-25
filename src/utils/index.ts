@@ -1,4 +1,4 @@
-import { Observable, filter } from 'rxjs';
+import { Observable, filter, delayWhen, timer, of } from 'rxjs';
 
 export function temperatureConverter(temperature: number, isCelsius: boolean): number {
   if (isCelsius) {
@@ -8,7 +8,20 @@ export function temperatureConverter(temperature: number, isCelsius: boolean): n
 }
 
 export function filterDefined<T>(
-  source$: Observable<T | null>
+  source$: Observable<T | null | undefined>
 ): Observable<T> {
-  return source$.pipe(filter((item: T | null): item is T => !!item));
+  return source$.pipe(filter((item: T | null | undefined): item is T => !!item));
+}
+
+export function minLoadingTime<T>(minMs = 300): (source$: Observable<T>) => Observable<T> {
+  return (source$: Observable<T>): Observable<T> => {
+    const start = Date.now();
+
+    return source$.pipe(
+      delayWhen(() => {
+        const elapsed = Date.now() - start;
+        return elapsed < minMs ? timer(minMs - elapsed) : of(null);
+      }),
+    );
+  };
 }

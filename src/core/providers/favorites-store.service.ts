@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { map, Observable } from "rxjs";
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
-import { IFavoriteShortInfo } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { IFavoritesState } from '@core/store/favorites/state';
 
 @Injectable()
@@ -29,5 +30,17 @@ export class FavoritesStoreService {
 
   dispatchDetailedFavorites(shortFavorites: IFavoriteShortInfo[]): void {
     this.store.dispatch(FavoritesActions.getDetailedFavorites({ shortFavorites }));
+  }
+
+  dispatchUpdateDetailedFavorite(id: string, name: string): void {
+    this.store.dispatch(FavoritesActions.updateDetailedFavorite({ id, name }));
+  }
+
+  getDetailedFavoriteIsLoading(id: string): Observable<boolean> {
+    return this.detailedFavorites$.pipe(
+      map((detailedFavorites: IFavoriteDetailedInfo[]) => {
+        return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id)?.isLoading ?? false;
+      }),
+    );
   }
 }
