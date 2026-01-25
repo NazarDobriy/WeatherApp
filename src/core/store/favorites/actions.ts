@@ -35,15 +35,15 @@ export const getDetailedFavoritesFailure = createAction(
 
 export const updateDetailedFavorite = createAction(
   '[Favorites] Update Detailed Favorite',
-  props<{ id: string; }>()
+  props<{ id: string; name: string; }>()
 );
 
 export const updateDetailedFavoriteSuccess = createAction(
   '[Favorites] Update Detailed Favorite success',
-  props<{ id: string; weather: IWeather; }>()
+  props<{ id: string; name: string; weather: IWeather; }>()
 );
 
 export const updateDetailedFavoriteFailure = createAction(
   '[Favorites] Update Detailed Favorite failure',
-  props<{ id: string; error: string; }>()
+  props<{ id: string; name: string; error: string; }>()
 );

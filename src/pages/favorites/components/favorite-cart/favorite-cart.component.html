@@ -17,7 +17,7 @@
     (click)="$event.stopPropagation(); refreshWeather()"
   >
     <section class="flex items-center gap-1">
-      <mat-icon [class.animate-spin-fast]="isLoading$() | async">
+      <mat-icon [class.animate-spin-fast]="isLoading$ | async">
         refresh
       </mat-icon> Refresh
     </section>

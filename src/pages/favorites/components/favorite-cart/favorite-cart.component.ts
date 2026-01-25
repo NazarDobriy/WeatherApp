@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, OnInit } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from "@angular/common";
 import { MatIcon } from "@angular/material/icon";
-import { Observable } from "rxjs";
+import { of } from "rxjs";
 
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { CardComponent } from '@shared/components/card/card.component';
@@ -25,22 +25,24 @@ import { FavoritesStoreService } from "@core/providers/favorites-store.service";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoriteCartComponent extends TemperatureUnit {
+export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly favorite = input.required<IFavoriteDetailedInfo>();
 
+  isLoading$ = of(false);
   readonly buttonType = ButtonEnum;
   readonly buttonWidth = ButtonWidthEnum;
   readonly temperature = computed<number>(() => parseFloat(this.favorite().Temperature.Metric.Value));
-  readonly isLoading$ = computed<Observable<boolean>>(() => {
-    return this.favoritesStore.getDetailedFavoriteIsLoading(this.favorite().id);
-  });
 
   constructor(private favoritesStore: FavoritesStoreService) {
     super();
   }
 
+  ngOnInit(): void {
+    this.isLoading$ = this.favoritesStore.getDetailedFavoriteIsLoading(this.favorite().id);
+  }
+
   refreshWeather(): void {
-    this.favoritesStore.dispatchUpdateDetailedFavoriteById(this.favorite().id);
+    this.favoritesStore.dispatchUpdateDetailedFavorite(this.favorite().id, this.favorite().name);
   }
 
 }

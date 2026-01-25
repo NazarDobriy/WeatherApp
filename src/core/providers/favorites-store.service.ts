@@ -6,7 +6,6 @@ import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { IFavoritesState } from '@core/store/favorites/state';
-import { filterLoadingDefined } from "@utils/index";
 
 @Injectable()
 export class FavoritesStoreService {
@@ -33,16 +32,15 @@ export class FavoritesStoreService {
     this.store.dispatch(FavoritesActions.getDetailedFavorites({ shortFavorites }));
   }
 
-  dispatchUpdateDetailedFavoriteById(id: string): void {
-    this.store.dispatch(FavoritesActions.updateDetailedFavorite({ id }));
+  dispatchUpdateDetailedFavorite(id: string, name: string): void {
+    this.store.dispatch(FavoritesActions.updateDetailedFavorite({ id, name }));
   }
 
   getDetailedFavoriteIsLoading(id: string): Observable<boolean> {
     return this.detailedFavorites$.pipe(
       map((detailedFavorites: IFavoriteDetailedInfo[]) => {
-        return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id)?.isLoading;
+        return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id)?.isLoading ?? false;
       }),
-      filterLoadingDefined,
     );
   }
 }
