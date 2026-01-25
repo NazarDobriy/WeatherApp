@@ -28,7 +28,7 @@ import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly favorite = input.required<IFavoriteDetailedInfo>();
 
-  isLoading$ = of(false);
+  isLoading$ = of<boolean>(false);
   readonly buttonType = ButtonEnum;
   readonly buttonWidth = ButtonWidthEnum;
   readonly temperature = computed<number>(() => parseFloat(this.favorite().Temperature.Metric.Value));
