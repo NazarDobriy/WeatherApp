@@ -41,11 +41,7 @@
     </section>
 
     <section class="flex justify-center md:justify-start mt-12">
-      <mat-slide-toggle
-        color="primary"
-        [checked]="isLineChart()"
-        (toggleChange)="toggleLineChart()"
-      >
+      <mat-slide-toggle [checked]="isLineChart()" (change)="toggleLineChart()">
         <span class="md:block hidden text-neutral">
           Click to change daily forecast representation!
         </span>
