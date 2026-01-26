@@ -12,4 +12,8 @@
     supporting-text-color: var(--white-color),
     button-color: var(--primary-color),
   ));
+
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: var(--primary-color),
+  ));
 }
