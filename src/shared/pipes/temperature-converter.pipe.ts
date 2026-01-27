@@ -7,7 +7,7 @@ import { temperatureConverter } from '@utils/index';
 })
 export class TemperatureConverterPipe implements PipeTransform {
   transform(value: number | null, isCelsius: boolean): string {
-    if (!value) {
+    if (value === null) {
       return '';
     }
 

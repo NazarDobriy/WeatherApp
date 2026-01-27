@@ -1,18 +1,30 @@
 @if (isLoadingDetailedFavorites$ | async) {
-  <section class="flex flex-1 justify-center items-center">
+  <section class="flex-center flex-1">
     <mat-spinner></mat-spinner>
   </section>
 } @else {
-  <section class="flex flex-1 flex-wrap justify-center gap-14 px-32 lg:px-44 py-24 h-full">
+  <section class="flex-center-x-wrap flex-1 gap-14 px-32 lg:px-44 py-24 h-full">
     @for (detailedFavorite of detailedFavorites$ | async; track detailedFavorite.id) {
       <app-favorite-cart
         [favorite]="detailedFavorite"
         (click)="selectFavorite(detailedFavorite)"
       ></app-favorite-cart>
     } @empty {
-      <div class="text-center">
-        No favourite weather items. Go to <a routerLink="/home" class="text-primary">Home page</a> to add weather.
-      </div>
+      <section class="flex-center-y-col px-16 sm:px-32 lg:px-44 relative">
+        <svg class="sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[490px] lg:w-[490px] h-64 w-64 text-primary">
+          <use href="assets/states/empty.svg#empty-state"></use>
+        </svg>
+
+        <div class="flex-center-y-col md:gap-2 gap-1 absolute sm:top-[240px] md:top-[310px] lg:top-[415px] top-[210px]">
+          <div class="text-center sm:text-xl md:text-2xl 2xl:text-3xl text-lg font-medium">
+            No favourite weather items
+          </div>
+
+          <div class="text-center sm:text-base md:text-lg 2xl:text-xl text-sm">
+            Go to <a routerLink="/home" class="text-error font-medium">Home page</a> to add weather
+          </div>
+        </div>
+      </section>
     }
   </section>
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
 
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';

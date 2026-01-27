@@ -5,8 +5,9 @@ module.exports = {
     extend: {
       colors: {
         main: 'var(--main-color)',
-        primary: 'var(--primary-color)',
+        error: 'var(--error-color)',
         ground: 'var(--ground-color)',
+        primary: 'var(--primary-color)',
         neutral: 'var(--neutral-color)',
         'custom-white': 'var(--white-color)',
       },

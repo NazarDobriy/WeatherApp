@@ -1,13 +1,13 @@
-<section class="px-32 lg:px-44 py-9">
-  <app-location-search class="flex justify-center items-center"></app-location-search>
+<section class="px-32 lg:px-44 py-9 relative">
+  <app-location-search class="flex-center"></app-location-search>
 
   @if (homeFacadeService.isLoading$ | async) {
-    <section class="flex justify-center items-center mt-24">
+    <section class="flex-center mt-24">
       <mat-spinner></mat-spinner>
     </section>
   } @else if (location() && weather()) {
-    <section class="flex flex-col md:flex-row gap-10 md:gap-0 justify-between items-center mt-12">
-      <section class="flex items-center">
+    <section class="flex-center-y-col md:flex-row gap-10 md:gap-0 justify-between mt-12">
+      <section class="flex-center-y">
         <img
           ngSrc="assets/weather/{{ weather()?.WeatherIcon }}.svg"
           height="64"
@@ -16,14 +16,14 @@
           alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
         />
 
-        <div class="flex flex-col items-center gap-4 ml-8">
+        <div class="flex-center-y-col gap-4 ml-8">
           <div>{{ location()?.LocalizedName }}</div>
 
           {{ temperature() | temperatureConverter : isCelsius() }}
         </div>
       </section>
 
-      <section class="flex items-center gap-3">
+      <section class="flex-center-y gap-3">
         <mat-icon
           class="cursor-pointer"
           (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
@@ -40,19 +40,15 @@
       </section>
     </section>
 
-    <section class="flex justify-center md:justify-start mt-12">
-      <mat-slide-toggle
-        color="primary"
-        [checked]="isLineChart()"
-        (toggleChange)="toggleLineChart()"
-      >
+    <section class="flex-center-x md:justify-start mt-12">
+      <mat-slide-toggle [checked]="isLineChart()" (change)="toggleLineChart()">
         <span class="md:block hidden text-neutral">
           Click to change daily forecast representation!
         </span>
       </mat-slide-toggle>
     </section>
 
-    <section class="flex justify-center mt-32">
+    <section class="flex-center-x md:mt-32 mt-20">
       @if (isLineChart()) {
         <app-line-chart
           labelX="Day"
@@ -65,8 +61,24 @@
       }
     </section>
   } @else {
-    <section class="flex justify-center">
-      No available weather.
+    <section
+      class="flex-center-y-col absolute left-1/2 sm:top-[236px] md:top-[284px] lg:top-[336px] top-[220px] translate-center"
+    >
+      <svg class="sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[490px] lg:w-[490px] h-64 w-64 text-primary">
+        <use href="assets/states/wrong.svg#wrong-state"></use>
+      </svg>
+
+      <div
+        class="flex-center-y-col md:gap-2 gap-1 absolute text-center sm:top-[230px] md:top-[300px] lg:top-[405px] top-[200px]"
+      >
+        <div class="text-center sm:text-xl md:text-2xl 2xl:text-3xl text-lg font-medium">
+          No available weather
+        </div>
+
+        <div class="sm:text-base md:text-lg 2xl:text-xl text-sm">
+          Something went wrong, please try again or reload page
+        </div>
+      </div>
     </section>
   }
 </section>

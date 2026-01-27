@@ -1,6 +1,5 @@
 import { Inject, Injectable, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
 
-
 @Injectable()
 export class ThemeService {
   private renderer: Renderer2 | null = null;
@@ -11,6 +10,10 @@ export class ThemeService {
     @Inject(DOCUMENT) private document: Document,
   ) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
+  }
+
+  getCssVar(name: string): string {
+    return getComputedStyle(this.document.body).getPropertyValue(name).trim();
   }
 
   setDark(isDark: boolean): void  {
