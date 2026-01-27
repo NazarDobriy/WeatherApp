@@ -1,4 +1,4 @@
-<section class="px-32 lg:px-44 py-9">
+<section class="px-32 lg:px-44 py-9 relative">
   <app-location-search class="flex justify-center items-center"></app-location-search>
 
   @if (homeFacadeService.isLoading$ | async) {
@@ -61,8 +61,48 @@
       }
     </section>
   } @else {
-    <section class="flex justify-center">
-      No available weather.
+    <section
+      class="
+        flex
+        items-center
+        flex-col
+        absolute
+        left-1/2
+        sm:top-[236px]
+        md:top-[284px]
+        lg:top-[336px]
+        top-[220px]
+        -translate-x-1/2
+        -translate-y-1/2
+      "
+    >
+      <svg class="sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[490px] lg:w-[490px] h-64 w-64 text-primary">
+        <use href="assets/states/wrong.svg#wrong-state"></use>
+      </svg>
+
+      <div
+        class="
+          flex
+          items-center
+          flex-col
+          md:gap-2
+          gap-1
+          absolute
+          text-center
+          sm:top-[230px]
+          md:top-[300px]
+          lg:top-[405px]
+          top-[200px]
+        "
+      >
+        <div class="text-center sm:text-xl md:text-2xl 2xl:text-3xl text-lg font-medium">
+          No available weather
+        </div>
+
+        <div class="sm:text-base md:text-lg 2xl:text-xl text-sm">
+          Something went wrong, please try again or reload page
+        </div>
+      </div>
     </section>
   }
 </section>
