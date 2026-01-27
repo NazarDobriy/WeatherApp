@@ -2,7 +2,7 @@
   @switch (dropdownState$ | async) {
     @case ('loading') {
       <mat-option disabled>
-        <div class="absolute inset-0 flex justify-center items-center">
+        <div class="absolute inset-0 flex-center">
           <mat-spinner diameter="32"></mat-spinner>
         </div>
       </mat-option>
@@ -27,7 +27,7 @@
 
     @case ('empty') {
       <mat-option disabled>
-        <div class="absolute inset-0 flex justify-center items-center italic">
+        <div class="absolute inset-0 flex-center italic">
           No results for
           <span class="font-medium">&nbsp;{{ lastSearchedQuery$ | async }}</span>
         </div>

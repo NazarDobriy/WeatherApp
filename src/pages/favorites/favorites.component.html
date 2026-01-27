@@ -1,9 +1,9 @@
 @if (isLoadingDetailedFavorites$ | async) {
-  <section class="flex flex-1 justify-center items-center">
+  <section class="flex-center flex-1">
     <mat-spinner></mat-spinner>
   </section>
 } @else {
-  <section class="flex flex-1 flex-wrap justify-center gap-14 px-32 lg:px-44 py-24 h-full">
+  <section class="flex-center-x-wrap flex-1 gap-14 px-32 lg:px-44 py-24 h-full">
     @for (detailedFavorite of detailedFavorites$ | async; track detailedFavorite.id) {
       <app-favorite-cart
         [favorite]="detailedFavorite"
