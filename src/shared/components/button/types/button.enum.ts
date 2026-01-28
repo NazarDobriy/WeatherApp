@@ -5,6 +5,7 @@ export enum ButtonEnum {
 }
 
 export enum ButtonWidthEnum {
+  EXTRA_SMALL = 'extra-small',
   SMALL = 'small',
   MEDIUM = 'medium',
 }

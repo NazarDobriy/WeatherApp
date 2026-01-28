@@ -6,13 +6,13 @@ import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { IFavoritesState } from '@core/store/favorites/state';
+import { FavoritesLoadingType } from "@core/types/favorites-loading.type";
 
 @Injectable()
 export class FavoritesStoreService {
   readonly shortFavorites$ = this.store.select(FavoritesSelectors.selectShortFavorites);
   readonly detailedFavorites$ = this.store.select(FavoritesSelectors.selectDetailedFavorites);
   readonly detailedFavoritesFailure$ = this.store.select(FavoritesSelectors.selectFailureDetailedFavorites);
-  readonly isLoadingDetailedFavorites$ = this.store.select(FavoritesSelectors.selectIsLoadingDetailedFavorites);
 
   constructor(private store: Store<IFavoritesState>) {}
 
@@ -28,8 +28,8 @@ export class FavoritesStoreService {
     this.store.dispatch(FavoritesActions.setShortFavorites({ shortFavorites }));
   }
 
-  dispatchDetailedFavorites(shortFavorites: IFavoriteShortInfo[]): void {
-    this.store.dispatch(FavoritesActions.getDetailedFavorites({ shortFavorites }));
+  dispatchDetailedFavorites(loadingKey: string): void {
+    this.store.dispatch(FavoritesActions.getDetailedFavorites({ loadingKey }));
   }
 
   dispatchUpdateDetailedFavorite(id: string, name: string): void {
@@ -42,5 +42,9 @@ export class FavoritesStoreService {
         return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id)?.isLoading ?? false;
       }),
     );
+  }
+
+  getLoadingSelectByKey(key: FavoritesLoadingType): Observable<boolean> {
+    return this.store.select(FavoritesSelectors.selectLoadingDetailedFavorites(key));
   }
 }

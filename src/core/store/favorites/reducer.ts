@@ -21,21 +21,33 @@ export const favoritesReducer = createReducer(
   on(FavoritesActions.setShortFavorites, (state: IFavoritesState, { shortFavorites }) => {
     return { ...state, shortFavorites };
   }),
-  on(FavoritesActions.getDetailedFavorites, (state: IFavoritesState) => {
-    return { ...state, isLoading: true };
-  }),
-  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, { detailedFavorites }) => {
+  on(FavoritesActions.getDetailedFavorites, (state: IFavoritesState, { loadingKey }) => {
     return {
       ...state,
-      isLoading: false,
-      detailedFavorites,
+      loading: {
+        ...state.loading,
+        [loadingKey]: true,
+      },
     };
   }),
-  on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, { error }) => {
+  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, { detailedFavorites, loadingKey }) => {
     return {
       ...state,
-      isLoading: false,
+      detailedFavorites,
+      loading: {
+        ...state.loading,
+        [loadingKey]: false,
+      },
+    };
+  }),
+  on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, { error, loadingKey }) => {
+    return {
+      ...state,
       error,
+      loading: {
+        ...state.loading,
+        [loadingKey]: false,
+      },
     };
   }),
   on(FavoritesActions.updateDetailedFavorite, (state: IFavoritesState, { id }) => {
