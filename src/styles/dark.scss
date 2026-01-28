@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+@use './material-overrides' as material;
 
 .theme-dark {
   --main-color: #0d0e0f;
@@ -8,12 +8,5 @@
   --ground-color: #b3b3b3;
   --neutral-color: #555555;
 
-  @include mat.snack-bar-overrides((
-    supporting-text-color: var(--white-color),
-    button-color: var(--primary-color),
-  ));
-
-  @include mat.progress-spinner-overrides((
-    active-indicator-color: var(--primary-color),
-  ));
+  @include material.material-overrides;
 }
