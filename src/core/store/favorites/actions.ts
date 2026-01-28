@@ -20,17 +20,17 @@ export const setShortFavorites = createAction(
 
 export const getDetailedFavorites = createAction(
   '[Favorites] Get Detailed Favorites',
-  props<{ shortFavorites: IFavoriteShortInfo[]; }>()
+  props<{ loadingKey: string }>(),
 );
 
 export const getDetailedFavoritesSuccess = createAction(
   '[Favorites] Get Detailed Favorites success',
-  props<{ detailedFavorites: IFavoriteDetailedInfo[]; }>()
+  props<{ detailedFavorites: IFavoriteDetailedInfo[]; loadingKey: string }>()
 );
 
 export const getDetailedFavoritesFailure = createAction(
   '[Favorites] Get Detailed Favorites failure',
-  props<{ error: string; }>()
+  props<{ error: string; loadingKey: string }>()
 );
 
 export const updateDetailedFavorite = createAction(

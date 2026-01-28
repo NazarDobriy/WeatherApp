@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, tap, withLatestFrom } from 'rxjs';
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import { FavoritesService } from '@core/providers/favorites.service';
@@ -10,20 +10,24 @@ import { NOTIFICATION } from '@core/constants/notification.constants';
 import { WeatherService } from "@core/providers/weather.service";
 import { IWeather } from "@core/types/weather.interface";
 import { minLoadingTime } from "@utils/index";
+import { FavoritesStoreService } from "@core/providers/favorites-store.service";
+import { PAGE_KEY, REFRESH_KEY } from "@core/constants/loading.constants";
 
 @Injectable()
 export class FavoritesEffects {
   getDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavorites),
-      switchMap(({ shortFavorites }) => {
+      withLatestFrom(this.favoritesStore.shortFavorites$),
+      exhaustMap(([{ loadingKey }, shortFavorites]) => {
         return this.favoritesService.getDetailedFavorites(shortFavorites).pipe(
           map((detailedFavorites: IFavoriteDetailedInfo[]) =>
-            FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites }),
+            FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites, loadingKey }),
           ),
           catchError((error: Error) =>
-            of(FavoritesActions.getDetailedFavoritesFailure({ error: error.message })),
-          )
+            of(FavoritesActions.getDetailedFavoritesFailure({ error: error.message, loadingKey })),
+          ),
+          minLoadingTime(300),
         );
       })
     );
@@ -32,7 +36,28 @@ export class FavoritesEffects {
   failureDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavoritesFailure),
+      filter(({ loadingKey }) => loadingKey === PAGE_KEY),
       tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_FAVOURITES, 'X')),
+    );
+  }, { dispatch: false });
+
+  successUpdateDetailedFavorites$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesActions.getDetailedFavoritesSuccess),
+      filter(({ loadingKey }) => loadingKey === REFRESH_KEY),
+      tap(() => {
+        return this.snackBarService.open(NOTIFICATION.SUCCESS_UPDATING_FAVOURITES,'X');
+      }),
+    );
+  }, { dispatch: false });
+
+  failureUpdateDetailedFavorites$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesActions.getDetailedFavoritesFailure),
+      filter(({ loadingKey }) => loadingKey === REFRESH_KEY),
+      tap(() => {
+        return this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_FAVOURITES,'X');
+      }),
     );
   }, { dispatch: false });
 
@@ -90,5 +115,6 @@ export class FavoritesEffects {
     private weatherService: WeatherService,
     private snackBarService: SnackBarService,
     private favoritesService: FavoritesService,
+    private favoritesStore: FavoritesStoreService,
   ) {}
 }
