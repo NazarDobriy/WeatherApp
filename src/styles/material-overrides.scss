@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+@mixin material-overrides {
+  @include mat.form-field-overrides((
+    error-text-color: var(--error-color),
+    filled-error-active-indicator-color: var(--error-color),
+    filled-error-focus-active-indicator-color: var(--error-color),
+    filled-error-focus-label-text-color: var(--error-color),
+    filled-error-hover-active-indicator-color: var(--error-color),
+    filled-error-hover-label-text-color: var(--error-color),
+    filled-error-label-text-color: var(--error-color),
+    filled-container-color: var(--white-color),
+    filled-input-text-color: var(--main-color),
+    filled-label-text-color: var(--neutral-color),
+    filled-focus-label-text-color: var(--primary-color),
+    filled-hover-label-text-color: var(--primary-color),
+    hover-state-layer-opacity: 0,
+    focus-state-layer-opacity: 0,
+  ));
+
+  @include mat.snack-bar-overrides((
+    supporting-text-color: var(--white-color),
+    button-color: var(--primary-color),
+    container-color: var(--main-color),
+  ));
+
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: var(--primary-color),
+  ));
+}
