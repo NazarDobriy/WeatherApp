@@ -15,6 +15,7 @@ import { REFRESH_KEY } from "@core/constants/loading.constants";
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
   imports: [
     RouterModule,
     ThemeModeComponent,
