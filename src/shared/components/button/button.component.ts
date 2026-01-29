@@ -28,7 +28,7 @@ export class ButtonComponent {
   readonly widthClass = computed<string>(() => {
     switch (this.width()) {
       case ButtonWidthEnum.EXTRA_SMALL:
-        return 'w-28';
+        return 'w-32';
       case ButtonWidthEnum.SMALL:
         return 'w-36';
       case ButtonWidthEnum.MEDIUM:

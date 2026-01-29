@@ -64,14 +64,18 @@ export class FavoritesEffects {
   successAddShortFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.addShortFavorite),
-      tap(() => this.snackBarService.open(NOTIFICATION.SUCCESS_ADDING_FAVOURITE,'X')),
+      tap(({ shortFavorite }) => {
+        return this.snackBarService.open(NOTIFICATION.SUCCESS_ADDING_FAVOURITE(shortFavorite.name),'X');
+      }),
     );
   }, { dispatch: false });
 
   successRemoveShortFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.removeShortFavorite),
-      tap(() => this.snackBarService.open(NOTIFICATION.SUCCESS_REMOVING_FAVOURITE,'X')),
+      tap(({ name }) => {
+        return this.snackBarService.open(NOTIFICATION.SUCCESS_REMOVING_FAVOURITE(name),'X');
+      }),
     );
   }, { dispatch: false });
 

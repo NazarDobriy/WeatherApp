@@ -1,4 +1,4 @@
-<app-card class="cursor-pointer text-center">
+<app-card class="cursor-pointer text-center" [type]="CARD.FAVORITE">
   <div class="line-clamp-1">{{ favorite().name }}</div>
 
   {{ temperature() | temperatureConverter : isCelsius() }}
@@ -20,6 +20,16 @@
       <mat-icon [class.animate-spin-fast]="isLoading$ | async">
         refresh
       </mat-icon> Refresh
+    </section>
+  </app-button>
+
+  <app-button
+    [width]="buttonWidth.EXTRA_SMALL"
+    [type]="buttonType.ERROR"
+    (click)="$event.stopPropagation(); removeFromFavorites()"
+  >
+    <section class="flex-center-y gap-1">
+      <mat-icon>delete_forever</mat-icon> Remove
     </section>
   </app-button>
 </app-card>

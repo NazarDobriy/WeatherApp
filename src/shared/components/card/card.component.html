@@ -1,3 +1,6 @@
-<section class="flex-center-y-col gap-5 py-9 w-40 bg-primary text-custom-white rounded">
+<section
+  class="flex-center-y-col bg-primary text-custom-white rounded"
+  [ngClass]="typeClass()"
+>
   <ng-content></ng-content>
 </section>

@@ -10,6 +10,7 @@ import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 import { ButtonComponent } from "@shared/components/button/button.component";
 import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/button.enum";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
+import { CARD } from "@shared/components/card/types/card.enum";
 
 @Component({
   selector: 'app-favorite-cart',
@@ -29,6 +30,7 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly favorite = input.required<IFavoriteDetailedInfo>();
 
   isLoading$ = of<boolean>(false);
+  readonly CARD = CARD;
   readonly buttonType = ButtonEnum;
   readonly buttonWidth = ButtonWidthEnum;
   readonly temperature = computed<number>(() => parseFloat(this.favorite().Temperature.Metric.Value));
@@ -43,6 +45,10 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
 
   refreshWeather(): void {
     this.favoritesStore.dispatchUpdateDetailedFavorite(this.favorite().id, this.favorite().name);
+  }
+
+  removeFromFavorites(): void {
+    this.favoritesStore.dispatchRemoveShortFavorite(this.favorite().id, this.favorite().name);
   }
 
 }

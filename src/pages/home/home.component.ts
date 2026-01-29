@@ -100,7 +100,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const location = this.location();
 
     if (location) {
-      this.favoritesStore.dispatchRemoveShortFavorite(location.Key);
+      this.favoritesStore.dispatchRemoveShortFavorite(location.Key, location.LocalizedName);
     }
   }
 
