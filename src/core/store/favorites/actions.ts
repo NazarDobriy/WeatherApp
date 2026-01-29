@@ -10,7 +10,7 @@ export const addShortFavorite = createAction(
 
 export const removeShortFavorite = createAction(
   '[Favorites] Remove Short Favorite',
-  props<{ id: string; }>()
+  props<{ id: string; name: string; }>()
 );
 
 export const setShortFavorites = createAction(

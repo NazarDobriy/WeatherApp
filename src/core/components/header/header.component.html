@@ -7,8 +7,8 @@
 
       @if (favRla.isActive && (detailedFavorites$ | async)?.length) {
         <app-button
-          [type]="buttonType.UPDATING"
-          [width]="buttonWidth.SMALL"
+          [type]="BUTTON.UPDATING"
+          [width]="BUTTON_WIDTH.SMALL"
           (click)="refreshAll()"
         >
           <section class="flex-center-y gap-1">

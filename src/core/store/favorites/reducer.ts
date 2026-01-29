@@ -15,7 +15,8 @@ export const favoritesReducer = createReducer(
   on(FavoritesActions.removeShortFavorite, (state: IFavoritesState, { id }) => {
     return {
       ...state,
-      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id)
+      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id),
+      detailedFavorites: state.detailedFavorites.filter((detailedFavorite: IFavoriteDetailedInfo) => detailedFavorite.id !== id),
     };
   }),
   on(FavoritesActions.setShortFavorites, (state: IFavoritesState, { shortFavorites }) => {

@@ -6,8 +6,8 @@ export const NOTIFICATION = {
   ERROR_GETTING_LOCATION: 'Http failure response for getting location',
   ERROR_UPDATING_WEATHER: (name: string): string => `Http failure response for updating weather in ${name}`,
   ERROR_UPDATING_FAVOURITES: 'Http failure response for updating favorites weather',
-  SUCCESS_UPDATING_FAVOURITES: 'Success updating favorites weather',
-  SUCCESS_ADDING_FAVOURITE: 'Success adding location to favorite list',
-  SUCCESS_REMOVING_FAVOURITE: 'Success removing location from favorite list',
+  SUCCESS_UPDATING_FAVOURITES: 'Success updating all favorites weather',
+  SUCCESS_ADDING_FAVOURITE: (name: string) => `Success adding ${name} location to favorite list`,
+  SUCCESS_REMOVING_FAVOURITE: (name: string) => `Success removing ${name} location from favorite list`,
   SUCCESS_UPDATING_WEATHER: (name: string): string => `The weather in ${name} has been successfully updated`,
 };
