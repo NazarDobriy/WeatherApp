@@ -8,7 +8,7 @@ import { CardComponent } from '@shared/components/card/card.component';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 import { ButtonComponent } from "@shared/components/button/button.component";
-import { ButtonEnum, ButtonWidthEnum } from "@shared/components/button/types/button.enum";
+import { BUTTON, BUTTON_WIDTH } from "@shared/components/button/types/button.enum";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { CARD } from "@shared/components/card/types/card.enum";
 
@@ -31,8 +31,8 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
 
   isLoading$ = of<boolean>(false);
   readonly CARD = CARD;
-  readonly buttonType = ButtonEnum;
-  readonly buttonWidth = ButtonWidthEnum;
+  readonly BUTTON = BUTTON;
+  readonly BUTTON_WIDTH = BUTTON_WIDTH;
   readonly temperature = computed<number>(() => parseFloat(this.favorite().Temperature.Metric.Value));
 
   constructor(private favoritesStore: FavoritesStoreService) {
