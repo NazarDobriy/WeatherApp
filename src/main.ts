@@ -34,7 +34,7 @@ bootstrapApplication(AppComponent, {
       maxAge: 25,
       logOnly: !isDevMode(),
       autoPause: true,
-      connectInZone: true,
+      connectInZone: false,
     }),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
