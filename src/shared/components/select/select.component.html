@@ -1,0 +1,64 @@
+<section
+  class="flex flex-col items-center gap-2 relative text-base group"
+  (mouseenter)="isOpen.set(true)"
+  (mouseleave)="isOpen.set(false)"
+>
+  <div
+    class="
+      flex-center
+      h-9 gap-2
+      bg-primary
+      border w-24
+      border-main
+      rounded
+      cursor-pointer
+      group-hover:rounded-b-none
+    "
+  >
+    @if (selectedItem().iconPath) {
+      <svg class="h-5 w-5 text-custom-white">
+        <use [attr.href]="selectedItem().iconPath"></use>
+      </svg>
+    }
+    @if (selectedItem().text) {
+      <div class="text-custom-white">{{ selectedItem().text }}</div>
+    }
+  </div>
+
+  <section
+    class="absolute top-9 w-full z-30 bg-custom-white transition-all duration-150 ease-out origin-top"
+    [ngClass]="isOpen() ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
+  >
+    @for (item of items(); track item.key) {
+      <div
+        class="
+          flex-center
+          h-9 w-full gap-2
+          cursor-pointer
+          border border-main
+          last:rounded-b
+          border-t-0
+          group/option
+          transition-colors
+          duration-150
+          ease-in-out
+        "
+        [ngClass]="{
+          'bg-primary text-custom-white': item.key === selectedItem().key,
+          'hover:bg-primary-secondary hover:text-custom-white': item.key !== selectedItem().key
+        }"
+        (click)="onSelect.emit(item.key); isOpen.set(false)"
+      >
+        @if (item.iconPath) {
+          <svg
+            class="h-5 w-5 group-hover/option:text-custom-white"
+            [ngClass]="item.key === selectedItem().key ? 'text-custom-white' : 'text-main'"
+          >
+            <use [attr.href]="item.iconPath"></use>
+          </svg>
+        }
+        <div>{{ item.text }}</div>
+      </div>
+    }
+  </section>
+</section>
