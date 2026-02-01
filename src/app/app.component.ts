@@ -6,6 +6,7 @@ import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.ser
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { ThemeService } from "@core/providers/theme.service";
+import { ThemeType } from "@core/types/theme.type";
 
 @Component({
   selector: 'app-root',
@@ -29,11 +30,11 @@ export class AppComponent implements OnInit {
   }
 
   private handleBodyBackground(): void {
-    this.themeStore.isDarkMode$.pipe(
+    this.themeStore.theme$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (isDarkMode: boolean) => {
-        this.themeService.setDark(isDarkMode);
+      next: (theme: ThemeType) => {
+        this.themeService.setTheme(theme);
       },
     });
   }

@@ -1,10 +1,5 @@
-<section
-  class="flex-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
-  (click)="changeThemeMode()"
->
-  @if (isDarkMode$ | async) {
-    <img ngSrc="assets/theme/sun.svg" alt="Sun" height="20" width="20" priority />
-  } @else {
-    <img ngSrc="assets/theme/moon.svg" alt="Moon" height="20" width="20" priority />
-  }
-</section>
+<app-select
+  [items]="THEME_GROUPS"
+  [selectedKey]="theme$ | async"
+  (onSelect)="changeThemeMode($event)"
+></app-select>

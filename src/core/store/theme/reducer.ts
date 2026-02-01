@@ -5,12 +5,6 @@ import { IThemeState, themeInitialState } from './state';
 
 export const themeReducer = createReducer(
   themeInitialState,
-  on(ThemeActions.toggleThemeMode, (state: IThemeState) => {
-    return {
-      ...state,
-      isDarkMode: !state.isDarkMode
-    };
-  }),
   on(ThemeActions.toggleTemperature, (state: IThemeState) => {
     return {
       ...state,
@@ -23,8 +17,8 @@ export const themeReducer = createReducer(
       isChartRepresentation: !state.isChartRepresentation
     };
   }),
-  on(ThemeActions.setThemeMode, (state: IThemeState, { isDarkMode }) => {
-    return { ...state, isDarkMode };
+  on(ThemeActions.setThemeMode, (state: IThemeState, { theme }) => {
+    return { ...state, theme };
   }),
   on(ThemeActions.setTemperature, (state: IThemeState, { isCelsius }) => {
     return { ...state, isCelsius };

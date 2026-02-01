@@ -93,7 +93,7 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateChartColors(): void {
-    this.themeStore.isDarkMode$.pipe(
+    this.themeStore.theme$.pipe(
       skip(1),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({

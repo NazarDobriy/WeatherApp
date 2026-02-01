@@ -1,11 +1,13 @@
+import { ThemeType } from "@core/types/theme.type";
+
 export interface IThemeState {
-  isDarkMode: boolean;
+  theme: ThemeType;
   isCelsius: boolean;
   isChartRepresentation: boolean;
 }
 
 export const themeInitialState: IThemeState = {
-  isDarkMode: false,
+  theme: 'auto',
   isCelsius: true,
   isChartRepresentation: false,
 };
