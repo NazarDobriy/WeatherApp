@@ -9,6 +9,7 @@ module.exports = {
         ground: 'var(--ground-color)',
         primary: 'var(--primary-color)',
         neutral: 'var(--neutral-color)',
+        'primary-secondary': 'var(--primary-secondary-color)',
         'custom-white': 'var(--white-color)',
       },
       animation: {
