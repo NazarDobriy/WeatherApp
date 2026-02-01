@@ -23,6 +23,7 @@ import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { FavoritesService } from '@core/providers/favorites.service';
 import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WeatherService } from '@core/providers/weather.service';
+import { WINDOW_PROVIDER } from "@core/di/window.provider";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -57,5 +58,6 @@ bootstrapApplication(AppComponent, {
       useClass: ErrorInterceptor,
       multi: true
     },
+    WINDOW_PROVIDER,
   ],
 }).catch((err) => console.error('Bootstrap failed:', err));
