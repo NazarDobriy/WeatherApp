@@ -10,7 +10,7 @@ import { ThemeStoreService } from '@core/providers/theme-store.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeTemperatureComponent {
-  isCelsius$ = this.themeStore.isCelsius$;
+  readonly isCelsius$ = this.themeStore.isCelsius$;
 
   constructor(private themeStore: ThemeStoreService) {}
 

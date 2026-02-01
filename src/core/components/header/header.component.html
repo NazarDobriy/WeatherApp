@@ -2,8 +2,9 @@
   <nav class="flex-center-y-col sm:flex-row justify-between mx-0 sm:mx-12 py-4 gap-y-3">
     <div>My Weather</div>
     <section class="flex-center-y gap-6">
-      <app-theme-mode></app-theme-mode>
       <app-theme-temperature></app-theme-temperature>
+
+      <app-theme-mode></app-theme-mode>
 
       @if (favRla.isActive && (detailedFavorites$ | async)?.length) {
         <app-button

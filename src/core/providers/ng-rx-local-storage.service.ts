@@ -1,10 +1,17 @@
-import { DestroyRef, Injectable } from '@angular/core';
+import {DestroyRef, Inject, Injectable} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FavoritesStoreService } from './favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
-import { DAILY_REPRESENTATION_KEY, FAVORITES_KEY, TEMPERATURE_KEY, THEME_KEY } from '@core/constants/storage.constants';
+import {
+  DAILY_REPRESENTATION_KEY,
+  FAVORITES_KEY,
+  TEMPERATURE_KEY,
+  THEME_KEY,
+} from '@core/constants/storage.constants';
+import { ThemeType } from "@core/types/theme.type";
+import { WINDOW } from "@core/di/window.token";
 
 @Injectable()
 export class NgRxLocalStorageService {
@@ -14,6 +21,7 @@ export class NgRxLocalStorageService {
     private destroyRef: DestroyRef,
     private themeStore: ThemeStoreService,
     private favoritesStore: FavoritesStoreService,
+    @Inject(WINDOW) private window: Window,
   ) {}
 
   initialization(): void {
@@ -28,10 +36,10 @@ export class NgRxLocalStorageService {
     this.loadShortFavoritesFromStorage();
     this.loadDailyRepresentationFromStorage();
 
-    this.themeStore.isDarkMode$.pipe(
+    this.themeStore.theme$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (isDarkMode: boolean) => localStorage.setItem(THEME_KEY, JSON.stringify(isDarkMode)),
+      next: (theme: ThemeType) => localStorage.setItem(THEME_KEY, JSON.stringify(theme)),
     });
 
     this.themeStore.isCelsius$.pipe(
@@ -52,7 +60,7 @@ export class NgRxLocalStorageService {
       next: (shortFavorites: IFavoriteShortInfo[]) => localStorage.setItem(FAVORITES_KEY, JSON.stringify(shortFavorites)),
     });
 
-    window.addEventListener('storage', () => {
+    this.window.addEventListener('storage', () => {
       this.loadThemeFromStorage();
       this.loadTemperatureFromStorage();
       this.loadShortFavoritesFromStorage();

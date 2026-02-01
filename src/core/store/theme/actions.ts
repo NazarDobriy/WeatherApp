@@ -1,8 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
+import { ThemeType } from "@core/types/theme.type";
+
 export const setThemeMode = createAction(
   '[Theme] Set Theme Mode',
-  props<{ isDarkMode: boolean; }>(),
+  props<{ theme: ThemeType; }>(),
 );
 
 export const setTemperature = createAction(
@@ -14,8 +16,6 @@ export const setDailyRepresentation = createAction(
   '[Theme] Set Daily Forecast Representation',
   props<{ isChartRepresentation: boolean; }>(),
 )
-
-export const toggleThemeMode = createAction('[Theme] Toggle Theme Mode');
 
 export const toggleTemperature = createAction('[Theme] Toggle Temperature');
 

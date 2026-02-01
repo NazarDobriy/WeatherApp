@@ -10,5 +10,5 @@ import { ForecastCardComponent } from '@pages/home/components/forecast-card/fore
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastsComponent {
-  forecasts = input.required<IForecast[]>();
+  readonly forecasts = input.required<IForecast[]>();
 }
