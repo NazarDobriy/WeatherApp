@@ -15,7 +15,7 @@ export class SelectComponent<T> {
   readonly items = input.required<ISelect<T>[]>();
   readonly onSelect = output<T>();
 
-  readonly isOpen = signal<boolean>(false)
+  readonly isOpen = signal<boolean>(false);
   readonly selectedItem = computed<ISelect<T>>(() => {
     return this.items().find((item: ISelect<T>) => item.key === this.selectedKey()) || this.items()[0];
   });
