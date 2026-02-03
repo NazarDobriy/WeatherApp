@@ -26,7 +26,7 @@
   </div>
 
   <section
-    class="absolute top-9 w-full z-30 bg-custom-white transition-all duration-150 ease-out origin-top"
+    class="absolute top-9 w-full z-30 transition-all duration-150 ease-out origin-top"
     [ngClass]="isOpen() ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
   >
     @for (item of items(); track item.key) {
@@ -38,6 +38,7 @@
           border border-main
           last:rounded-b
           border-t-0
+          bg-custom-white
           group/option
           transition-colors
           duration-150

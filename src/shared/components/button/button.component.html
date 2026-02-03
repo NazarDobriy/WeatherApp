@@ -1,3 +1,7 @@
-<button mat-flat-button [ngClass]="[typeClass(), widthClass()]">
+<button
+  class="custom-button"
+  mat-flat-button
+  [ngClass]="[variantClass(), widthClass(), modifierClass()]"
+>
   <ng-content></ng-content>
 </button>
