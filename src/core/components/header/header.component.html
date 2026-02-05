@@ -9,14 +9,25 @@
       @if (favRla.isActive && (detailedFavorites$ | async)?.length) {
         <app-button
           [variant]="buttonVariant.UPDATING"
-          [responsive]="'md'"
+          [responsive]="'lg'"
           (click)="refreshAll()"
         >
           <section class="flex-center-y gap-1">
             <mat-icon [class.animate-spin-fast]="selectIsLoadingDetailedFavorites$ | async">
               refresh
             </mat-icon>
-            <span class="md:block hidden">Refresh All</span>
+            <span class="lg:block hidden">Refresh All</span>
+          </section>
+        </app-button>
+
+        <app-button
+          [variant]="buttonVariant.ERROR"
+          [responsive]="'lg'"
+          (click)="removeAll()"
+        >
+          <section class="flex-center-y gap-1">
+            <mat-icon>delete_forever</mat-icon>
+            <span class="lg:block hidden">Remove All</span>
           </section>
         </app-button>
       }

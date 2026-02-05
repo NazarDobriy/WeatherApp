@@ -24,6 +24,10 @@ export class FavoritesStoreService {
     this.store.dispatch(FavoritesActions.removeShortFavorite({ id, name }));
   }
 
+  dispatchRemoveFavorites(): void {
+    this.store.dispatch(FavoritesActions.removeFavorites());
+  }
+
   dispatchSetShortFavorites(shortFavorites: IFavoriteShortInfo[]): void {
     this.store.dispatch(FavoritesActions.setShortFavorites({ shortFavorites }));
   }
