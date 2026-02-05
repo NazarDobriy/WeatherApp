@@ -3,6 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as FavoritesActions from './actions';
 import { favoritesInitialState, IFavoritesState } from './state';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
+import {removeFavorites} from "./actions";
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
@@ -17,6 +18,13 @@ export const favoritesReducer = createReducer(
       ...state,
       shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id),
       detailedFavorites: state.detailedFavorites.filter((detailedFavorite: IFavoriteDetailedInfo) => detailedFavorite.id !== id),
+    };
+  }),
+  on(FavoritesActions.removeFavorites, (state: IFavoritesState) => {
+    return {
+      ...state,
+      shortFavorites: [],
+      detailedFavorites: [],
     };
   }),
   on(FavoritesActions.setShortFavorites, (state: IFavoritesState, { shortFavorites }) => {

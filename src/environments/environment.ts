@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiHost: 'https://dataservice.accuweather.com',
-  apiKey: 'zpka_95870aef11e047d0b4ffcae71b4fa6fc_1aeb9656'
+  apiKey: 'zpka_661dec095a7241ea9b3e4b5f156650d3_d11a82c2'
 };
 
 /*

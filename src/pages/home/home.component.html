@@ -32,7 +32,8 @@
         </mat-icon>
 
         <app-button
-          [type]="isFavorite() ? BUTTON.ERROR : BUTTON.PRIMARY"
+          [width]="buttonWidth.LG"
+          [variant]="isFavorite() ? buttonVariant.ERROR : buttonVariant.PRIMARY"
           (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
         >
           {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}

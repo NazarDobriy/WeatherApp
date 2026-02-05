@@ -2,25 +2,68 @@
 
 :host {
   display: block;
+}
 
-  .button-primary {
+.custom-button {
+  min-width: auto;
+}
+
+.button-primary {
+  @include mat.button-overrides((
+    filled-container-color: var(--primary-color),
+    filled-label-text-color: var(--white-color),
+    filled-horizontal-padding: '16px',
+  ));
+}
+
+.button-error {
+  @include mat.button-overrides((
+    filled-container-color: var(--error-color),
+    filled-label-text-color: var(--white-color),
+    filled-horizontal-padding: '16px',
+  ));
+}
+
+.button-updating {
+  @include mat.button-overrides((
+    filled-container-color: var(--main-color),
+    filled-label-text-color: var(--white-color),
+    filled-horizontal-padding: '16px',
+  ));
+}
+
+.breakpoint-sm {
+  @include mat.button-overrides((
+    filled-horizontal-padding: '8px',
+  ));
+
+  @screen sm {
     @include mat.button-overrides((
-      filled-container-color: var(--primary-color),
-      filled-label-text-color: var(--white-color),
+      filled-horizontal-padding: '16px',
     ));
   }
+}
 
-  .button-error {
+.breakpoint-md {
+  @include mat.button-overrides((
+    filled-horizontal-padding: '8px',
+  ));
+
+  @screen md {
     @include mat.button-overrides((
-      filled-container-color: var(--error-color),
-      filled-label-text-color: var(--white-color),
+      filled-horizontal-padding: '16px',
     ));
   }
+}
 
-  .button-updating {
+.breakpoint-lg {
+  @include mat.button-overrides((
+    filled-horizontal-padding: '8px',
+  ));
+
+  @screen lg {
     @include mat.button-overrides((
-      filled-container-color: var(--main-color),
-      filled-label-text-color: var(--white-color),
+      filled-horizontal-padding: '16px',
     ));
   }
 }

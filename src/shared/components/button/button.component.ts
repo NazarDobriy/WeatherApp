@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, Component, input, computed } from '@angular/co
 import { MatButton } from "@angular/material/button";
 import { NgClass } from "@angular/common";
 
-import { BUTTON, BUTTON_WIDTH } from "@shared/components/button/types/button.enum";
+import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
+import { BUTTON_VARIANT_MAP, BUTTON_WIDTH_MAP } from "@shared/components/button/constants/button.constants";
+import { ButtonResponsiveType } from "@shared/components/button/types/button.type";
 
 @Component({
   selector: 'app-button',
@@ -12,27 +14,23 @@ import { BUTTON, BUTTON_WIDTH } from "@shared/components/button/types/button.enu
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  readonly type = input<BUTTON>(BUTTON.PRIMARY);
-  readonly width = input<BUTTON_WIDTH>(BUTTON_WIDTH.MEDIUM);
+  readonly variant = input<ButtonVariant>(ButtonVariant.PRIMARY);
+  readonly width = input<ButtonWidth>(ButtonWidth.MD);
+  readonly responsive = input<ButtonResponsiveType>(null);
 
-  readonly typeClass = computed<string>(() => {
-    switch (this.type()) {
-      case BUTTON.PRIMARY:
-        return `button-${BUTTON.PRIMARY}`;
-      case BUTTON.UPDATING:
-        return `button-${BUTTON.UPDATING}`;
-      case BUTTON.ERROR:
-        return `button-${BUTTON.ERROR}`;
+  readonly variantClass = computed(() => BUTTON_VARIANT_MAP[this.variant()]);
+  readonly widthClass = computed(() => {
+    const base = BUTTON_WIDTH_MAP[this.width()];
+    const responsive = this.responsive();
+
+    if (!responsive) {
+      return base;
     }
+
+    return `${responsive}:${base}`;
   });
-  readonly widthClass = computed<string>(() => {
-    switch (this.width()) {
-      case BUTTON_WIDTH.EXTRA_SMALL:
-        return 'w-32';
-      case BUTTON_WIDTH.SMALL:
-        return 'w-36';
-      case BUTTON_WIDTH.MEDIUM:
-        return 'w-52';
-    }
+  readonly modifierClass = computed(() => {
+    return this.responsive() !== null ? `breakpoint-${this.responsive()}` : '';
   });
+
 }

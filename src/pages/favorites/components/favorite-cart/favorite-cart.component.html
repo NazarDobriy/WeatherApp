@@ -12,8 +12,8 @@
   />
 
   <app-button
-    [type]="BUTTON.UPDATING"
-    [width]="BUTTON_WIDTH.EXTRA_SMALL"
+    [variant]="buttonVariant.UPDATING"
+    [width]="buttonWidth.SM"
     (click)="$event.stopPropagation(); refreshWeather()"
   >
     <section class="flex-center-y gap-1">
@@ -24,8 +24,8 @@
   </app-button>
 
   <app-button
-    [type]="BUTTON.ERROR"
-    [width]="BUTTON_WIDTH.EXTRA_SMALL"
+    [variant]="buttonVariant.ERROR"
+    [width]="buttonWidth.SM"
     (click)="$event.stopPropagation(); removeFromFavorites()"
   >
     <section class="flex-center-y gap-1">

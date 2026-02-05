@@ -23,7 +23,7 @@ import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 import { ButtonComponent } from "@shared/components/button/button.component";
-import { BUTTON } from "@shared/components/button/types/button.enum";
+import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
 
 @Component({
   selector: 'app-home',
@@ -44,7 +44,8 @@ import { BUTTON } from "@shared/components/button/types/button.enum";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
-  readonly BUTTON = BUTTON;
+  readonly buttonVariant = ButtonVariant;
+  readonly buttonWidth = ButtonWidth;
   readonly location = signal<ILocation | null>(null);
   readonly forecasts = signal<IForecast[]>([]);
   readonly weather = signal<IWeather | null>(null);

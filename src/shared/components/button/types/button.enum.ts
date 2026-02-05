@@ -1,11 +1,11 @@
-export enum BUTTON {
+export enum ButtonVariant {
   PRIMARY = 'primary',
   UPDATING = 'updating',
   ERROR = 'error',
 }
 
-export enum BUTTON_WIDTH {
-  EXTRA_SMALL = 'extra-small',
-  SMALL = 'small',
-  MEDIUM = 'medium',
+export enum ButtonWidth {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
 }

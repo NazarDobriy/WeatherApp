@@ -13,6 +13,8 @@ export const removeShortFavorite = createAction(
   props<{ id: string; name: string; }>()
 );
 
+export const removeFavorites = createAction('[Favorites] Remove Favorites');
+
 export const setShortFavorites = createAction(
   '[Favorites] Set Short Favorites',
   props<{ shortFavorites: IFavoriteShortInfo[]; }>()

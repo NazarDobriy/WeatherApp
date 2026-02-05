@@ -8,7 +8,7 @@ import {
 } from '@core/components/header/components/theme-temperature/theme-temperature.component';
 import { ThemeModeComponent } from '@core/components/header/components/theme-mode/theme-mode.component';
 import { ButtonComponent } from "@shared/components/button/button.component";
-import { BUTTON, BUTTON_WIDTH } from "@shared/components/button/types/button.enum";
+import { ButtonVariant } from "@shared/components/button/types/button.enum";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { REFRESH_KEY } from "@core/constants/loading.constants";
 
@@ -27,8 +27,7 @@ import { REFRESH_KEY } from "@core/constants/loading.constants";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  readonly BUTTON = BUTTON;
-  readonly BUTTON_WIDTH = BUTTON_WIDTH;
+  readonly buttonVariant = ButtonVariant;
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;
   readonly selectIsLoadingDetailedFavorites$ = this.favoritesStore.getLoadingSelectByKey(REFRESH_KEY);
 
@@ -36,6 +35,10 @@ export class HeaderComponent {
 
   refreshAll(): void {
     this.favoritesStore.dispatchDetailedFavorites(REFRESH_KEY);
+  }
+
+  removeAll(): void {
+    this.favoritesStore.dispatchRemoveFavorites();
   }
 
 }
