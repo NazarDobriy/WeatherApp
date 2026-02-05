@@ -1,1 +1,1 @@
-export type ButtonResponsiveType = 'sm' | 'md' | null;
+export type ButtonResponsiveType = 'sm' | 'md' | 'lg' | null;

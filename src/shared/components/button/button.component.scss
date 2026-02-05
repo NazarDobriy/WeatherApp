@@ -55,3 +55,15 @@
     ));
   }
 }
+
+.breakpoint-lg {
+  @include mat.button-overrides((
+    filled-horizontal-padding: '8px',
+  ));
+
+  @screen lg {
+    @include mat.button-overrides((
+      filled-horizontal-padding: '16px',
+    ));
+  }
+}
