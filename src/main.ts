@@ -24,6 +24,7 @@ import { FavoritesService } from '@core/providers/favorites.service';
 import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WeatherService } from '@core/providers/weather.service';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
+import { DialogService } from "@core/providers/dialog.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -48,6 +49,7 @@ bootstrapApplication(AppComponent, {
     LocationService,
     FavoritesService,
     WeatherService,
+    DialogService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
