@@ -1,0 +1,11 @@
+.custom-dialog {
+  width: 500px;
+
+  @media (max-width: 768px) {
+    width: 435px;
+  }
+
+  @media (max-width: 600px) {
+    width: 390px;
+  }
+}

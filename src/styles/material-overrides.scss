@@ -27,4 +27,10 @@
   @include mat.progress-spinner-overrides((
     active-indicator-color: var(--primary-color),
   ));
+
+  @include mat.dialog-overrides((
+    subhead-color: var(--main-color),
+    container-color: var(--white-color),
+    supporting-text-color: var(--neutral-color),
+  ));
 }
