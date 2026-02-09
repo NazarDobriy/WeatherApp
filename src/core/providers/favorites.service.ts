@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, map, of } from 'rxjs';
+import { Router } from "@angular/router";
 
 import { IWeather } from '@core/types/weather.interface';
 import { WeatherService } from '@core/providers/weather.service';
@@ -8,7 +9,10 @@ import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.
 @Injectable()
 export class FavoritesService {
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private router: Router,
+    private weatherService: WeatherService,
+  ) {}
 
   getDetailedFavorites(shortFavorites: IFavoriteShortInfo[]): Observable<IFavoriteDetailedInfo[]> {
     if (shortFavorites.length === 0) {
@@ -28,4 +32,12 @@ export class FavoritesService {
 
     return combineLatest(favoriteWeatherStreams);
   }
+
+  clearDialogRouteParams(): void {
+    this.router.navigate([], {
+      queryParams: { action: null },
+      queryParamsHandling: 'merge',
+    });
+  }
+
 }

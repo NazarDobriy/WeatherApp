@@ -13,7 +13,12 @@ import { PAGE_KEY } from "@core/constants/loading.constants";
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
-  imports: [AsyncPipe, FavoriteCartComponent, MatProgressSpinnerModule, RouterLink],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    FavoriteCartComponent,
+    MatProgressSpinnerModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit {
@@ -37,4 +42,5 @@ export class FavoritesComponent implements OnInit {
     });
     this.router.navigateByUrl('/');
   }
+
 }
