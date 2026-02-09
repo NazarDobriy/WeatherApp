@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, filter, map, of, tap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import { FavoritesService } from '@core/providers/favorites.service';
-import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { NOTIFICATION } from '@core/constants/notification.constants';
 import { WeatherService } from "@core/providers/weather.service";
@@ -12,14 +12,19 @@ import { IWeather } from "@core/types/weather.interface";
 import { minLoadingTime } from "@utils/index";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { PAGE_KEY, REFRESH_KEY } from "@core/constants/loading.constants";
+import { AppStoreService } from "@app/providers/app-store.service";
 
 @Injectable()
 export class FavoritesEffects {
   getDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavorites),
-      withLatestFrom(this.favoritesStore.shortFavorites$),
-      exhaustMap(([{ loadingKey }, shortFavorites]) => {
+      switchMap(({ loadingKey }) => this.favoritesStore.shortFavorites$.pipe(
+        withLatestFrom(this.appStoreService.selectUrl$),
+        filter(([, url]: [IFavoriteShortInfo[], string]) => url.includes('favorites')),
+        map(([shortFavorites,]: [IFavoriteShortInfo[], string]) => ({ loadingKey, shortFavorites })),
+      )),
+      exhaustMap(({ loadingKey, shortFavorites }) => {
         return this.favoritesService.getDetailedFavorites(shortFavorites).pipe(
           map((detailedFavorites: IFavoriteDetailedInfo[]) =>
             FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites, loadingKey }),
@@ -118,6 +123,7 @@ export class FavoritesEffects {
     private actions$: Actions,
     private weatherService: WeatherService,
     private snackBarService: SnackBarService,
+    private appStoreService: AppStoreService,
     private favoritesService: FavoritesService,
     private favoritesStore: FavoritesStoreService,
   ) {}
