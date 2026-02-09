@@ -22,10 +22,10 @@
   </app-button>
 
   <app-button
+    [hasAutoFocus]="true"
     [variant]="buttonVariant.PRIMARY_OUTLINED"
     [width]="buttonWidth.XS"
     (click)="confirm()"
-    cdkFocusInitial
   >
     Confirm
   </app-button>
