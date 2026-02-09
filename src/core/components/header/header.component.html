@@ -6,7 +6,7 @@
 
       <app-theme-mode></app-theme-mode>
 
-      @if (favRla.isActive && detailedFavorites().length > 0) {
+      @if (favRla.isActive && (detailedFavorites$ | async)?.length) {
         <app-button
           [variant]="buttonVariant.UPDATING"
           [responsive]="'lg'"
