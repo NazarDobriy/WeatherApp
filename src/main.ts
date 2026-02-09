@@ -11,19 +11,10 @@ import { provideRouterStore } from "@ngrx/router-store";
 import { AppComponent } from '@app/app.component';
 import { appRoutes } from '@app/app.routes';
 import { reducers } from '@app/store/reducer';
-import { ThemeService } from "@core/providers/theme.service";
-import { ThemeStoreService } from '@core/providers/theme-store.service';
-import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.service';
-import { FavoritesStoreService } from '@core/providers/favorites-store.service';
-import { SnackBarService } from '@core/providers/snack-bar.service';
-import { LocationStoreService } from '@core/providers/location-store.service';
-import { LocationService } from '@core/providers/location.service';
 import { LocationEffects } from '@core/store/location/effects';
 import { ApiInterceptor } from '@core/interceptors/api.interceptor';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
-import { FavoritesService } from '@core/providers/favorites.service';
 import { FavoritesEffects } from '@core/store/favorites/effects';
-import { WeatherService } from '@core/providers/weather.service';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
 import { DialogService } from "@core/providers/dialog.service";
 
@@ -42,15 +33,6 @@ bootstrapApplication(AppComponent, {
     }),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
-    ThemeService,
-    ThemeStoreService,
-    NgRxLocalStorageService,
-    FavoritesStoreService,
-    SnackBarService,
-    LocationStoreService,
-    LocationService,
-    FavoritesService,
-    WeatherService,
     DialogService,
     {
       provide: HTTP_INTERCEPTORS,

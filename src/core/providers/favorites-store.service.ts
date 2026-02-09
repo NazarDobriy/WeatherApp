@@ -8,7 +8,9 @@ import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.
 import { IFavoritesState } from '@core/store/favorites/state';
 import { FavoritesLoadingType } from "@core/types/favorites-loading.type";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FavoritesStoreService {
   readonly shortFavorites$ = this.store.select(FavoritesSelectors.selectShortFavorites);
   readonly detailedFavorites$ = this.store.select(FavoritesSelectors.selectDetailedFavorites);

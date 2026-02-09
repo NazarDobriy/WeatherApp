@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { ILocation } from '@core/types/location.interface';
 import { IGeoLocation } from '@core/types/geo-location';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LocationService {
   constructor(private http: HttpClient) {}
 

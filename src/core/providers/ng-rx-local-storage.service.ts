@@ -13,7 +13,9 @@ import {
 import { ThemeType } from "@core/types/theme.type";
 import { WINDOW } from "@core/di/window.token";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NgRxLocalStorageService {
   private isInitialized = false;
 

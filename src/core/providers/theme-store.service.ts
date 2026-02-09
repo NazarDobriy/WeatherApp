@@ -6,7 +6,9 @@ import * as ThemeSelectors from '@core/store/theme/selectors';
 import { IThemeState } from '@core/store/theme/state';
 import { ThemeType } from "@core/types/theme.type";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ThemeStoreService {
   readonly theme$ = this.store.select(ThemeSelectors.selectMode);
   readonly isCelsius$ = this.store.select(ThemeSelectors.selectTemperature);
