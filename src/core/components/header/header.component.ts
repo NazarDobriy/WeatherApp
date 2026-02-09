@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatIcon } from "@angular/material/icon";
 import { AsyncPipe } from "@angular/common";
 
@@ -31,14 +31,22 @@ export class HeaderComponent {
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;
   readonly selectIsLoadingDetailedFavorites$ = this.favoritesStore.getLoadingSelectByKey(REFRESH_KEY);
 
-  constructor(private favoritesStore: FavoritesStoreService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private favoritesStore: FavoritesStoreService,
+  ) {}
 
   refreshAll(): void {
     this.favoritesStore.dispatchDetailedFavorites(REFRESH_KEY);
   }
 
   removeAll(): void {
-    this.favoritesStore.dispatchRemoveFavorites();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { action: 'removeAll' },
+      queryParamsHandling: 'merge',
+    });
   }
 
 }

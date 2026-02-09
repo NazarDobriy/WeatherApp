@@ -12,6 +12,8 @@ import { FavoritesLoadingType } from "@core/types/favorites-loading.type";
 export class FavoritesStoreService {
   readonly shortFavorites$ = this.store.select(FavoritesSelectors.selectShortFavorites);
   readonly detailedFavorites$ = this.store.select(FavoritesSelectors.selectDetailedFavorites);
+  readonly detailedFavoritesLength$ = this.store.select(FavoritesSelectors.selectDetailedFavoritesLength);
+  readonly detailedFavoritesHasLoaded$ = this.store.select(FavoritesSelectors.selectDetailedFavoritesHasLoaded);
   readonly detailedFavoritesFailure$ = this.store.select(FavoritesSelectors.selectFailureDetailedFavorites);
 
   constructor(private store: Store<IFavoritesState>) {}

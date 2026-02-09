@@ -16,6 +16,16 @@ export const selectDetailedFavorites = createSelector(
   ({ detailedFavorites }: IFavoritesState): IFavoriteDetailedInfo[] => detailedFavorites,
 );
 
+export const selectDetailedFavoritesHasLoaded = createSelector(
+  selectFavoritesFeature,
+  ({ hasLoaded }: IFavoritesState): boolean => hasLoaded,
+);
+
+export const selectDetailedFavoritesLength = createSelector(
+  selectFavoritesFeature,
+  ({ detailedFavorites }: IFavoritesState): number => detailedFavorites.length,
+);
+
 export const selectLoadingDetailedFavorites = (loadingKey: FavoritesLoadingType) => createSelector(
   selectFavoritesFeature,
   ({ loading }: IFavoritesState): boolean => loading[loadingKey] || false,

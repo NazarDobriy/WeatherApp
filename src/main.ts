@@ -6,6 +6,7 @@ import { provideStore } from '@ngrx/store';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { provideRouterStore } from "@ngrx/router-store";
 
 import { AppComponent } from '@app/app.component';
 import { appRoutes } from '@app/app.routes';
@@ -24,6 +25,7 @@ import { FavoritesService } from '@core/providers/favorites.service';
 import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WeatherService } from '@core/providers/weather.service';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
+import { DialogService } from "@core/providers/dialog.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -31,6 +33,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(appRoutes),
     provideStore(reducers),
     provideEffects(LocationEffects, FavoritesEffects),
+    provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),
@@ -48,6 +51,7 @@ bootstrapApplication(AppComponent, {
     LocationService,
     FavoritesService,
     WeatherService,
+    DialogService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,

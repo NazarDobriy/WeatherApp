@@ -3,7 +3,6 @@ import { createReducer, on } from '@ngrx/store';
 import * as FavoritesActions from './actions';
 import { favoritesInitialState, IFavoritesState } from './state';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
-import {removeFavorites} from "./actions";
 
 export const favoritesReducer = createReducer(
   favoritesInitialState,
@@ -47,6 +46,7 @@ export const favoritesReducer = createReducer(
         ...state.loading,
         [loadingKey]: false,
       },
+      hasLoaded: true,
     };
   }),
   on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, { error, loadingKey }) => {

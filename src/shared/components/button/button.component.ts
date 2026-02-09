@@ -14,6 +14,7 @@ import { ButtonResponsiveType } from "@shared/components/button/types/button.typ
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
+  readonly hasAutoFocus = input<boolean>(false);
   readonly variant = input<ButtonVariant>(ButtonVariant.PRIMARY);
   readonly width = input<ButtonWidth>(ButtonWidth.MD);
   readonly responsive = input<ButtonResponsiveType>(null);

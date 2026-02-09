@@ -1,6 +1,7 @@
 <button
   class="custom-button"
   mat-flat-button
+  [attr.cdkFocusInitial]="hasAutoFocus() ? '' : null"
   [ngClass]="[variantClass(), widthClass(), modifierClass()]"
 >
   <ng-content></ng-content>

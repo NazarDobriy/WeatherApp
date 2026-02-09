@@ -1,4 +1,5 @@
 import { ActionReducerMap } from "@ngrx/store";
+import { routerReducer } from "@ngrx/router-store";
 
 import { IAppState } from "./state";
 import { locationsReducer } from "@pages/home/store/locations/reducer";
@@ -8,6 +9,7 @@ import { locationReducer } from "@core/store/location/reducer";
 import { themeReducer } from "@core/store/theme/reducer";
 
 export const reducers: ActionReducerMap<IAppState> = {
+  router: routerReducer,
   location: locationReducer,
   locations: locationsReducer,
   weather: weatherReducer,
