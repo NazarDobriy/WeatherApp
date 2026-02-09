@@ -1,32 +1,34 @@
-<div class="text-sm relative" mat-dialog-title>
-  Remove favorites
-</div>
+@if (amount() !== null) {
+  <div class="text-sm relative" mat-dialog-title>
+    Remove favorites
+  </div>
 
-<app-button-icon
-  class="absolute sm:top-2 sm:right-2 md:top-4 md:right-4 top-1 right-1"
-  [icon]="'close'"
-  (click)="close()"
-></app-button-icon>
-
-<mat-dialog-content>
-  Would you like to remove {{ data.amount }} favorite {{ data.amount === 1 ? 'item' : 'items' }}?
-</mat-dialog-content>
-
-<mat-dialog-actions class="flex-center-x gap-2" align="end">
-  <app-button
-    [variant]="buttonVariant.PRIMARY_OUTLINED"
-    [width]="buttonWidth.XS"
+  <app-button-icon
+    class="absolute sm:top-2 sm:right-2 md:top-4 md:right-4 top-1 right-1"
+    [icon]="'close'"
     (click)="close()"
-  >
-    Close
-  </app-button>
+  ></app-button-icon>
 
-  <app-button
-    [hasAutoFocus]="true"
-    [variant]="buttonVariant.PRIMARY_OUTLINED"
-    [width]="buttonWidth.XS"
-    (click)="confirm()"
-  >
-    Confirm
-  </app-button>
-</mat-dialog-actions>
+  <mat-dialog-content>
+    Would you like to remove {{ amount() }} favorite {{ amount() === 1 ? 'item' : 'items' }}?
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="flex-center-x gap-2" align="end">
+    <app-button
+      [variant]="buttonVariant.PRIMARY_OUTLINED"
+      [width]="buttonWidth.XS"
+      (click)="close()"
+    >
+      Close
+    </app-button>
+
+    <app-button
+      [hasAutoFocus]="true"
+      [variant]="buttonVariant.PRIMARY_OUTLINED"
+      [width]="buttonWidth.XS"
+      (click)="confirm()"
+    >
+      Confirm
+    </app-button>
+  </mat-dialog-actions>
+}

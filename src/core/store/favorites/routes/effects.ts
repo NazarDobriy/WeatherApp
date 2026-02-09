@@ -39,12 +39,10 @@ export class FavoritesRouteEffects {
           return of(FavoritesRouteActions.removeFavoritesEmpty());
         }
 
-        return this.dialogService.open<RemoveFavoritesDialogComponent, { amount: number }, boolean>(
+        return this.dialogService.open<RemoveFavoritesDialogComponent, undefined, boolean>(
           RemoveFavoritesDialogComponent,
-          {
-            data: { amount },
-            panelClass: 'custom-dialog',
-          }).afterClosed().pipe(
+          { panelClass: 'custom-dialog' },
+        ).afterClosed().pipe(
             filter((item: boolean | undefined) => typeof item === "boolean"),
             map((item: boolean) => {
               return item
