@@ -24,22 +24,19 @@
         </div>
       </section>
 
-      <section class="flex-center-y gap-3">
-        <mat-icon
-          class="cursor-pointer"
-          (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
-        >
-          {{ isFavorite() ? 'favorite' : 'favorite_border' }}
-        </mat-icon>
+      <app-button
+        [width]="buttonWidth.LG"
+        [variant]="isFavorite() ? buttonVariant.ERROR : buttonVariant.PRIMARY"
+        (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
+      >
+        <section class="flex-center-y gap-1">
+          <mat-icon>
+            {{ isFavorite() ? 'favorite' : 'favorite_border' }}
+          </mat-icon>
 
-        <app-button
-          [width]="buttonWidth.LG"
-          [variant]="isFavorite() ? buttonVariant.ERROR : buttonVariant.PRIMARY"
-          (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
-        >
           {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}
-        </app-button>
-      </section>
+        </section>
+      </app-button>
     </section>
 
     <section class="flex-center-x md:justify-start mt-12">
