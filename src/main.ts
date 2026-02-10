@@ -1,5 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { importProvidersFrom, isDevMode, provideZonelessChangeDetection } from '@angular/core';
+import {
+  inject,
+  isDevMode,
+  importProvidersFrom,
+  provideEnvironmentInitializer,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
@@ -16,7 +22,7 @@ import { ApiInterceptor } from '@core/interceptors/api.interceptor';
 import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
-import { DialogService } from "@core/providers/dialog.service";
+import { NgRxLocalStorageService } from "@core/providers/ng-rx-local-storage.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -33,7 +39,9 @@ bootstrapApplication(AppComponent, {
     }),
     importProvidersFrom(MatSnackBarModule),
     provideHttpClient(withInterceptorsFromDi()),
-    DialogService,
+    provideEnvironmentInitializer(() => {
+      inject(NgRxLocalStorageService);
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,

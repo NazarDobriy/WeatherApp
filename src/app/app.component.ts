@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { RouterOutlet } from '@angular/router';
 
-import { NgRxLocalStorageService } from '@core/providers/ng-rx-local-storage.service';
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { HeaderComponent } from '@core/components/header/header.component';
 import { ThemeService } from "@core/providers/theme.service";
@@ -21,11 +20,9 @@ export class AppComponent implements OnInit {
     private destroyRef: DestroyRef,
     private themeService: ThemeService,
     private themeStore: ThemeStoreService,
-    private ngRxLocalStorage: NgRxLocalStorageService,
   ) {}
 
   ngOnInit(): void {
-    this.ngRxLocalStorage.initialization();
     this.handleBodyBackground();
   }
 
@@ -33,9 +30,7 @@ export class AppComponent implements OnInit {
     this.themeStore.theme$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (theme: ThemeType) => {
-        this.themeService.setTheme(theme);
-      },
+      next: (theme: ThemeType) => this.themeService.setTheme(theme),
     });
   }
 
