@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { MatTooltip } from "@angular/material/tooltip";
 import { Title } from '@angular/platform-browser';
 import { switchMap } from 'rxjs';
 
@@ -41,6 +42,7 @@ import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/butt
     TemperatureConverterPipe,
     NgOptimizedImage,
     ButtonComponent,
+    MatTooltip,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
