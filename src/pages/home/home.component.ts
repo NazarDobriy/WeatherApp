@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
@@ -61,6 +62,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
 
   constructor(
     public homeFacadeService: HomeFacadeService,
+    private titleService: Title,
     private destroyRef: DestroyRef,
     private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
@@ -71,6 +73,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Home | Weather');
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
