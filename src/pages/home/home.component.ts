@@ -15,7 +15,7 @@ import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { temperatureConverter } from '@utils/index';
 import { SnackBarService } from '@core/providers/snack-bar.service';
-import { KyivGeoLocation } from './consts/location.constants';
+import { KyivGeoLocation } from '@pages/home/constants/location.constants';
 import { LocationSearchComponent } from '@pages/home/components/location-search/location-search.component';
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';

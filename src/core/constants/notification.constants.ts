@@ -1,4 +1,4 @@
-export const NOTIFICATION = {
+export const NOTIFICATION = Object.freeze({
   ERROR_GETTING_FAVOURITES: 'Http failure response for getting favorites weather',
   ERROR_SEARCHING_LOCATION: 'Error while searching location',
   ERROR_GETTING_WEATHER: 'Http failure response for getting weather',
@@ -12,4 +12,4 @@ export const NOTIFICATION = {
   SUCCESS_REMOVING_FAVOURITE: (name: string) => `Success removing ${name} location from favorite list`,
   SUCCESS_UPDATING_WEATHER: (name: string): string => `The weather in ${name} has been successfully updated`,
   SUCCESS_DIALOG_FAVORITES: 'Success removing all favorites',
-};
+});

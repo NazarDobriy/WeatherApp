@@ -9,10 +9,10 @@ export interface IFavoritesState {
   error: string | null;
 }
 
-export const favoritesInitialState: IFavoritesState = {
+export const favoritesInitialState: IFavoritesState = Object.freeze({
   shortFavorites: [],
   detailedFavorites:[],
   hasLoaded: false,
   loading: {},
   error: null,
-};
+});

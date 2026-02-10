@@ -8,11 +8,11 @@ import { favoritesReducer } from "@core/store/favorites/reducer";
 import { locationReducer } from "@core/store/location/reducer";
 import { themeReducer } from "@core/store/theme/reducer";
 
-export const reducers: ActionReducerMap<IAppState> = {
+export const reducers: ActionReducerMap<IAppState> = Object.freeze({
   router: routerReducer,
   location: locationReducer,
   locations: locationsReducer,
   weather: weatherReducer,
   favorites: favoritesReducer,
   theme: themeReducer
-};
+});

@@ -7,9 +7,9 @@ export interface ILocationsState {
   lastSearchedQuery: string | null;
 }
 
-export const locationsInitialState: ILocationsState = {
+export const locationsInitialState: ILocationsState = Object.freeze({
   isLoading: false,
   locations: [],
   error: null,
   lastSearchedQuery: null,
-};
+});
