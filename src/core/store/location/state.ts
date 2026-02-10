@@ -6,8 +6,8 @@ export interface ILocationState {
   error: string | null;
 }
 
-export const locationInitialState: ILocationState = {
+export const locationInitialState: ILocationState = Object.freeze({
   isLoading: false,
   location: null,
   error: null,
-};
+});

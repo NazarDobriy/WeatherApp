@@ -6,8 +6,8 @@ export interface IThemeState {
   isChartRepresentation: boolean;
 }
 
-export const themeInitialState: IThemeState = {
+export const themeInitialState: IThemeState = Object.freeze({
   theme: 'auto',
   isCelsius: true,
   isChartRepresentation: false,
-};
+});

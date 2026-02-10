@@ -2,11 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment = Object.freeze({
   production: false,
   apiHost: 'https://dataservice.accuweather.com',
   apiKey: 'zpka_661dec095a7241ea9b3e4b5f156650d3_d11a82c2'
-};
+});
 
 /*
  * For easier debugging in development mode, you can import the following file

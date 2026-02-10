@@ -5,7 +5,9 @@ import { Observable, map } from 'rxjs';
 import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class WeatherService {
   constructor(private http: HttpClient) {}
 

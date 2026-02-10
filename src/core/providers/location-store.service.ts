@@ -8,7 +8,9 @@ import { ILocation } from '@core/types/location.interface';
 import { ILocationState } from '@core/store/location/state';
 import { filterDefined } from '@utils/index';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LocationStoreService {
   readonly location$ = this.store.select(LocationSelectors.selectLocation).pipe(filterDefined);
   readonly locationFailure$ = this.store.select(LocationSelectors.selectFailureLocation);

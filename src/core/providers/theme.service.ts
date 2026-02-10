@@ -1,9 +1,11 @@
 import { Inject, Injectable, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
 
 import { ThemeType } from "@core/types/theme.type";
-import { WINDOW } from "@core/di/window.token";
+import { WINDOW } from "@core/tokens/window.token";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ThemeService {
   private renderer: Renderer2 | null = null;
   private mediaQuery: MediaQueryList | null = null;

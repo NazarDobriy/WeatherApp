@@ -6,7 +6,9 @@ import { IWeather } from '@core/types/weather.interface';
 import { WeatherService } from '@core/providers/weather.service';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FavoritesService {
 
   constructor(

@@ -43,8 +43,11 @@ export class FavoritesRouteEffects {
           RemoveFavoritesDialogComponent,
           { panelClass: 'custom-dialog' },
         ).afterClosed().pipe(
-            filter((item: boolean | undefined) => typeof item === "boolean"),
-            map((item: boolean) => {
+            map((item: boolean | undefined) => {
+              if (typeof item !== "boolean") {
+                return FavoritesRouteActions.removeFavoritesClose();
+              }
+
               return item
                 ? FavoritesRouteActions.removeFavoritesConfirmed()
                 : FavoritesRouteActions.removeFavoritesClose();

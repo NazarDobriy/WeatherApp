@@ -1,4 +1,4 @@
-import {DestroyRef, Inject, Injectable} from '@angular/core';
+import { DestroyRef, Inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { FavoritesStoreService } from './favorites-store.service';
@@ -11,26 +11,23 @@ import {
   THEME_KEY,
 } from '@core/constants/storage.constants';
 import { ThemeType } from "@core/types/theme.type";
-import { WINDOW } from "@core/di/window.token";
+import { WINDOW } from "@core/tokens/window.token";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NgRxLocalStorageService {
-  private isInitialized = false;
 
   constructor(
     private destroyRef: DestroyRef,
     private themeStore: ThemeStoreService,
     private favoritesStore: FavoritesStoreService,
     @Inject(WINDOW) private window: Window,
-  ) {}
+  ) {
+    this.initialization();
+  }
 
-  initialization(): void {
-    if (this.isInitialized) {
-      return;
-    }
-
-    this.isInitialized = true;
-
+  private initialization(): void {
     this.loadThemeFromStorage();
     this.loadTemperatureFromStorage();
     this.loadShortFavoritesFromStorage();
