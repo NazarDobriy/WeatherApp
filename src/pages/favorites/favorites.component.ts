@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { AsyncPipe } from '@angular/common';
 
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
@@ -27,11 +28,13 @@ export class FavoritesComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private titleService: Title,
     private favoritesStore: FavoritesStoreService,
     private locationStore: LocationStoreService,
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Favorites | Weather');
     this.favoritesStore.dispatchDetailedFavorites(PAGE_KEY);
   }
 
