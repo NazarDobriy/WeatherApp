@@ -1,0 +1,12 @@
+<div class="flex-center-y-col gap-1">
+  <div>{{ phase }}</div>
+
+  <img
+    ngSrc="assets/weather/{{ forecastPhase().Icon }}.svg"
+    height="36"
+    width="36"
+    priority
+    [matTooltip]="forecastPhase().IconPhrase"
+    alt="{{ forecastPhase().Icon }}"
+  />
+</div>

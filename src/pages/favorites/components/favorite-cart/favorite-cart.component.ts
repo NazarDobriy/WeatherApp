@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, OnInit } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from "@angular/common";
+import { MatTooltip } from "@angular/material/tooltip";
 import { MatIcon } from "@angular/material/icon";
 import { of } from "rxjs";
 
@@ -23,6 +24,7 @@ import { CARD } from "@shared/components/card/types/card.enum";
     ButtonComponent,
     AsyncPipe,
     MatIcon,
+    MatTooltip,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

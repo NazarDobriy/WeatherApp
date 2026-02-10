@@ -33,4 +33,9 @@
     container-color: var(--white-color),
     supporting-text-color: var(--neutral-color),
   ));
+
+  @include mat.tooltip-overrides((
+    container-color: var(--main-color),
+    supporting-text-color: var(--white-color),
+  ));
 }

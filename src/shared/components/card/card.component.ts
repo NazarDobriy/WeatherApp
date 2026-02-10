@@ -15,9 +15,9 @@ export class CardComponent {
   readonly typeClass = computed<string>(() => {
     switch (this.type()) {
       case CARD.WEATHER:
-        return 'gap-5 py-9 w-40';
+        return 'gap-5 py-9';
       case CARD.FAVORITE:
-        return 'gap-3 py-7 w-44';
+        return 'gap-3 py-7';
     }
   });
 }
