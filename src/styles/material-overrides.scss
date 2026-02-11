@@ -38,4 +38,19 @@
     container-color: var(--main-color),
     supporting-text-color: var(--white-color),
   ));
+
+  @include mat.autocomplete-overrides((
+    background-color: var(--white-color),
+  ));
+
+  @include mat.core-overrides((
+    option-label-text-color: var(--main-color),
+    option-selected-state-label-text-color: var(--white-color),
+    option-selected-state-layer-color: var(--primary-color),
+    option-focus-state-layer-color: var(--primary-color),
+  ));
+
+  @include mat.option-overrides((
+    hover-state-layer-color: var(--primary-secondary-color),
+  ));
 }
