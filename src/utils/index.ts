@@ -25,3 +25,12 @@ export function minLoadingTime<T>(minMs = 300): (source$: Observable<T>) => Obse
     );
   };
 }
+
+export function deepFreeze<T extends object>(obj: T): T {
+  Object.values(obj).forEach(value => {
+    if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
+      deepFreeze(value);
+    }
+  });
+  return Object.freeze(obj);
+}

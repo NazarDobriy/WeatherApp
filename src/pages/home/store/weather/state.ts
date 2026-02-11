@@ -1,5 +1,6 @@
 import { IForecast } from '@core/types/forecast.interface';
 import { IWeather } from '@core/types/weather.interface';
+import { deepFreeze } from "@utils/index";
 
 export interface IWeatherState {
   weather: {
@@ -14,7 +15,7 @@ export interface IWeatherState {
   };
 }
 
-export const weatherInitialState: IWeatherState = {
+export const weatherInitialState: IWeatherState = deepFreeze<IWeatherState>({
   weather: {
     isLoading: false,
     data: null,
@@ -25,4 +26,4 @@ export const weatherInitialState: IWeatherState = {
     data: [],
     error: null
   }
-};
+});
