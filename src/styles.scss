@@ -4,6 +4,8 @@
 @use './styles/tailwind.scss';
 @use './styles/dialog.scss';
 @use './styles/snack-bar.scss';
+@use './styles/mat-icon.scss';
+@use './styles/slide-toggle.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

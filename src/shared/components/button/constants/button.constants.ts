@@ -4,7 +4,7 @@ export const BUTTON_WIDTH_MAP: Record<ButtonWidth, string> = Object.freeze({
   [ButtonWidth.XS]: 'w-24',
   [ButtonWidth.SM]: 'w-32',
   [ButtonWidth.MD]: 'w-36',
-  [ButtonWidth.LG]: 'w-52',
+  [ButtonWidth.LG]: 'w-56',
 });
 
 export const BUTTON_VARIANT_MAP: Record<ButtonVariant, string> = Object.freeze({
