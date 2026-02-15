@@ -3,7 +3,7 @@ import { combineLatest, map, startWith } from "rxjs";
 
 import {
   LocationSearchDropdownType,
-} from "@pages/home/components/location-search/components/location-search-dropdown/types/location-search-dropdown.type";
+} from "@pages/home/components/location-search/types/location-search-dropdown.type";
 import { LocationSearchFormService } from "@pages/home/components/location-search/providers/location-search-form.service";
 import { LocationsStoreService } from "@pages/home/providers/locations-store.service";
 
