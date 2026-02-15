@@ -26,6 +26,7 @@ import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pi
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
 import { ButtonComponent } from "@shared/components/button/button.component";
 import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
+import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
 
 @Component({
   selector: 'app-home',
@@ -70,6 +71,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
     private favoritesStore: FavoritesStoreService,
+    private crossTabFavoritesService: CrossTabFavoritesService,
   ) {
     super();
   }
@@ -93,11 +95,17 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const weather = this.weather();
 
     if (location && weather) {
-      this.favoritesStore.dispatchAddShortFavorite({
+      const shortFavorite: IFavoriteShortInfo = {
         id: location.Key,
         name: location.LocalizedName,
         isLoading: false,
         error: null,
+      };
+
+      this.favoritesStore.dispatchAddShortFavorite(shortFavorite);
+      this.crossTabFavoritesService.send({
+        type: 'add',
+        payload: shortFavorite,
       });
     }
   }
@@ -106,7 +114,18 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const location = this.location();
 
     if (location) {
+      const shortFavorite: IFavoriteShortInfo = {
+        id: location.Key,
+        name: location.LocalizedName,
+        isLoading: false,
+        error: null,
+      };
+
       this.favoritesStore.dispatchRemoveShortFavorite(location.Key, location.LocalizedName);
+      this.crossTabFavoritesService.send({
+        type: 'remove',
+        payload: shortFavorite,
+      });
     }
   }
 
