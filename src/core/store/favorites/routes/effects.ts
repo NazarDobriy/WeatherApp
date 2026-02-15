@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { routerNavigatedAction } from "@ngrx/router-store";
 import { filter, switchMap, of, map, tap, exhaustMap, first } from "rxjs";
-import { Params } from "@angular/router";
 
 import * as FavoritesRouteActions from '@core/store/favorites/routes/actions';
 import {
@@ -13,17 +12,14 @@ import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { NOTIFICATION } from "@core/constants/notification.constants";
 import { SnackBarService } from "@core/providers/snack-bar.service";
 import { FavoritesService } from "@core/providers/favorites.service";
-import { AppStoreService } from "@app/providers/app-store.service";
 
 @Injectable()
 export class FavoritesRouteEffects {
   removeFavoritesRoute$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(routerNavigatedAction),
-      exhaustMap(() => {
-        return this.appStoreService.queryParams$.pipe(
-          filter((params: Params) => params['action'] === 'removeAll'),
-        );
+      filter(({ payload }) => {
+        return payload.routerState.root.queryParams['action'] === 'removeAll';
       }),
       exhaustMap(() => {
         return this.favoritesStore.detailedFavoritesHasLoaded$.pipe(
@@ -89,7 +85,6 @@ export class FavoritesRouteEffects {
     private actions$: Actions,
     private dialogService: DialogService,
     private snackBarService: SnackBarService,
-    private appStoreService: AppStoreService,
     private favoritesService: FavoritesService,
     private favoritesStore: FavoritesStoreService,
   ) {}
