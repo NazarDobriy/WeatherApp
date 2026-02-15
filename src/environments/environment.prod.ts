@@ -1,5 +1,5 @@
 export const environment = Object.freeze({
   production: true,
   apiHost: 'https://dataservice.accuweather.com',
-  apiKey: 'zpka_661dec095a7241ea9b3e4b5f156650d3_d11a82c2'
+  apiKey: 'zpka_b91dd800258e43558f104edfeaf423eb_30bd5ce1'
 });
