@@ -21,7 +21,6 @@ export class FavoritesEffects {
       ofType(FavoritesActions.getDetailedFavorites),
       withLatestFrom(this.favoritesStore.shortFavorites$),
       exhaustMap(([{ loadingKey }, shortFavorites]) => {
-        debugger;
         return this.favoritesService.getDetailedFavorites(shortFavorites).pipe(
           map((detailedFavorites: IFavoriteDetailedInfo[]) => {
             return FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites, loadingKey });
