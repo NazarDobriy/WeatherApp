@@ -23,6 +23,7 @@ import { ErrorInterceptor } from '@core/interceptors/error.interceptor';
 import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
 import { NgRxLocalStorageService } from "@core/providers/ng-rx-local-storage.service";
+import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -41,6 +42,7 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     provideEnvironmentInitializer(() => {
       inject(NgRxLocalStorageService);
+      inject(CrossTabFavoritesService);
     }),
     {
       provide: HTTP_INTERCEPTORS,

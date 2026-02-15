@@ -61,7 +61,6 @@ export class NgRxLocalStorageService {
       this.loadThemeFromStorage();
       this.loadTemperatureFromStorage();
       this.loadShortFavoritesFromStorage();
-      this.loadDailyRepresentationFromStorage();
     });
   }
 

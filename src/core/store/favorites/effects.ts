@@ -4,7 +4,7 @@ import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import { FavoritesService } from '@core/providers/favorites.service';
-import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
+import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { NOTIFICATION } from '@core/constants/notification.constants';
 import { WeatherService } from "@core/providers/weather.service";
@@ -19,22 +19,19 @@ export class FavoritesEffects {
   getDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavorites),
-      switchMap(({ loadingKey }) => this.favoritesStore.shortFavorites$.pipe(
-        withLatestFrom(this.appStoreService.selectUrl$),
-        filter(([, url]: [IFavoriteShortInfo[], string]) => url.includes('favorites')),
-        map(([shortFavorites,]: [IFavoriteShortInfo[], string]) => ({ loadingKey, shortFavorites })),
-      )),
-      exhaustMap(({ loadingKey, shortFavorites }) => {
+      withLatestFrom(this.favoritesStore.shortFavorites$),
+      exhaustMap(([{ loadingKey }, shortFavorites]) => {
+        debugger;
         return this.favoritesService.getDetailedFavorites(shortFavorites).pipe(
-          map((detailedFavorites: IFavoriteDetailedInfo[]) =>
-            FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites, loadingKey }),
-          ),
-          catchError((error: Error) =>
-            of(FavoritesActions.getDetailedFavoritesFailure({ error: error.message, loadingKey })),
-          ),
+          map((detailedFavorites: IFavoriteDetailedInfo[]) => {
+            return FavoritesActions.getDetailedFavoritesSuccess({ detailedFavorites, loadingKey });
+          }),
+          catchError((error: Error) => {
+            return of(FavoritesActions.getDetailedFavoritesFailure({ error: error.message, loadingKey }));
+          }),
           minLoadingTime(300),
         );
-      })
+      }),
     );
   });
 
@@ -66,11 +63,32 @@ export class FavoritesEffects {
     );
   }, { dispatch: false });
 
+  addDetailedFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesActions.addShortFavorite),
+      withLatestFrom(this.appStoreService.selectUrl$),
+      filter(([_, url]) => url.includes('favorites')),
+      switchMap(([{ shortFavorite }]) => {
+        return this.favoritesService.getDetailedFavorite(shortFavorite).pipe(
+          map((detailedFavorite: IFavoriteDetailedInfo) => {
+            return FavoritesActions.addDetailedFavoriteSuccess({ detailedFavorite });
+          }),
+          catchError((error: Error) => {
+            return of(FavoritesActions.addDetailedFavoriteFailure({
+              name: shortFavorite.name,
+              error: error.message,
+            }));
+          }),
+        );
+      }),
+    );
+  });
+
   successAddShortFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.addShortFavorite),
       tap(({ shortFavorite }) => {
-        return this.snackBarService.open(NOTIFICATION.SUCCESS_ADDING_FAVOURITE(shortFavorite.name),'X');
+        this.snackBarService.open(NOTIFICATION.SUCCESS_ADDING_FAVOURITE(shortFavorite.name),'X');
       }),
     );
   }, { dispatch: false });
@@ -115,6 +133,15 @@ export class FavoritesEffects {
       ofType(FavoritesActions.updateDetailedFavoriteFailure),
       tap(({ name }) => {
         return this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_WEATHER(name),'X');
+      }),
+    );
+  }, { dispatch: false });
+
+  failureAddDetailedFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesActions.addDetailedFavoriteFailure),
+      tap(({ name }) => {
+        this.snackBarService.open(NOTIFICATION.ERROR_REMOVING_FAVORITE(name), 'X');
       }),
     );
   }, { dispatch: false });

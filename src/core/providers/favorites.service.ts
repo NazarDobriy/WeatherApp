@@ -22,17 +22,21 @@ export class FavoritesService {
     }
 
     const favoriteWeatherStreams = shortFavorites.map((shortFavorite: IFavoriteShortInfo) => {
-      return this.weatherService.getWeather(shortFavorite.id).pipe(
-        map((weather: IWeather) => {
-          return {
-            ...shortFavorite,
-            ...weather,
-          };
-        }),
-      );
+      return this.getDetailedFavorite(shortFavorite);
     });
 
     return combineLatest(favoriteWeatherStreams);
+  }
+
+  getDetailedFavorite(shortFavorite: IFavoriteShortInfo): Observable<IFavoriteDetailedInfo> {
+    return this.weatherService.getWeather(shortFavorite.id).pipe(
+      map((weather: IWeather) => {
+        return {
+          ...shortFavorite,
+          ...weather,
+        };
+      }),
+    );
   }
 
   clearDialogRouteParams(): void {
