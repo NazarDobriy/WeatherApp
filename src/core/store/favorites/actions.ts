@@ -13,6 +13,16 @@ export const removeShortFavorite = createAction(
   props<{ id: string; name: string; }>()
 );
 
+export const addDetailedFavoriteSuccess = createAction(
+  '[Favorites] Add Detailed Favorite Success',
+  props<{ detailedFavorite: IFavoriteDetailedInfo; }>()
+);
+
+export const addDetailedFavoriteFailure = createAction(
+  '[Favorites] Add Detailed Favorite Failure',
+  props<{ name: string; error: string; }>()
+);
+
 export const removeFavorites = createAction('[Favorites] Remove Favorites');
 
 export const setShortFavorites = createAction(

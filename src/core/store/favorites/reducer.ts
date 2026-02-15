@@ -19,6 +19,15 @@ export const favoritesReducer = createReducer(
       detailedFavorites: state.detailedFavorites.filter((detailedFavorite: IFavoriteDetailedInfo) => detailedFavorite.id !== id),
     };
   }),
+  on(FavoritesActions.addDetailedFavoriteSuccess, (state: IFavoritesState, { detailedFavorite }) => {
+    return {
+      ...state,
+      detailedFavorites: [...state.detailedFavorites, detailedFavorite],
+    };
+  }),
+  on(FavoritesActions.addDetailedFavoriteFailure, (state: IFavoritesState, { error }) => {
+    return { ...state, error };
+  }),
   on(FavoritesActions.removeFavorites, (state: IFavoritesState) => {
     return {
       ...state,
