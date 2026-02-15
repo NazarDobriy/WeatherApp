@@ -1,3 +1,3 @@
 import { getRouterSelectors } from '@ngrx/router-store';
 
-export const { selectUrl, selectQueryParams } = getRouterSelectors();
+export const { selectUrl } = getRouterSelectors();
