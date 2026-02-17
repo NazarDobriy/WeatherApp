@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { routerNavigatedAction } from "@ngrx/router-store";
 import { filter, switchMap, of, map, tap, exhaustMap, first } from "rxjs";
 
+import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesRouteActions from '@core/store/favorites/routes/actions';
 import {
   RemoveFavoritesDialogComponent,
@@ -63,8 +64,14 @@ export class FavoritesRouteEffects {
   successRemoveFavoritesRoute$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesRouteActions.removeFavoritesConfirmed),
+      map(() => FavoritesActions.removeFavorites()),
+    );
+  });
+
+  showRemoveFavoritesSnackbar$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesRouteActions.removeFavoritesConfirmed),
       tap(() => {
-        this.favoritesStore.dispatchRemoveFavorites();
         this.snackBarService.open(NOTIFICATION.SUCCESS_DIALOG_FAVORITES,'X');
       }),
     );

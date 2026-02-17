@@ -13,9 +13,25 @@ import { minLoadingTime } from "@utils/index";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { PAGE_KEY, REFRESH_KEY } from "@core/constants/loading.constants";
 import { AppStoreService } from "@app/providers/app-store.service";
+import { LocalStorageService } from "@core/providers/local-storage.service";
+import { FAVORITES_KEY } from "@core/constants/storage.constants";
 
 @Injectable()
 export class FavoritesEffects {
+  shortFavoritesStorage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(
+        FavoritesActions.addShortFavorite,
+        FavoritesActions.removeShortFavorite,
+        FavoritesActions.removeFavorites,
+      ),
+      withLatestFrom(this.favoritesStore.shortFavorites$),
+      tap(([, shortFavorites]) => {
+        this.localStorageService.set(FAVORITES_KEY, shortFavorites);
+      }),
+    );
+  }, { dispatch: false });
+
   getDetailedFavorites$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesActions.getDetailedFavorites),
@@ -152,5 +168,6 @@ export class FavoritesEffects {
     private appStoreService: AppStoreService,
     private favoritesService: FavoritesService,
     private favoritesStore: FavoritesStoreService,
+    private localStorageService: LocalStorageService,
   ) {}
 }

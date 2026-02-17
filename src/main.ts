@@ -24,13 +24,20 @@ import { FavoritesEffects } from '@core/store/favorites/effects';
 import { WINDOW_PROVIDER } from "@core/di/window.provider";
 import { NgRxLocalStorageService } from "@core/providers/ng-rx-local-storage.service";
 import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
+import { ThemeEffects } from "@core/store/theme/effects";
+import { NavigationEffects } from "@core/store/navigation/effects";
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideStore(reducers),
-    provideEffects(LocationEffects, FavoritesEffects),
+    provideEffects(
+      ThemeEffects,
+      LocationEffects,
+      FavoritesEffects,
+      NavigationEffects,
+    ),
     provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25,

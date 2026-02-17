@@ -3,8 +3,8 @@
   (click)="changeThemeTemperature()"
 >
   @if (isCelsius$ | async) {
-    <div>F</div>
-  } @else {
     <div>&deg;C</div>
+  } @else {
+    <div>F</div>
   }
 </section>

@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 
 import * as LocationActions from '@core/store/location/actions';
 import * as LocationSelectors from '@core/store/location/selectors';
-import { IGeoLocation } from '@core/types/geo-location';
 import { ILocation } from '@core/types/location.interface';
 import { ILocationState } from '@core/store/location/state';
 import { filterDefined } from '@utils/index';
@@ -18,8 +17,8 @@ export class LocationStoreService {
 
   constructor(private store: Store<ILocationState>) {}
 
-  dispatchLocation(geoPosition: IGeoLocation): void {
-    this.store.dispatch(LocationActions.getLocation({ geoPosition }));
+  dispatchLocation(): void {
+    this.store.dispatch(LocationActions.getLocation());
   }
 
   dispatchLocationChange(location: ILocation): void {
