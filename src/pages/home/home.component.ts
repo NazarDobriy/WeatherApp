@@ -16,8 +16,6 @@ import { ILocation } from '@core/types/location.interface';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { temperatureConverter } from '@utils/index';
-import { SnackBarService } from '@core/providers/snack-bar.service';
-import { KyivGeoLocation } from '@pages/home/constants/location.constants';
 import { LocationSearchComponent } from '@pages/home/components/location-search/location-search.component';
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
@@ -67,7 +65,6 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     public homeFacadeService: HomeFacadeService,
     private titleService: Title,
     private destroyRef: DestroyRef,
-    private snackBarService: SnackBarService,
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
     private favoritesStore: FavoritesStoreService,
@@ -81,7 +78,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
-    this.handleGeoPosition();
+    this.locationStore.dispatchLocation();
     this.listenDailyRepresentation();
   }
 
@@ -126,18 +123,6 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
         type: 'remove',
         payload: shortFavorite,
       });
-    }
-  }
-
-  private handleGeoPosition(): void {
-    if (navigator.geolocation && !this.location()) {
-      navigator.geolocation.getCurrentPosition(
-        (position: GeolocationPosition) => this.locationStore.dispatchLocation(position.coords),
-        (error: GeolocationPositionError) => {
-          this.snackBarService.open(error.message, 'X');
-          this.locationStore.dispatchLocation(KyivGeoLocation);
-        }
-      );
     }
   }
 
