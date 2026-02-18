@@ -39,6 +39,7 @@
             routerLink="/home"
             routerLinkActive="text-primary"
             [routerLinkActiveOptions]="{ exact: true }"
+            (click)="resetLocation()"
           >
             Home
           </a>

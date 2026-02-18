@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as WeatherActions from '@pages/home/store/weather/actions';
 import * as WeatherSelectors from '@pages/home/store/weather/selectors';
 import { IWeatherState } from '@pages/home/store/weather/state';
 import { filterDefined } from '@utils/index';
@@ -18,11 +17,4 @@ export class WeatherStoreService {
 
   constructor(private store: Store<IWeatherState>) {}
 
-  dispatchWeather(key: string): void {
-    this.store.dispatch(WeatherActions.getWeather({ key }));
-  }
-
-  dispatchForecasts(key: string): void {
-    this.store.dispatch(WeatherActions.getForecasts({ key }));
-  }
 }

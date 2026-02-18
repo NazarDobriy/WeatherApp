@@ -11,6 +11,7 @@ import { ButtonComponent } from "@shared/components/button/button.component";
 import { ButtonVariant } from "@shared/components/button/types/button.enum";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { REFRESH_KEY } from "@core/constants/loading.constants";
+import { LocationStoreService } from "@core/providers/location-store.service";
 
 @Component({
   selector: 'app-header',
@@ -34,8 +35,13 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private locationStore: LocationStoreService,
     private favoritesStore: FavoritesStoreService,
   ) {}
+
+  resetLocation(): void {
+    this.locationStore.dispatchResetLocation();
+  }
 
   refreshAll(): void {
     this.favoritesStore.dispatchDetailedFavorites(REFRESH_KEY);

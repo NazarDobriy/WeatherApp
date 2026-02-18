@@ -32,5 +32,6 @@ export const selectLoadingDetailedFavorites = (loadingKey: FavoritesLoadingType)
 );
 
 export const selectFailureDetailedFavorites = createSelector(
-  selectFavoritesFeature, ({ error }: IFavoritesState): string | null => error
+  selectFavoritesFeature,
+  ({ error }: IFavoritesState): string | null => error,
 );

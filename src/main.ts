@@ -26,6 +26,7 @@ import { NgRxLocalStorageService } from "@core/providers/ng-rx-local-storage.ser
 import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
 import { ThemeEffects } from "@core/store/theme/effects";
 import { NavigationEffects } from "@core/store/navigation/effects";
+import { LocationRouteEffects } from "@core/store/location/routes/effects";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -37,6 +38,7 @@ bootstrapApplication(AppComponent, {
       LocationEffects,
       FavoritesEffects,
       NavigationEffects,
+      LocationRouteEffects,
     ),
     provideRouterStore(),
     provideStoreDevtools({
