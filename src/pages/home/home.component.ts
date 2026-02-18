@@ -15,7 +15,7 @@ import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { IFavoriteShortInfo } from '@core/types/favorite.interface';
-import { temperatureConverter } from '@utils/index';
+import { filterDefined, temperatureConverter } from '@utils/index';
 import { LocationSearchComponent } from '@pages/home/components/location-search/location-search.component';
 import { ForecastsComponent } from '@pages/home/components/forecasts/forecasts.component';
 import { LineChartComponent } from '@shared/components/line-chart/line-chart.component';
@@ -78,7 +78,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
-    this.locationStore.dispatchLocation();
+    this.handleFavoriteLocation();
     this.listenDailyRepresentation();
   }
 
@@ -151,29 +151,27 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
 
   private handleLocation(): void {
     this.locationStore.location$.pipe(
-      switchMap((location: ILocation) => {
-        this.location.set(location);
-        const key = location.Key;
-        this.weatherStore.dispatchWeather(key);
-        this.weatherStore.dispatchForecasts(key);
-
-        return this.favoritesStore.shortFavorites$;
-      }),
+      filterDefined,
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (favorites: IFavoriteShortInfo[]) => {
-        const location = this.location();
+      next: (location: ILocation) => this.location.set(location),
+    });
+  }
 
-        if (location) {
-          this.isFavorite.set(favorites.some((item: IFavoriteShortInfo) => item.id === location.Key));
-        }
-      },
+  private handleFavoriteLocation(): void {
+    this.locationStore.isFavoriteLocation$.pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (isFavorite: boolean) => this.isFavorite.set(isFavorite),
     });
   }
 
   private getTemperatureDataset(selector: (forecast: IForecast) => string): number[] {
-    return this.forecasts().map((forecast: IForecast) => {
-      return temperatureConverter(parseFloat(selector(forecast)), this.isCelsius());
+    const isCelsius = this.isCelsius();
+    const forecasts = this.forecasts();
+
+    return forecasts.map((forecast: IForecast) => {
+      return temperatureConverter(parseFloat(selector(forecast)), isCelsius);
     });
   }
 

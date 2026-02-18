@@ -24,6 +24,7 @@ import {
 import {
   LocationSearchDropdownService,
 } from "@pages/home/components/location-search/providers/location-search-dropdown.service";
+import { filterDefined } from "@utils/index";
 
 @Component({
   selector: 'app-location-search',
@@ -122,6 +123,7 @@ export class LocationSearchComponent implements OnInit {
 
   private handleLocation(): void {
     this.locationStore.location$.pipe(
+      filterDefined,
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (location: ILocation) => {
