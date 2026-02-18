@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import * as LocationActions from './actions';
 import * as WeatherActions from '@pages/home/store/weather/actions';
@@ -91,7 +91,7 @@ export class LocationEffects {
           }),
         );
       }),
-      map(({location, favorites}) => {
+      map(({ location, favorites }) => {
         const isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === location.Key);
         return LocationActions.setIsFavorite({ isFavorite });
       }),

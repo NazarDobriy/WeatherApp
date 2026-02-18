@@ -7,6 +7,10 @@ import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.
 export const favoritesReducer = createReducer(
   favoritesInitialState,
   on(FavoritesActions.addShortFavorite, (state: IFavoritesState, { shortFavorite }) => {
+    if (state.shortFavorites.some((item: IFavoriteShortInfo) => item.id === shortFavorite.id)) {
+      return state;
+    }
+
     return {
       ...state,
       shortFavorites: [...state.shortFavorites, shortFavorite],
