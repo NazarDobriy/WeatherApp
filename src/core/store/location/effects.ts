@@ -10,8 +10,6 @@ import { ILocation } from '@core/types/location.interface';
 import { NOTIFICATION } from '@core/constants/notification.constants';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { KyivGeoLocation} from "@pages/home/constants/location.constants";
-import { FavoritesStoreService } from "@core/providers/favorites-store.service";
-import { IFavoriteShortInfo } from "@core/types/favorite.interface";
 
 @Injectable()
 export class LocationEffects {
@@ -78,26 +76,6 @@ export class LocationEffects {
     )
   );
 
-  isLocationFavorite$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(
-        LocationActions.getLocationSuccess,
-        LocationActions.changeLocation,
-      ),
-      switchMap(({ location }) => {
-        return this.favoritesStore.shortFavorites$.pipe(
-          map((favorites: IFavoriteShortInfo[]) => {
-            return { location, favorites };
-          }),
-        );
-      }),
-      map(({ location, favorites }) => {
-        const isFavorite = favorites.some((item: IFavoriteShortInfo) => item.id === location.Key);
-        return LocationActions.setIsFavorite({ isFavorite });
-      }),
-    );
-  });
-
   failureLocation$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(LocationActions.getLocationFailure),
@@ -109,6 +87,5 @@ export class LocationEffects {
     private actions$: Actions,
     private locationService: LocationService,
     private snackBarService: SnackBarService,
-    private favoritesStore: FavoritesStoreService,
   ) {}
 }
