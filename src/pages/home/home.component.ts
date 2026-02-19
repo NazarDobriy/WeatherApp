@@ -111,17 +111,13 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const location = this.location();
 
     if (location) {
-      const shortFavorite: IFavoriteShortInfo = {
-        id: location.Key,
-        name: location.LocalizedName,
-        isLoading: false,
-        error: null,
-      };
-
       this.favoritesStore.dispatchRemoveShortFavorite(location.Key, location.LocalizedName);
       this.crossTabFavoritesService.send({
         type: 'remove',
-        payload: shortFavorite,
+        payload: {
+          id: location.Key,
+          name: location.LocalizedName,
+        },
       });
     }
   }

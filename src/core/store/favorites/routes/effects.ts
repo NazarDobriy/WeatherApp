@@ -13,6 +13,7 @@ import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { NOTIFICATION } from "@core/constants/notification.constants";
 import { SnackBarService } from "@core/providers/snack-bar.service";
 import { FavoritesService } from "@core/providers/favorites.service";
+import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
 
 @Injectable()
 export class FavoritesRouteEffects {
@@ -68,6 +69,13 @@ export class FavoritesRouteEffects {
     );
   });
 
+  successRemoveFavoritesTabSharing$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoritesRouteActions.removeFavoritesConfirmed),
+      tap(() => this.crossTabFavoritesService.send({ type: 'removeAll' })),
+    );
+  }, { dispatch: false });
+
   showRemoveFavoritesSnackbar$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(FavoritesRouteActions.removeFavoritesConfirmed),
@@ -94,6 +102,7 @@ export class FavoritesRouteEffects {
     private snackBarService: SnackBarService,
     private favoritesService: FavoritesService,
     private favoritesStore: FavoritesStoreService,
+    private crossTabFavoritesService: CrossTabFavoritesService,
   ) {}
 
 }

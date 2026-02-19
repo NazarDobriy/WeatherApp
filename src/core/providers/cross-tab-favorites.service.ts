@@ -1,31 +1,43 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
-import { IFavoriteMessage } from "@core/types/favorites-channel.interface";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
+import { FavoriteMessageType } from "@core/types/favorite-message.type";
 
 @Injectable({
   providedIn: 'root',
 })
-export class CrossTabFavoritesService {
+export class CrossTabFavoritesService implements OnDestroy {
   private readonly channel = new BroadcastChannel('favorites-channel');
 
   constructor(private favoritesStore: FavoritesStoreService) {
     this.listenMessage();
   }
 
-  send(data: IFavoriteMessage): void {
+  send(data: FavoriteMessageType): void {
     this.channel.postMessage(data);
   }
 
   private listenMessage(): void {
-    this.channel.onmessage = ({ data }: MessageEvent<IFavoriteMessage>) => {
-      if (data.type === 'add') {
-        this.favoritesStore.dispatchAddShortFavorite(data.payload);
-      } else if (data.type === 'remove') {
-        const { payload } = data;
-        this.favoritesStore.dispatchRemoveShortFavorite(payload.id, payload.name);
+    this.channel.onmessage = ({ data }: MessageEvent<FavoriteMessageType>) => {
+      switch (data.type) {
+        case 'add':
+          this.favoritesStore.dispatchAddShortFavorite(data.payload);
+          break;
+        case 'remove':
+          this.favoritesStore.dispatchRemoveShortFavorite(
+            data.payload.id,
+            data.payload.name,
+          );
+          break;
+        case 'removeAll':
+          this.favoritesStore.dispatchRemoveFavorites();
+          break;
       }
     };
+  }
+
+  ngOnDestroy(): void {
+    this.channel.close();
   }
 
 }
