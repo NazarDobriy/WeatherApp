@@ -28,9 +28,6 @@ export const locationReducer = createReducer(
   on(LocationActions.changeLocation, (state: ILocationState, { location }) => {
     return { ...state, location };
   }),
-  on(LocationActions.setIsFavorite, (state: ILocationState, { isFavorite })=> {
-    return { ...state, isFavorite };
-  }),
   on(LocationActions.resetLocation, (state: ILocationState) => {
     return {
       ...state,
