@@ -19,9 +19,4 @@ export const changeLocation = createAction(
   props<{ location: ILocation }>()
 );
 
-export const setIsFavorite = createAction(
-  '[Location] Define Favorite Location',
-  props<{ isFavorite: boolean; }>(),
-);
-
 export const resetLocation = createAction('[Location] Reset Location',);

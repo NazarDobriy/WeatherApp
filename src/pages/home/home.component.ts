@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatTooltip } from "@angular/material/tooltip";
 import { Title } from '@angular/platform-browser';
-import { switchMap } from 'rxjs';
 
 import { WeatherStoreService } from './providers/weather-store.service';
 import { IWeather } from '@core/types/weather.interface';
@@ -46,8 +45,8 @@ import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.se
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
-  readonly buttonVariant = ButtonVariant;
   readonly buttonWidth = ButtonWidth;
+  readonly buttonVariant = ButtonVariant;
   readonly location = signal<ILocation | null>(null);
   readonly forecasts = signal<IForecast[]>([]);
   readonly weather = signal<IWeather | null>(null);
@@ -78,6 +77,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.handleLocation();
     this.handleWeather();
     this.handleForecasts();
+    this.handleTemperature();
     this.handleFavoriteLocation();
     this.listenDailyRepresentation();
   }
@@ -111,17 +111,13 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const location = this.location();
 
     if (location) {
-      const shortFavorite: IFavoriteShortInfo = {
-        id: location.Key,
-        name: location.LocalizedName,
-        isLoading: false,
-        error: null,
-      };
-
       this.favoritesStore.dispatchRemoveShortFavorite(location.Key, location.LocalizedName);
       this.crossTabFavoritesService.send({
         type: 'remove',
-        payload: shortFavorite,
+        payload: {
+          id: location.Key,
+          name: location.LocalizedName,
+        },
       });
     }
   }
@@ -139,10 +135,14 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
 
   private handleForecasts(): void {
     this.weatherStore.forecasts$.pipe(
-      switchMap((forecasts: IForecast[]) => {
-        this.forecasts.set(forecasts);
-        return this.themeStore.isCelsius$;
-      }),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (forecasts: IForecast[]) => this.forecasts.set(forecasts),
+    });
+  }
+
+  private handleTemperature(): void {
+    this.themeStore.isCelsius$.pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (isCelsius: boolean) => this.isCelsius.set(isCelsius),
