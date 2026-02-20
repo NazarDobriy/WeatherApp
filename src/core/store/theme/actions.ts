@@ -17,6 +17,4 @@ export const setDailyRepresentation = createAction(
   props<{ isChartRepresentation: boolean; }>(),
 )
 
-export const toggleTemperature = createAction('[Theme] Toggle Temperature');
-
 export const toggleDailyRepresentation = createAction('[Theme] Toggle Daily Representation');

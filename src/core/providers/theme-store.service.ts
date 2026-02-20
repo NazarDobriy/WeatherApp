@@ -16,10 +16,6 @@ export class ThemeStoreService {
 
   constructor(private store: Store<IThemeState>) {}
 
-  dispatchTemperature(): void {
-    this.store.dispatch(ThemeActions.toggleTemperature());
-  }
-
   dispatchDailyRepresentation(): void {
     this.store.dispatch(ThemeActions.toggleDailyRepresentation());
   }
