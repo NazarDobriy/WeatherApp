@@ -1,5 +1,6 @@
 <app-select
   [items]="THEME_GROUPS"
   [selectedKey]="theme$ | async"
+  [hideText]="!!(headerFacade.isHideBlock$ | async)"
   (onSelect)="changeThemeMode($event)"
 ></app-select>
