@@ -12,6 +12,7 @@ import { ButtonVariant } from "@shared/components/button/types/button.enum";
 import { FavoritesStoreService } from "@core/providers/favorites-store.service";
 import { REFRESH_KEY } from "@core/constants/loading.constants";
 import { LocationStoreService } from "@core/providers/location-store.service";
+import { HeaderFacadeService } from "@core/components/header/providers/header-facade.service";
 
 @Component({
   selector: 'app-header',
@@ -25,6 +26,7 @@ import { LocationStoreService } from "@core/providers/location-store.service";
     MatIcon,
     AsyncPipe,
   ],
+  providers: [HeaderFacadeService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

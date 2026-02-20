@@ -5,12 +5,6 @@ import { IThemeState, themeInitialState } from './state';
 
 export const themeReducer = createReducer(
   themeInitialState,
-  on(ThemeActions.toggleTemperature, (state: IThemeState) => {
-    return {
-      ...state,
-      isCelsius: !state.isCelsius
-    };
-  }),
   on(ThemeActions.toggleDailyRepresentation, (state: IThemeState) => {
     return {
       ...state,

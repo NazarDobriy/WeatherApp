@@ -6,22 +6,33 @@
   <div
     class="
       flex-center
-      h-9 gap-2
+      h-9 border
       bg-primary
-      border w-24
       border-main
       rounded
       cursor-pointer
       group-hover:rounded-b-none
+      px-3
     "
+    [ngClass]="gapClass()"
   >
     @if (selectedItem().iconPath) {
-      <svg class="h-5 w-5 text-custom-white">
-        <use [attr.href]="selectedItem().iconPath"></use>
-      </svg>
+      <div
+        class="relative"
+        [ngClass]="[leftClass(), hideIconClass()]"
+      >
+        <svg class="h-5 w-5 text-custom-white">
+          <use [attr.href]="selectedItem().iconPath"></use>
+        </svg>
+      </div>
     }
     @if (selectedItem().text) {
-      <div class="text-custom-white">{{ selectedItem().text }}</div>
+      <div
+        class="text-custom-white"
+        [ngClass]="hideTextClass()"
+      >
+        {{ selectedItem().text }}
+      </div>
     }
   </div>
 
@@ -33,7 +44,7 @@
       <div
         class="
           flex-center
-          h-9 w-full gap-2
+          h-9 w-full
           cursor-pointer
           border border-main
           last:rounded-b
@@ -43,6 +54,8 @@
           transition-colors
           duration-150
           ease-in-out
+          px-3
+          {{ gapClass() }}
         "
         [ngClass]="{
           'bg-primary text-custom-white': item.key === selectedItem().key,
@@ -51,14 +64,21 @@
         (click)="onSelect.emit(item.key); isOpen.set(false)"
       >
         @if (item.iconPath) {
-          <svg
-            class="h-5 w-5 group-hover/option:text-custom-white"
-            [ngClass]="item.key === selectedItem().key ? 'text-custom-white' : 'text-main'"
+          <div
+            class="relative"
+            [ngClass]="[leftClass(), hideIconClass()]"
           >
-            <use [attr.href]="item.iconPath"></use>
-          </svg>
+            <svg
+              class="h-5 w-5 group-hover/option:text-custom-white"
+              [ngClass]="item.key === selectedItem().key ? 'text-custom-white' : 'text-main'"
+            >
+              <use [attr.href]="item.iconPath"></use>
+            </svg>
+          </div>
         }
-        <div>{{ item.text }}</div>
+        <div [ngClass]="hideTextClass()">
+          {{ item.text }}
+        </div>
       </div>
     }
   </section>

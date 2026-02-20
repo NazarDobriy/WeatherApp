@@ -1,10 +1,8 @@
-<section
-  class="flex-center border-2 border-red-600 select-none cursor-pointer h-8 w-8"
-  (click)="changeThemeTemperature()"
->
-  @if (isCelsius$ | async) {
-    <div>&deg;C</div>
-  } @else {
-    <div>F</div>
-  }
-</section>
+<app-select
+  [leftClass]="'left-1'"
+  [gap]="selectGap.SM"
+  [items]="TEMPERATURE_GROUPS"
+  [selectedKey]="isCelsius$ | async"
+  [hideIcon]="!!(headerFacade.isHideBlock$ | async)"
+  (onSelect)="changeThemeTemperature($event)"
+></app-select>
