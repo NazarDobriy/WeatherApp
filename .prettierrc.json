@@ -6,5 +6,13 @@
   "bracketSpacing": true,
   "trailingComma": "all",
   "arrowParens": "always",
-  "overrides": [{ "files": "*.html", "options": { "parser": "angular" } }]
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular",
+        "printWidth": 90
+      }
+    }
+  ]
 }
