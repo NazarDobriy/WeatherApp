@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable } from "rxjs";
+import { map, Observable } from 'rxjs';
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
 import { IFavoritesState } from '@core/store/favorites/state';
-import { FavoritesLoadingType } from "@core/types/favorites-loading.type";
+import { FavoritesLoadingType } from '@core/types/favorites-loading.type';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,9 @@ export class FavoritesStoreService {
   readonly shortFavorites$ = this.store.select(FavoritesSelectors.selectShortFavorites);
   readonly detailedFavorites$ = this.store.select(FavoritesSelectors.selectDetailedFavorites);
   readonly detailedFavoritesLength$ = this.store.select(FavoritesSelectors.selectDetailedFavoritesLength);
-  readonly detailedFavoritesHasLoaded$ = this.store.select(FavoritesSelectors.selectDetailedFavoritesHasLoaded);
+  readonly detailedFavoritesHasLoaded$ = this.store.select(
+    FavoritesSelectors.selectDetailedFavoritesHasLoaded,
+  );
   readonly detailedFavoritesFailure$ = this.store.select(FavoritesSelectors.selectFailureDetailedFavorites);
 
   constructor(private store: Store<IFavoritesState>) {}

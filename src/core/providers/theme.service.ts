@@ -1,7 +1,7 @@
 import { Inject, Injectable, Renderer2, RendererFactory2, DOCUMENT } from '@angular/core';
 
-import { ThemeType } from "@core/types/theme.type";
-import { WINDOW } from "@core/tokens/window.token";
+import { ThemeType } from '@core/types/theme.type';
+import { WINDOW } from '@core/tokens/window.token';
 
 @Injectable({
   providedIn: 'root',
@@ -27,17 +27,17 @@ export class ThemeService {
     return getComputedStyle(this.document.body).getPropertyValue(name).trim();
   }
 
-  setTheme(theme: ThemeType): void  {
+  setTheme(theme: ThemeType): void {
     this.currentTheme = theme;
 
     switch (theme) {
-      case "dark":
+      case 'dark':
         this.renderer?.addClass(this.target, this.darkClass);
         break;
-      case "light":
+      case 'light':
         this.renderer?.removeClass(this.target, this.darkClass);
         break;
-      case "auto":
+      case 'auto':
         this.applyAutoTheme();
         break;
     }
@@ -56,5 +56,4 @@ export class ThemeService {
       this.renderer?.removeClass(this.target, this.darkClass);
     }
   }
-
 }

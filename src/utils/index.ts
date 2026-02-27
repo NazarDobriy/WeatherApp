@@ -7,9 +7,7 @@ export function temperatureConverter(temperature: number, isCelsius: boolean): n
   return parseFloat(((temperature * 9) / 5 + 32).toFixed(1));
 }
 
-export function filterDefined<T>(
-  source$: Observable<T | null | undefined>
-): Observable<T> {
+export function filterDefined<T>(source$: Observable<T | null | undefined>): Observable<T> {
   return source$.pipe(filter((item: T | null | undefined): item is T => !!item));
 }
 
@@ -27,7 +25,7 @@ export function minLoadingTime<T>(minMs = 300): (source$: Observable<T>) => Obse
 }
 
 export function deepFreeze<T extends object>(obj: T): T {
-  Object.values(obj).forEach(value => {
+  Object.values(obj).forEach((value) => {
     if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
       deepFreeze(value);
     }

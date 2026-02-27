@@ -8,9 +8,8 @@ describe('FavoriteCartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FavoriteCartComponent ]
-    })
-    .compileComponents();
+      declarations: [FavoriteCartComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FavoriteCartComponent);
     component = fixture.componentInstance;

@@ -8,9 +8,7 @@ export class TemperatureUnit {
   protected readonly themeStore = inject(ThemeStoreService);
 
   protected constructor() {
-    this.themeStore.isCelsius$.pipe(
-      takeUntilDestroyed(),
-    ).subscribe({
+    this.themeStore.isCelsius$.pipe(takeUntilDestroyed()).subscribe({
       next: (isCelsius: boolean) => this.isCelsius.set(isCelsius),
     });
   }

@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { WINDOW } from "@core/tokens/window.token";
+import { WINDOW } from '@core/tokens/window.token';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-
   constructor(@Inject(WINDOW) private window: Window) {}
 
   get<T>(key: string): T | null {
@@ -32,5 +31,4 @@ export class LocalStorageService {
       console.error(`Error saving localStorage key "${key}"`, e);
     }
   }
-
 }

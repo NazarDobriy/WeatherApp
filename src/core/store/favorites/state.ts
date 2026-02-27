@@ -1,5 +1,5 @@
 import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.interface';
-import { FavoritesLoadingType } from "@core/types/favorites-loading.type";
+import { FavoritesLoadingType } from '@core/types/favorites-loading.type';
 
 export interface IFavoritesState {
   shortFavorites: IFavoriteShortInfo[];
@@ -11,7 +11,7 @@ export interface IFavoritesState {
 
 export const favoritesInitialState: IFavoritesState = Object.freeze({
   shortFavorites: [],
-  detailedFavorites:[],
+  detailedFavorites: [],
   hasLoaded: false,
   loading: {},
   error: null,

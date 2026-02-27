@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
-import { NgClass } from "@angular/common";
+import { NgClass } from '@angular/common';
 
-import { ISelect } from "@shared/components/select/types/select.interface";
-import { SelectGap } from "@shared/components/select/types/select.enum";
-import { SELECT_GAP_MAP } from "@shared/components/select/constants/select.constants";
+import { ISelect } from '@shared/components/select/types/select.interface';
+import { SelectGap } from '@shared/components/select/types/select.enum';
+import { SELECT_GAP_MAP } from '@shared/components/select/constants/select.constants';
 
 @Component({
   selector: 'app-select',

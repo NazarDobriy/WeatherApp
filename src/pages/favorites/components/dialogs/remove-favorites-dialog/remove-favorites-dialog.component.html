@@ -1,7 +1,5 @@
 @if (amount() !== null) {
-  <div class="text-sm relative" mat-dialog-title>
-    Remove favorites
-  </div>
+  <div class="text-sm relative" mat-dialog-title>Remove favorites</div>
 
   <app-button-icon
     class="absolute sm:top-2 sm:right-2 md:top-4 md:right-4 top-1 right-1"
@@ -10,7 +8,8 @@
   ></app-button-icon>
 
   <mat-dialog-content>
-    Would you like to remove {{ amount() }} favorite {{ amount() === 1 ? 'item' : 'items' }}?
+    Would you like to remove {{ amount() }} favorite
+    {{ amount() === 1 ? 'item' : 'items' }}?
   </mat-dialog-content>
 
   <mat-dialog-actions class="flex-center-x gap-2" align="end">

@@ -12,19 +12,15 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinner } from "@angular/material/progress-spinner";
-import { AsyncPipe } from "@angular/common";
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 
 import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { ILocation } from '@core/types/location.interface';
-import {
-  LocationSearchFormService,
-} from '@pages/home/components/location-search/providers/location-search-form.service';
-import {
-  LocationSearchDropdownService,
-} from "@pages/home/components/location-search/providers/location-search-dropdown.service";
-import { filterDefined } from "@utils/index";
+import { LocationSearchFormService } from '@pages/home/components/location-search/providers/location-search-form.service';
+import { LocationSearchDropdownService } from '@pages/home/components/location-search/providers/location-search-dropdown.service';
+import { filterDefined } from '@utils/index';
 
 @Component({
   selector: 'app-location-search',
@@ -56,25 +52,23 @@ export class LocationSearchComponent implements OnInit {
   readonly matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
       return control?.invalid && (control?.dirty || control?.touched);
-    }
+    },
   };
   private readonly searchControl = this.locationSearchFormService.searchControl;
   readonly searchInput = toSignal<string>(
-    this.searchControl.valueChanges.pipe(
-      startWith(this.searchControl.value),
-    ),
+    this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
   );
   readonly requiredError = toSignal<boolean>(
     this.searchControl.statusChanges.pipe(
       startWith(this.searchControl.status),
-      map(() => this.searchControl.hasError('required'))
-    )
+      map(() => this.searchControl.hasError('required')),
+    ),
   );
   readonly patternError = toSignal<boolean>(
     this.searchControl.statusChanges.pipe(
       startWith(this.searchControl.status),
-      map(() => this.searchControl.hasError('pattern'))
-    )
+      map(() => this.searchControl.hasError('pattern')),
+    ),
   );
   readonly locations$ = this.locationsStore.locations$;
   readonly lastSearchedQuery$ = this.locationsStore.lastSearchedQueryLocations$;
@@ -86,7 +80,7 @@ export class LocationSearchComponent implements OnInit {
     private locationsStore: LocationsStoreService,
     private locationStore: LocationStoreService,
     private destroyRef: DestroyRef,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.handleInputChanges();
@@ -104,32 +98,30 @@ export class LocationSearchComponent implements OnInit {
   }
 
   private handleInputChanges(): void {
-    this.searchControl.valueChanges.pipe(
-      debounceTime(700),
-      filter((text: string): text is string => true),
-      distinctUntilChanged(),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe((text: string) => {
-      if (!text) {
-        this.locationsStore.dispatchClearLocations();
-        return;
-      }
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(700),
+        filter((text: string): text is string => true),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((text: string) => {
+        if (!text) {
+          this.locationsStore.dispatchClearLocations();
+          return;
+        }
 
-      if (this.searchControl.valid) {
-        this.locationsStore.dispatchLocations(text);
-      }
-    });
+        if (this.searchControl.valid) {
+          this.locationsStore.dispatchLocations(text);
+        }
+      });
   }
 
   private handleLocation(): void {
-    this.locationStore.location$.pipe(
-      filterDefined,
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.locationStore.location$.pipe(filterDefined, takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (location: ILocation) => {
         this.searchControl?.setValue(location.LocalizedName);
       },
     });
   }
-
 }

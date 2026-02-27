@@ -1,15 +1,12 @@
 <app-card>
-  <div>{{ forecast().Date | date : 'EEEE' }}</div>
+  <div>{{ forecast().Date | date: 'EEEE' }}</div>
 
   <div matTooltip="Average temperature">
-    {{ averageTemperature() | temperatureConverter : isCelsius() }}
+    {{ averageTemperature() | temperatureConverter: isCelsius() }}
   </div>
 
   <section class="grid grid-cols-[1fr_auto_1fr] items-center gap-1">
-    <app-forecast-phase
-      phase="Day"
-      [forecastPhase]="forecast().Day"
-    ></app-forecast-phase>
+    <app-forecast-phase phase="Day" [forecastPhase]="forecast().Day"></app-forecast-phase>
 
     <div class="h-[2px] w-5 bg-custom-white">&emsp;</div>
 

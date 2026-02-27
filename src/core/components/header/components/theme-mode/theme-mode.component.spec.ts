@@ -8,9 +8,8 @@ describe('ThemeModeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ThemeModeComponent ]
-    })
-    .compileComponents();
+      declarations: [ThemeModeComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeModeComponent);
     component = fixture.componentInstance;

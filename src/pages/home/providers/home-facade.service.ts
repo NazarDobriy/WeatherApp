@@ -9,15 +9,15 @@ export class HomeFacadeService {
   readonly isLoading$ = combineLatest([
     this.weatherStore.isLoadingWeather$,
     this.weatherStore.isLoadingForecasts$,
-    this.locationStore.isLoadingLocation$
+    this.locationStore.isLoadingLocation$,
   ]).pipe(
     map(([isLoadingWeather, isLoadingForecasts, isLoadingLocation]) => {
       return isLoadingWeather || isLoadingForecasts || isLoadingLocation;
-    })
+    }),
   );
 
   constructor(
     private weatherStore: WeatherStoreService,
     private locationStore: LocationStoreService,
-  ) { }
+  ) {}
 }

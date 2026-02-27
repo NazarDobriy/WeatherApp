@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 
 import { ThemeStoreService } from '@core/providers/theme-store.service';
 import { HeaderComponent } from '@core/components/header/header.component';
-import { ThemeService } from "@core/providers/theme.service";
-import { ThemeType } from "@core/types/theme.type";
+import { ThemeService } from '@core/providers/theme.service';
+import { ThemeType } from '@core/types/theme.type';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,6 @@ import { ThemeType } from "@core/types/theme.type";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-
   constructor(
     private destroyRef: DestroyRef,
     private themeService: ThemeService,
@@ -27,11 +26,8 @@ export class AppComponent implements OnInit {
   }
 
   private handleBodyBackground(): void {
-    this.themeStore.theme$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.themeStore.theme$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (theme: ThemeType) => this.themeService.setTheme(theme),
     });
   }
-
 }

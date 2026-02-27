@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, map, startWith } from "rxjs";
+import { combineLatest, map, startWith } from 'rxjs';
 
-import {
-  LocationSearchDropdownType,
-} from "@pages/home/components/location-search/types/location-search-dropdown.type";
-import { LocationSearchFormService } from "@pages/home/components/location-search/providers/location-search-form.service";
-import { LocationsStoreService } from "@pages/home/providers/locations-store.service";
+import { LocationSearchDropdownType } from '@pages/home/components/location-search/types/location-search-dropdown.type';
+import { LocationSearchFormService } from '@pages/home/components/location-search/providers/location-search-form.service';
+import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 
 @Injectable()
 export class LocationSearchDropdownService {
@@ -30,11 +28,11 @@ export class LocationSearchDropdownService {
       }
 
       return 'outcome';
-    })
+    }),
   );
 
   constructor(
     private locationsStore: LocationsStoreService,
-    private locationSearchFormService: LocationSearchFormService
-  ) { }
+    private locationSearchFormService: LocationSearchFormService,
+  ) {}
 }

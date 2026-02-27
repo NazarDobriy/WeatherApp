@@ -6,13 +6,12 @@ import { environment } from '@environments/environment';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
       setParams: {
-        'apikey': environment.apiKey
+        apikey: environment.apiKey,
       },
-      url: `${environment.apiHost}${request.url}`
+      url: `${environment.apiHost}${request.url}`,
     });
 
     return next.handle(request);

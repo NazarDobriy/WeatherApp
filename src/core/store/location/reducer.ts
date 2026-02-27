@@ -8,14 +8,14 @@ export const locationReducer = createReducer(
   on(LocationActions.getLocation, (state: ILocationState) => {
     return {
       ...state,
-      isLoading: true
+      isLoading: true,
     };
   }),
   on(LocationActions.getLocationSuccess, (state: ILocationState, { location }) => {
     return {
       ...state,
       isLoading: false,
-      location
+      location,
     };
   }),
   on(LocationActions.getLocationFailure, (state: ILocationState, { error }) => {

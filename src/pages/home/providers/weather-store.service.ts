@@ -16,5 +16,4 @@ export class WeatherStoreService {
   readonly isLoadingForecasts$ = this.store.select(WeatherSelectors.selectIsLoadingForecasts);
 
   constructor(private store: Store<IWeatherState>) {}
-
 }

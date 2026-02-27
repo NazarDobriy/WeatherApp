@@ -8,9 +8,8 @@ describe('RemoveFavoritesDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RemoveFavoritesDialogComponent]
-    })
-    .compileComponents();
+      imports: [RemoveFavoritesDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RemoveFavoritesDialogComponent);
     component = fixture.componentInstance;

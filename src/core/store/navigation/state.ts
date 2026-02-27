@@ -1,4 +1,4 @@
-import { IGeoLocation } from "@core/types/geo-location";
+import { IGeoLocation } from '@core/types/geo-location';
 
 export interface INavigationState {
   coords: IGeoLocation | null;
