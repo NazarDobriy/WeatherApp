@@ -1,0 +1,38 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# JS and TS files must always use LF for tools to work
+*.js eol=lf
+*.ts eol=lf
+*.json eol=lf
+*.css eol=lf
+*.scss eol=lf
+*.less eol=lf
+*.html eol=lf
+*.svg eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.webm binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.rar binary
+*.pdf binary
