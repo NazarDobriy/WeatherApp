@@ -28,7 +28,7 @@
     "
   >
     @for (item of items(); track item.key) {
-      <div
+      <button
         class="
           flex-center
           h-9 w-full
@@ -49,7 +49,7 @@
           'hover:bg-primary-secondary hover:text-custom-white':
             item.key !== selectedItem().key,
         }"
-        (click)="onSelect.emit(item.key); isOpen.set(false)"
+        (click)="selectHandler.emit(item.key); isOpen.set(false)"
       >
         @if (item.iconPath) {
           <div class="relative" [ngClass]="[leftClass(), hideIconClass()]">
@@ -66,7 +66,7 @@
         <div [ngClass]="hideTextClass()">
           {{ item.text }}
         </div>
-      </div>
+      </button>
     }
   </section>
 </section>

@@ -19,7 +19,7 @@ export class SelectComponent<T> {
   readonly items = input.required<ISelect<T>[]>();
   readonly gap = input<SelectGap>(SelectGap.MD);
   readonly leftClass = input<string>('left-0');
-  readonly onSelect = output<T>();
+  readonly selectHandler = output<T>();
 
   readonly isOpen = signal<boolean>(false);
   readonly gapClass = computed<string>(() => SELECT_GAP_MAP[this.gap()] || '');

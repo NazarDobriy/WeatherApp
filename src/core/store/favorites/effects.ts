@@ -102,7 +102,7 @@ export class FavoritesEffects {
     return this.actions$.pipe(
       ofType(FavoritesActions.addShortFavorite),
       withLatestFrom(this.appStoreService.selectUrl$),
-      filter(([_, url]) => url.includes('favorites')),
+      filter(([, url]) => url.includes('favorites')),
       switchMap(([{ shortFavorite }]) => {
         return this.favoritesService.getDetailedFavorite(shortFavorite).pipe(
           map((detailedFavorite: IFavoriteDetailedInfo) => {
