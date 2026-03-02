@@ -59,7 +59,7 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
     const canvas: HTMLCanvasElement = this.donut.nativeElement;
     const ctx = canvas.getContext('2d');
 
-    if (ctx != null) {
+    if (ctx !== null) {
       this.chart = new Chart(ctx, {
         type: 'line',
         data: {
