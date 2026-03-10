@@ -3,7 +3,8 @@ const eslint = require('@eslint/js');
 const { defineConfig } = require('eslint/config');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
-const esLintParser = require('@typescript-eslint/parser');
+const eslintParser = require('@typescript-eslint/parser');
+const rxjs = require('@smarttools/eslint-plugin-rxjs');
 const prettierConfig = require('eslint-config-prettier');
 
 module.exports = defineConfig([
@@ -11,7 +12,7 @@ module.exports = defineConfig([
     files: ['**/*.ts'],
     ignores: ['node_modules/**'],
     languageOptions: {
-      parser: esLintParser,
+      parser: eslintParser,
       parserOptions: {
         project: ['./tsconfig.json'],
         tsconfigRootDir: __dirname,
@@ -24,6 +25,7 @@ module.exports = defineConfig([
       tseslint.configs.stylisticTypeChecked,
       tseslint.configs.strictTypeChecked,
       angular.configs.tsRecommended,
+      rxjs.configs.recommended,
       prettierConfig,
     ],
     processor: angular.processInlineTemplates,
@@ -78,6 +80,10 @@ module.exports = defineConfig([
       '@angular-eslint/use-component-selector': 'error',
       '@angular-eslint/use-component-view-encapsulation': 'error',
       '@angular-eslint/use-lifecycle-interface': 'error',
+      // RxJS
+      '@smarttools/rxjs/no-implicit-any-catch': 'off',
+      // TODO lately
+      // '@smarttools/rxjs/no-ignored-error': 'error',
       // TS rules
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
