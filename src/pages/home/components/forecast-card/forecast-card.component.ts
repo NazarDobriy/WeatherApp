@@ -11,10 +11,10 @@ import { ForecastPhaseComponent } from '@pages/home/components/forecast-card/com
 
 @Component({
   selector: 'app-forecast-card',
-  templateUrl: './forecast-card.component.html',
   imports: [DatePipe, MatTooltip, CardComponent, TemperatureConverterPipe, ForecastPhaseComponent],
+  templateUrl: './forecast-card.component.html',
   providers: [ForecastCardService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ForecastCardComponent extends TemperatureUnit {
   readonly forecast = input.required<IForecast>();

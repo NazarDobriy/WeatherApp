@@ -27,8 +27,6 @@ import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.se
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
   imports: [
     AsyncPipe,
     MatIconModule,
@@ -42,7 +40,9 @@ import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.se
     ButtonComponent,
     MatTooltip,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly buttonWidth = ButtonWidth;

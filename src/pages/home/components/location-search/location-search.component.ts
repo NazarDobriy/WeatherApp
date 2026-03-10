@@ -24,7 +24,6 @@ import { filterDefined } from '@utils/index';
 
 @Component({
   selector: 'app-location-search',
-  templateUrl: './location-search.component.html',
   imports: [
     FormsModule,
     MatIconModule,
@@ -38,6 +37,7 @@ import { filterDefined } from '@utils/index';
     AsyncPipe,
     MatOption,
   ],
+  templateUrl: './location-search.component.html',
   providers: [
     LocationSearchFormService,
     LocationSearchDropdownService,
@@ -46,12 +46,12 @@ import { filterDefined } from '@utils/index';
       useValue: { overlayPanelClass: 'location-autocomplete' },
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationSearchComponent implements OnInit {
   readonly matcher: ErrorStateMatcher = {
     isErrorState: (control: FormControl): boolean => {
-      return control?.invalid && (control?.dirty || control?.touched);
+      return control.invalid && (control.dirty || control.touched);
     },
   };
   private readonly searchControl = this.locationSearchFormService.searchControl;
@@ -88,8 +88,8 @@ export class LocationSearchComponent implements OnInit {
   }
 
   clearSearchInput(): void {
-    this.searchControl?.markAsTouched();
-    this.searchControl?.setValue('');
+    this.searchControl.markAsTouched();
+    this.searchControl.setValue('');
     this.locationsStore.dispatchClearLocations();
   }
 
@@ -120,7 +120,7 @@ export class LocationSearchComponent implements OnInit {
   private handleLocation(): void {
     this.locationStore.location$.pipe(filterDefined, takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (location: ILocation) => {
-        this.searchControl?.setValue(location.LocalizedName);
+        this.searchControl.setValue(location.LocalizedName);
       },
     });
   }

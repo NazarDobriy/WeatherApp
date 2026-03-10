@@ -12,7 +12,7 @@ import { FavoritesRouteStoreService } from '@core/providers/favorites-route-stor
   selector: 'app-remove-favorites-dialog',
   imports: [MatDialogTitle, MatDialogContent, MatDialogActions, ButtonComponent, ButtonIconComponent],
   templateUrl: './remove-favorites-dialog.component.html',
-  styleUrls: ['./remove-favorites-dialog.component.scss'],
+  styleUrl: './remove-favorites-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemoveFavoritesDialogComponent implements OnInit {

@@ -9,7 +9,7 @@ import { SELECT_GAP_MAP } from '@shared/components/select/constants/select.const
   selector: 'app-select',
   imports: [NgClass],
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  styleUrl: './select.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent<T> {
@@ -30,6 +30,6 @@ export class SelectComponent<T> {
     return this.hideIcon() ? 'hidden md:block' : 'block';
   });
   readonly selectedItem = computed<ISelect<T>>(() => {
-    return this.items().find((item: ISelect<T>) => item.key === this.selectedKey()) || this.items()[0];
+    return this.items().find((item: ISelect<T>) => item.key === this.selectedKey()) ?? this.items()[0];
   });
 }

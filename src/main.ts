@@ -59,4 +59,4 @@ bootstrapApplication(AppComponent, {
     },
     WINDOW_PROVIDER,
   ],
-}).catch((err) => console.error('Bootstrap failed:', err));
+}).catch((err: unknown) => console.error('Bootstrap failed:', err));

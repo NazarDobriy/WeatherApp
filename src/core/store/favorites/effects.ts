@@ -78,7 +78,7 @@ export class FavoritesEffects {
         ofType(FavoritesActions.getDetailedFavoritesSuccess),
         filter(({ loadingKey }) => loadingKey === REFRESH_KEY),
         tap(() => {
-          return this.snackBarService.open(NOTIFICATION.SUCCESS_UPDATING_FAVOURITES, 'X');
+          this.snackBarService.open(NOTIFICATION.SUCCESS_UPDATING_FAVOURITES, 'X');
         }),
       );
     },
@@ -91,7 +91,7 @@ export class FavoritesEffects {
         ofType(FavoritesActions.getDetailedFavoritesFailure),
         filter(({ loadingKey }) => loadingKey === REFRESH_KEY),
         tap(() => {
-          return this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_FAVOURITES, 'X');
+          this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_FAVOURITES, 'X');
         }),
       );
     },
@@ -140,7 +140,7 @@ export class FavoritesEffects {
       return this.actions$.pipe(
         ofType(FavoritesActions.removeShortFavorite),
         tap(({ name }) => {
-          return this.snackBarService.open(NOTIFICATION.SUCCESS_REMOVING_FAVOURITE(name), 'X');
+          this.snackBarService.open(NOTIFICATION.SUCCESS_REMOVING_FAVOURITE(name), 'X');
         }),
       );
     },
@@ -179,7 +179,7 @@ export class FavoritesEffects {
       return this.actions$.pipe(
         ofType(FavoritesActions.updateDetailedFavoriteSuccess),
         tap(({ name }) => {
-          return this.snackBarService.open(NOTIFICATION.SUCCESS_UPDATING_WEATHER(name), 'X');
+          this.snackBarService.open(NOTIFICATION.SUCCESS_UPDATING_WEATHER(name), 'X');
         }),
       );
     },
@@ -191,7 +191,7 @@ export class FavoritesEffects {
       return this.actions$.pipe(
         ofType(FavoritesActions.updateDetailedFavoriteFailure),
         tap(({ name }) => {
-          return this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_WEATHER(name), 'X');
+          this.snackBarService.open(NOTIFICATION.ERROR_UPDATING_WEATHER(name), 'X');
         }),
       );
     },

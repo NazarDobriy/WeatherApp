@@ -16,7 +16,7 @@ export class LocalStorageService {
     }
 
     try {
-      return JSON.parse(storageState);
+      return JSON.parse(storageState) as T;
     } catch (e) {
       console.error(`Error parsing localStorage key "${key}"`, e);
       return null;

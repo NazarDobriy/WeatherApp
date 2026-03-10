@@ -12,10 +12,10 @@ import { PAGE_KEY } from '@core/constants/loading.constants';
 
 @Component({
   selector: 'app-favorites',
-  templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss'],
   imports: [AsyncPipe, RouterLink, FavoriteCartComponent, MatProgressSpinnerModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './favorites.component.html',
+  styleUrl: './favorites.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoritesComponent implements OnInit {
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;

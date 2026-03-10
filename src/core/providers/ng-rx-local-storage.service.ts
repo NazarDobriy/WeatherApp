@@ -18,7 +18,7 @@ import { IFavoriteShortInfo } from '@core/types/favorite.interface';
   providedIn: 'root',
 })
 export class NgRxLocalStorageService implements OnDestroy {
-  private readonly storageListener = (event: StorageEvent) => {
+  private readonly storageListener = (event: StorageEvent): void => {
     if (event.key && STORAGE_KEYS.includes(event.key)) {
       const storageHandler = this.getStorageHandlers();
       storageHandler[event.key]();

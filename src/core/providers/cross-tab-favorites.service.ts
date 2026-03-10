@@ -18,7 +18,7 @@ export class CrossTabFavoritesService implements OnDestroy {
   }
 
   private listenMessage(): void {
-    this.channel.onmessage = ({ data }: MessageEvent<FavoriteMessageType>) => {
+    this.channel.onmessage = ({ data }: MessageEvent<FavoriteMessageType>): void => {
       switch (data.type) {
         case 'add':
           this.favoritesStore.dispatchAddShortFavorite(data.payload);

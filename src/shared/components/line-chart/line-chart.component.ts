@@ -8,7 +8,7 @@ import {
   ElementRef,
   input,
   OnDestroy,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,8 +27,7 @@ Chart.register(...registerables);
 export class LineChartComponent implements AfterViewInit, OnDestroy {
   readonly datasetX = input.required<number[]>();
   readonly datasetY = input.required<number[]>();
-
-  @ViewChild('lineChart') donut!: ElementRef<HTMLCanvasElement>;
+  private readonly donut = viewChild<ElementRef<HTMLCanvasElement>>('lineChart');
 
   private chart: Chart | null = null;
   private readonly options: ChartOptions = {
@@ -56,10 +55,10 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
   }
 
   private createChart(): void {
-    const canvas: HTMLCanvasElement = this.donut.nativeElement;
-    const ctx = canvas.getContext('2d');
+    const canvas: HTMLCanvasElement | undefined = this.donut()?.nativeElement;
+    const ctx = canvas?.getContext('2d');
 
-    if (ctx !== null) {
+    if (ctx) {
       this.chart = new Chart(ctx, {
         type: 'line',
         data: {

@@ -5,9 +5,9 @@ import { CARD } from '@shared/components/card/types/card.enum';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass],
+  templateUrl: './card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
   readonly type = input<CARD>(CARD.WEATHER);

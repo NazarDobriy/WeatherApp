@@ -9,9 +9,9 @@ import { HeaderFacadeService } from '@core/components/header/providers/header-fa
 
 @Component({
   selector: 'app-theme-temperature',
-  templateUrl: './theme-temperature.component.html',
   imports: [AsyncPipe, SelectComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './theme-temperature.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeTemperatureComponent {
   readonly selectGap = SelectGap;

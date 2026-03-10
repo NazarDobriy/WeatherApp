@@ -15,8 +15,6 @@ import { CARD } from '@shared/components/card/types/card.enum';
 
 @Component({
   selector: 'app-favorite-cart',
-  templateUrl: './favorite-cart.component.html',
-  styleUrls: ['./favorite-cart.component.scss'],
   imports: [
     CardComponent,
     TemperatureConverterPipe,
@@ -26,7 +24,9 @@ import { CARD } from '@shared/components/card/types/card.enum';
     MatIcon,
     MatTooltip,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './favorite-cart.component.html',
+  styleUrl: './favorite-cart.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly favorite = input.required<IFavoriteDetailedInfo>();
