@@ -3,10 +3,10 @@
 
   <img
     ngSrc="assets/weather/{{ forecastPhase().Icon }}.svg"
+    alt="{{ forecastPhase().Icon }}"
     height="36"
     width="36"
     priority
     [matTooltip]="forecastPhase().IconPhrase"
-    alt="{{ forecastPhase().Icon }}"
   />
 </div>

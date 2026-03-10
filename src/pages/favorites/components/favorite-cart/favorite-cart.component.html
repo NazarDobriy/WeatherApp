@@ -5,12 +5,12 @@
 
   <img
     ngSrc="assets/weather/{{ favorite().WeatherIcon }}.svg"
+    alt="{{ favorite().WeatherText }}"
     height="48"
     width="48"
     priority
     matTooltipPosition="right"
     [matTooltip]="favorite().WeatherText"
-    alt="{{ favorite().WeatherText }}"
   />
 
   <app-button

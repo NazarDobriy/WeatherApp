@@ -10,11 +10,11 @@
       <section class="flex-center-y">
         <img
           ngSrc="assets/weather/{{ weather()?.WeatherIcon }}.svg"
+          alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
           height="64"
           width="64"
           priority
           [matTooltip]="weather()?.WeatherText"
-          alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
         />
 
         <div class="flex-center-y-col gap-4 ml-8">
