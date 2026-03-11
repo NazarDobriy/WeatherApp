@@ -88,6 +88,8 @@ module.exports = defineConfig([
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/no-unnecessary-type-parameters': 'off',
+      // TODO lately after realize mappers for interfaces
+      // "@typescript-eslint/naming-convention": "error",
       '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
       '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
       // JS rules
