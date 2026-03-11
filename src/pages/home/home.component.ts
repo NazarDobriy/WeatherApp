@@ -42,7 +42,7 @@ import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.se
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly buttonWidth = ButtonWidth;
