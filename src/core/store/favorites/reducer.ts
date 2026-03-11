@@ -19,8 +19,12 @@ export const favoritesReducer = createReducer(
   on(FavoritesActions.removeShortFavorite, (state: IFavoritesState, { id }) => {
     return {
       ...state,
-      shortFavorites: state.shortFavorites.filter((shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id),
-      detailedFavorites: state.detailedFavorites.filter((detailedFavorite: IFavoriteDetailedInfo) => detailedFavorite.id !== id),
+      shortFavorites: state.shortFavorites.filter(
+        (shortFavorite: IFavoriteShortInfo) => shortFavorite.id !== id,
+      ),
+      detailedFavorites: state.detailedFavorites.filter(
+        (detailedFavorite: IFavoriteDetailedInfo) => detailedFavorite.id !== id,
+      ),
     };
   }),
   on(FavoritesActions.addDetailedFavoriteSuccess, (state: IFavoritesState, { detailedFavorite }) => {
@@ -51,17 +55,20 @@ export const favoritesReducer = createReducer(
       },
     };
   }),
-  on(FavoritesActions.getDetailedFavoritesSuccess, (state: IFavoritesState, { detailedFavorites, loadingKey }) => {
-    return {
-      ...state,
-      detailedFavorites,
-      loading: {
-        ...state.loading,
-        [loadingKey]: false,
-      },
-      hasLoaded: true,
-    };
-  }),
+  on(
+    FavoritesActions.getDetailedFavoritesSuccess,
+    (state: IFavoritesState, { detailedFavorites, loadingKey }) => {
+      return {
+        ...state,
+        detailedFavorites,
+        loading: {
+          ...state.loading,
+          [loadingKey]: false,
+        },
+        hasLoaded: true,
+      };
+    },
+  ),
   on(FavoritesActions.getDetailedFavoritesFailure, (state: IFavoritesState, { error, loadingKey }) => {
     return {
       ...state,
@@ -84,11 +91,13 @@ export const favoritesReducer = createReducer(
     return {
       ...state,
       detailedFavorites: state.detailedFavorites.map((item: IFavoriteDetailedInfo) => {
-        return item.id === id ? {
-          ...item,
-          isLoading: false,
-          ...weather,
-        } : item;
+        return item.id === id
+          ? {
+              ...item,
+              isLoading: false,
+              ...weather,
+            }
+          : item;
       }),
     };
   }),
@@ -96,11 +105,13 @@ export const favoritesReducer = createReducer(
     return {
       ...state,
       detailedFavorites: state.detailedFavorites.map((item: IFavoriteDetailedInfo) => {
-        return item.id === id ? {
-          ...item,
-          isLoading: false,
-          error,
-        } : item;
+        return item.id === id
+          ? {
+              ...item,
+              isLoading: false,
+              error,
+            }
+          : item;
       }),
     };
   }),

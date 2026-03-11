@@ -1,19 +1,17 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { routerNavigatedAction } from "@ngrx/router-store";
-import { filter, switchMap, of, map, tap, exhaustMap, first } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { routerNavigatedAction } from '@ngrx/router-store';
+import { filter, switchMap, of, map, tap, exhaustMap, first } from 'rxjs';
 
 import * as FavoritesActions from '@core/store/favorites/actions';
 import * as FavoritesRouteActions from '@core/store/favorites/routes/actions';
-import {
-  RemoveFavoritesDialogComponent,
-} from "@pages/favorites/components/dialogs/remove-favorites-dialog/remove-favorites-dialog.component";
-import { DialogService } from "@core/providers/dialog.service";
-import { FavoritesStoreService } from "@core/providers/favorites-store.service";
-import { NOTIFICATION } from "@core/constants/notification.constants";
-import { SnackBarService } from "@core/providers/snack-bar.service";
-import { FavoritesService } from "@core/providers/favorites.service";
-import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
+import { RemoveFavoritesDialogComponent } from '@pages/favorites/components/dialogs/remove-favorites-dialog/remove-favorites-dialog.component';
+import { DialogService } from '@core/providers/dialog.service';
+import { FavoritesStoreService } from '@core/providers/favorites-store.service';
+import { NOTIFICATION } from '@core/constants/notification.constants';
+import { SnackBarService } from '@core/providers/snack-bar.service';
+import { FavoritesService } from '@core/providers/favorites.service';
+import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.service';
 
 @Injectable()
 export class FavoritesRouteEffects {
@@ -24,10 +22,7 @@ export class FavoritesRouteEffects {
         return payload.routerState.root.queryParams['action'] === 'removeAll';
       }),
       exhaustMap(() => {
-        return this.favoritesStore.detailedFavoritesHasLoaded$.pipe(
-          filter(Boolean),
-          first(),
-        );
+        return this.favoritesStore.detailedFavoritesHasLoaded$.pipe(filter(Boolean), first());
       }),
       switchMap(() => {
         return this.favoritesStore.detailedFavoritesLength$.pipe(first());
@@ -37,12 +32,14 @@ export class FavoritesRouteEffects {
           return of(FavoritesRouteActions.removeFavoritesEmpty());
         }
 
-        return this.dialogService.open<RemoveFavoritesDialogComponent, undefined, boolean>(
-          RemoveFavoritesDialogComponent,
-          { panelClass: 'custom-dialog' },
-        ).afterClosed().pipe(
+        return this.dialogService
+          .open<RemoveFavoritesDialogComponent, undefined, boolean>(RemoveFavoritesDialogComponent, {
+            panelClass: 'custom-dialog',
+          })
+          .afterClosed()
+          .pipe(
             map((item: boolean | undefined) => {
-              if (typeof item !== "boolean") {
+              if (typeof item !== 'boolean') {
                 return FavoritesRouteActions.removeFavoritesClose();
               }
 
@@ -55,12 +52,15 @@ export class FavoritesRouteEffects {
     );
   });
 
-  failureRemoveFavoritesRoute$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(FavoritesRouteActions.removeFavoritesEmpty),
-      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_DIALOG_FAVORITES,'X')),
-    );
-  }, { dispatch: false });
+  failureRemoveFavoritesRoute$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(FavoritesRouteActions.removeFavoritesEmpty),
+        tap(() => this.snackBarService.open(NOTIFICATION.ERROR_DIALOG_FAVORITES, 'X')),
+      );
+    },
+    { dispatch: false },
+  );
 
   successRemoveFavoritesRoute$ = createEffect(() => {
     return this.actions$.pipe(
@@ -69,32 +69,41 @@ export class FavoritesRouteEffects {
     );
   });
 
-  successRemoveFavoritesTabSharing$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(FavoritesRouteActions.removeFavoritesConfirmed),
-      tap(() => this.crossTabFavoritesService.send({ type: 'removeAll' })),
-    );
-  }, { dispatch: false });
+  successRemoveFavoritesTabSharing$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(FavoritesRouteActions.removeFavoritesConfirmed),
+        tap(() => this.crossTabFavoritesService.send({ type: 'removeAll' })),
+      );
+    },
+    { dispatch: false },
+  );
 
-  showRemoveFavoritesSnackbar$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(FavoritesRouteActions.removeFavoritesConfirmed),
-      tap(() => {
-        this.snackBarService.open(NOTIFICATION.SUCCESS_DIALOG_FAVORITES,'X');
-      }),
-    );
-  }, { dispatch: false });
+  showRemoveFavoritesSnackbar$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(FavoritesRouteActions.removeFavoritesConfirmed),
+        tap(() => {
+          this.snackBarService.open(NOTIFICATION.SUCCESS_DIALOG_FAVORITES, 'X');
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 
-  clearRemoveFavoritesRoute$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(
-        FavoritesRouteActions.removeFavoritesEmpty,
-        FavoritesRouteActions.removeFavoritesConfirmed,
-        FavoritesRouteActions.removeFavoritesClose,
-      ),
-      tap(() => this.favoritesService.clearDialogRouteParams()),
-    );
-  }, { dispatch: false });
+  clearRemoveFavoritesRoute$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(
+          FavoritesRouteActions.removeFavoritesEmpty,
+          FavoritesRouteActions.removeFavoritesConfirmed,
+          FavoritesRouteActions.removeFavoritesClose,
+        ),
+        tap(() => this.favoritesService.clearDialogRouteParams()),
+      );
+    },
+    { dispatch: false },
+  );
 
   constructor(
     private actions$: Actions,
@@ -104,5 +113,4 @@ export class FavoritesRouteEffects {
     private favoritesStore: FavoritesStoreService,
     private crossTabFavoritesService: CrossTabFavoritesService,
   ) {}
-
 }

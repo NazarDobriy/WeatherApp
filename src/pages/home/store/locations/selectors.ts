@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ILocationsState } from "./state";
+import { ILocationsState } from './state';
 import { ILocation } from '@core/types/location.interface';
 
 const selectLocationsFeature = createFeatureSelector<ILocationsState>('locations');
@@ -29,9 +29,13 @@ export const selectDropdownLocations = createSelector(
   selectLocations,
   selectIsLoadingLocations,
   selectLastSearchedQueryLocations,
-  (locations: ILocation[], isLoading: boolean, lastSearchedQuery: string | null): Omit<ILocationsState, 'error'> => ({
+  (
+    locations: ILocation[],
+    isLoading: boolean,
+    lastSearchedQuery: string | null,
+  ): Omit<ILocationsState, 'error'> => ({
     locations,
     isLoading,
     lastSearchedQuery,
-  })
+  }),
 );

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as ThemeActions from '@core/store/theme/actions';
 import * as ThemeSelectors from '@core/store/theme/selectors';
 import { IThemeState } from '@core/store/theme/state';
-import { ThemeType } from "@core/types/theme.type";
+import { ThemeType } from '@core/types/theme.type';
 
 @Injectable({
   providedIn: 'root',

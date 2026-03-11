@@ -4,33 +4,18 @@
   (mouseleave)="isOpen.set(false)"
 >
   <div
-    class="
-      flex-center
-      h-9 border
-      bg-primary
-      border-main
-      rounded
-      cursor-pointer
-      group-hover:rounded-b-none
-      px-3
-    "
+    class="flex-center h-9 border bg-primary border-main rounded cursor-pointer group-hover:rounded-b-none px-3"
     [ngClass]="gapClass()"
   >
     @if (selectedItem().iconPath) {
-      <div
-        class="relative"
-        [ngClass]="[leftClass(), hideIconClass()]"
-      >
+      <div class="relative" [ngClass]="[leftClass(), hideIconClass()]">
         <svg class="h-5 w-5 text-custom-white">
           <use [attr.href]="selectedItem().iconPath"></use>
         </svg>
       </div>
     }
     @if (selectedItem().text) {
-      <div
-        class="text-custom-white"
-        [ngClass]="hideTextClass()"
-      >
+      <div class="text-custom-white" [ngClass]="hideTextClass()">
         {{ selectedItem().text }}
       </div>
     }
@@ -38,10 +23,12 @@
 
   <section
     class="absolute top-9 w-full z-30 transition-all duration-150 ease-out origin-top"
-    [ngClass]="isOpen() ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'"
+    [ngClass]="
+      isOpen() ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+    "
   >
     @for (item of items(); track item.key) {
-      <div
+      <button
         class="
           flex-center
           h-9 w-full
@@ -57,20 +44,21 @@
           px-3
           {{ gapClass() }}
         "
+        type="button"
         [ngClass]="{
           'bg-primary text-custom-white': item.key === selectedItem().key,
-          'hover:bg-primary-secondary hover:text-custom-white': item.key !== selectedItem().key
+          'hover:bg-primary-secondary hover:text-custom-white':
+            item.key !== selectedItem().key,
         }"
-        (click)="onSelect.emit(item.key); isOpen.set(false)"
+        (click)="selectHandler.emit(item.key); isOpen.set(false)"
       >
         @if (item.iconPath) {
-          <div
-            class="relative"
-            [ngClass]="[leftClass(), hideIconClass()]"
-          >
+          <div class="relative" [ngClass]="[leftClass(), hideIconClass()]">
             <svg
               class="h-5 w-5 group-hover/option:text-custom-white"
-              [ngClass]="item.key === selectedItem().key ? 'text-custom-white' : 'text-main'"
+              [ngClass]="
+                item.key === selectedItem().key ? 'text-custom-white' : 'text-main'
+              "
             >
               <use [attr.href]="item.iconPath"></use>
             </svg>
@@ -79,7 +67,7 @@
         <div [ngClass]="hideTextClass()">
           {{ item.text }}
         </div>
-      </div>
+      </button>
     }
   </section>
 </section>

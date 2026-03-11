@@ -4,5 +4,5 @@
   [items]="TEMPERATURE_GROUPS"
   [selectedKey]="isCelsius$ | async"
   [hideIcon]="!!(headerFacade.isHideBlock$ | async)"
-  (onSelect)="changeThemeTemperature($event)"
+  (selectHandler)="changeThemeTemperature($event)"
 ></app-select>

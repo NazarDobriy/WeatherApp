@@ -1,11 +1,18 @@
-@use './styles/autocomplete.scss';
-@use './styles/base.scss';
-@use './styles/dark.scss';
-@use './styles/tailwind.scss';
-@use './styles/dialog.scss';
-@use './styles/snack-bar.scss';
-@use './styles/mat-icon.scss';
-@use './styles/slide-toggle.scss';
+@use './styles/autocomplete';
+@use './styles/base';
+@use './styles/dark';
+@use './styles/tailwind';
+@use './styles/dialog';
+@use './styles/snack-bar';
+@use './styles/mat-icon';
+@use './styles/slide-toggle';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

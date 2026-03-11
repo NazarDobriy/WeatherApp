@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { NgClass } from "@angular/common";
+import { NgClass } from '@angular/common';
 
-import { CARD } from "@shared/components/card/types/card.enum";
+import { CARD } from '@shared/components/card/types/card.enum';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass],
+  templateUrl: './card.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
   readonly type = input<CARD>(CARD.WEATHER);

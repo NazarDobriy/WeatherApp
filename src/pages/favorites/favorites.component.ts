@@ -8,19 +8,14 @@ import { LocationStoreService } from '@core/providers/location-store.service';
 import { IFavoriteDetailedInfo } from '@core/types/favorite.interface';
 import { FavoriteCartComponent } from '@pages/favorites/components/favorite-cart/favorite-cart.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { PAGE_KEY } from "@core/constants/loading.constants";
+import { PAGE_KEY } from '@core/constants/loading.constants';
 
 @Component({
   selector: 'app-favorites',
+  imports: [AsyncPipe, RouterLink, FavoriteCartComponent, MatProgressSpinnerModule],
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.scss'],
-  imports: [
-    AsyncPipe,
-    RouterLink,
-    FavoriteCartComponent,
-    MatProgressSpinnerModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './favorites.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoritesComponent implements OnInit {
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;
@@ -45,5 +40,4 @@ export class FavoritesComponent implements OnInit {
     });
     this.router.navigateByUrl('/');
   }
-
 }

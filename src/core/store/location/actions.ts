@@ -6,17 +6,11 @@ export const getLocation = createAction('[Location] Get Location');
 
 export const getLocationSuccess = createAction(
   '[Location] Get Location success',
-  props<{ location: ILocation }>()
+  props<{ location: ILocation }>(),
 );
 
-export const getLocationFailure = createAction(
-  '[Location] Get Location failure',
-  props<{ error: string }>()
-);
+export const getLocationFailure = createAction('[Location] Get Location failure', props<{ error: string }>());
 
-export const changeLocation = createAction(
-  '[Location] Change Location',
-  props<{ location: ILocation }>()
-);
+export const changeLocation = createAction('[Location] Change Location', props<{ location: ILocation }>());
 
-export const resetLocation = createAction('[Location] Reset Location',);
+export const resetLocation = createAction('[Location] Reset Location');

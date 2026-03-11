@@ -17,6 +17,6 @@ export class LocationSearchFormService {
       }),
     });
 
-    this.searchControl = this.formGroup.controls?.searchInput;
+    this.searchControl = this.formGroup.controls.searchInput;
   }
 }

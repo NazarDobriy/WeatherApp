@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, map, of } from 'rxjs';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 import { IWeather } from '@core/types/weather.interface';
 import { WeatherService } from '@core/providers/weather.service';
@@ -10,7 +10,6 @@ import { IFavoriteDetailedInfo, IFavoriteShortInfo } from '@core/types/favorite.
   providedIn: 'root',
 })
 export class FavoritesService {
-
   constructor(
     private router: Router,
     private weatherService: WeatherService,
@@ -45,5 +44,4 @@ export class FavoritesService {
       queryParamsHandling: 'merge',
     });
   }
-
 }

@@ -1,4 +1,4 @@
-import { createAction } from "@ngrx/store";
+import { createAction } from '@ngrx/store';
 
 export const removeFavoritesConfirmed = createAction('[Favorites Dialog] Remove All Confirmed Status');
 

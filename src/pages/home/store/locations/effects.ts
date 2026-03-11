@@ -15,27 +15,26 @@ export class LocationsEffects {
       ofType(LocationsActions.getLocations),
       switchMap((action) => {
         return this.locationsService.getLocations(action.query).pipe(
-          map((locations: ILocation[]) =>
-            LocationsActions.getLocationsSuccess({ locations })
-          ),
-          catchError((error: Error) =>
-            of(LocationsActions.getLocationsFailure({ error: error.message }))
-          )
+          map((locations: ILocation[]) => LocationsActions.getLocationsSuccess({ locations })),
+          catchError((error: Error) => of(LocationsActions.getLocationsFailure({ error: error.message }))),
         );
-      })
+      }),
     );
   });
 
-  failureGetLocations$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(LocationsActions.getLocationsFailure),
-      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_SEARCHING_LOCATION,'X')),
-    );
-  }, { dispatch: false });
+  failureGetLocations$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(LocationsActions.getLocationsFailure),
+        tap(() => this.snackBarService.open(NOTIFICATION.ERROR_SEARCHING_LOCATION, 'X')),
+      );
+    },
+    { dispatch: false },
+  );
 
   constructor(
     private actions$: Actions,
     private snackBarService: SnackBarService,
-    private locationsService: LocationsService
+    private locationsService: LocationsService,
   ) {}
 }

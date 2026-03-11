@@ -1,7 +1,7 @@
 import { IWeather } from '@core/types/weather.interface';
-import { IBaseEntity } from "@core/types/base-entity.interface";
+import { IBaseEntity } from '@core/types/base-entity.interface';
 
-export interface IFavoriteShortInfo extends IBaseEntity{
+export interface IFavoriteShortInfo extends IBaseEntity {
   isLoading: boolean;
   error: string | null;
 }

@@ -10,17 +10,17 @@
       <section class="flex-center-y">
         <img
           ngSrc="assets/weather/{{ weather()?.WeatherIcon }}.svg"
+          alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
           height="64"
           width="64"
           priority
           [matTooltip]="weather()?.WeatherText"
-          alt="{{ weather()?.WeatherText ?? 'Weather icon' }}"
         />
 
         <div class="flex-center-y-col gap-4 ml-8">
           <div>{{ location()?.LocalizedName }}</div>
 
-          {{ temperature() | temperatureConverter : isCelsius() }}
+          {{ temperature() | temperatureConverter: isCelsius() }}
         </div>
       </section>
 
@@ -63,7 +63,9 @@
     <section
       class="flex-center-y-col absolute left-1/2 sm:top-[236px] md:top-[284px] lg:top-[336px] top-[220px] translate-center"
     >
-      <svg class="sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[490px] lg:w-[490px] h-64 w-64 text-primary">
+      <svg
+        class="sm:h-72 sm:w-72 md:h-96 md:w-96 lg:h-[490px] lg:w-[490px] h-64 w-64 text-primary"
+      >
         <use href="assets/states/wrong.svg#wrong-state"></use>
       </svg>
 

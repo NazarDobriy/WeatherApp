@@ -1,9 +1,9 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { ILocationState } from "./state";
+import { ILocationState } from './state';
 import { ILocation } from '@core/types/location.interface';
 import * as FavoritesSelectors from '@core/store/favorites/selectors';
-import { IFavoriteShortInfo } from "@core/types/favorite.interface";
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 const selectLocationFeature = createFeatureSelector<ILocationState>('location');
 

@@ -12,13 +12,9 @@ export class LocationService {
   constructor(private http: HttpClient) {}
 
   getLocation(getPosition: IGeoLocation): Observable<ILocation> {
-    const params = new HttpParams().set(
-      'q',
-      `${getPosition.latitude},${getPosition.longitude}`
-    );
-    return this.http.get<ILocation>(
-      '/locations/v1/cities/geoposition/search',
-      { params }
-    );
+    const params = new HttpParams().set('q', `${getPosition.latitude},${getPosition.longitude}`);
+    return this.http.get<ILocation>('/locations/v1/cities/geoposition/search', {
+      params,
+    });
   }
 }

@@ -8,14 +8,14 @@ import {
   ElementRef,
   input,
   OnDestroy,
-  ViewChild
+  viewChild,
 } from '@angular/core';
 import { Chart, ChartOptions, registerables } from 'chart.js';
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { skip } from "rxjs";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { skip } from 'rxjs';
 
-import { ThemeService } from "@core/providers/theme.service";
-import { ThemeStoreService } from "@core/providers/theme-store.service";
+import { ThemeService } from '@core/providers/theme.service';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
 
 Chart.register(...registerables);
 
@@ -27,13 +27,12 @@ Chart.register(...registerables);
 export class LineChartComponent implements AfterViewInit, OnDestroy {
   readonly datasetX = input.required<number[]>();
   readonly datasetY = input.required<number[]>();
-
-  @ViewChild('lineChart') donut!: ElementRef<HTMLCanvasElement>;
+  private readonly donut = viewChild<ElementRef<HTMLCanvasElement>>('lineChart');
 
   private chart: Chart | null = null;
   private readonly options: ChartOptions = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
   };
 
   constructor(
@@ -56,10 +55,10 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
   }
 
   private createChart(): void {
-    const canvas: HTMLCanvasElement = this.donut.nativeElement;
-    const ctx = canvas.getContext('2d');
+    const canvas: HTMLCanvasElement | undefined = this.donut()?.nativeElement;
+    const ctx = canvas?.getContext('2d');
 
-    if (ctx != null) {
+    if (ctx) {
       this.chart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -69,15 +68,15 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
               label: this.labelX,
               data: this.datasetX(),
               borderColor: this.themeService.getCssVar('--primary-color'),
-              fill: false
+              fill: false,
             },
             {
               label: this.labelY,
               data: this.datasetY(),
               borderColor: this.themeService.getCssVar('--error-color'),
-              fill: false
-            }
-          ]
+              fill: false,
+            },
+          ],
         },
         options: this.options,
       });
@@ -93,10 +92,7 @@ export class LineChartComponent implements AfterViewInit, OnDestroy {
   }
 
   private updateChartColors(): void {
-    this.themeStore.theme$.pipe(
-      skip(1),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.themeStore.theme$.pipe(skip(1), takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         if (this.chart) {
           this.chart.data.datasets[0].borderColor = this.themeService.getCssVar('--primary-color');

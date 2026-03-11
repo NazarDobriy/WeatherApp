@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { IWeatherState } from "./state";
+import { IWeatherState } from './state';
 import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
 
@@ -29,5 +29,5 @@ export const selectIsLoadingForecasts = createSelector(
 );
 export const selectFailureForecasts = createSelector(
   selectWeatherFeature,
-  ({ forecasts }: Pick<IWeatherState, 'forecasts'>): string | null => forecasts.error
+  ({ forecasts }: Pick<IWeatherState, 'forecasts'>): string | null => forecasts.error,
 );

@@ -10,8 +10,8 @@ export const weatherReducer = createReducer(
       ...state,
       weather: {
         ...state.weather,
-        isLoading: true
-      }
+        isLoading: true,
+      },
     };
   }),
   on(WeatherActions.getWeatherSuccess, (state: IWeatherState, { weather }) => {
@@ -21,7 +21,7 @@ export const weatherReducer = createReducer(
         ...state.weather,
         isLoading: false,
         data: weather,
-      }
+      },
     };
   }),
   on(WeatherActions.getWeatherFailure, (state: IWeatherState, { error }) => {
@@ -49,8 +49,8 @@ export const weatherReducer = createReducer(
       forecasts: {
         ...state.forecasts,
         isLoading: false,
-        data: forecasts
-      }
+        data: forecasts,
+      },
     };
   }),
   on(WeatherActions.getForecastsFailure, (state: IWeatherState, { error }) => {
@@ -60,7 +60,7 @@ export const weatherReducer = createReducer(
         ...state.forecasts,
         isLoading: false,
         error,
-      }
+      },
     };
-  })
+  }),
 );

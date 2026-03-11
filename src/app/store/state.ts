@@ -1,15 +1,15 @@
-import { RouterState } from "@angular/router";
+import { RouterState } from '@angular/router';
 
-import { IFavoritesState } from "@core/store/favorites/state";
-import { ILocationState } from "@core/store/location/state";
-import { IThemeState } from "@core/store/theme/state";
-import { ILocationsState } from "@pages/home/store/locations/state";
-import { IWeatherState } from "@pages/home/store/weather/state";
-import { INavigationState } from "@core/store/navigation/state";
+import { IFavoritesState } from '@core/store/favorites/state';
+import { ILocationState } from '@core/store/location/state';
+import { IThemeState } from '@core/store/theme/state';
+import { ILocationsState } from '@pages/home/store/locations/state';
+import { IWeatherState } from '@pages/home/store/weather/state';
+import { INavigationState } from '@core/store/navigation/state';
 
 export interface IAppState {
-  router: RouterState,
-  location: ILocationState,
+  router: RouterState;
+  location: ILocationState;
   locations: ILocationsState;
   navigation: INavigationState;
   weather: IWeatherState;

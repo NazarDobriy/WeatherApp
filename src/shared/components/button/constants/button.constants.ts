@@ -1,4 +1,4 @@
-import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
+import { ButtonVariant, ButtonWidth } from '@shared/components/button/types/button.enum';
 
 export const BUTTON_WIDTH_MAP: Record<ButtonWidth, string> = Object.freeze({
   [ButtonWidth.XS]: 'w-24',

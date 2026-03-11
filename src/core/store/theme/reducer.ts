@@ -8,7 +8,7 @@ export const themeReducer = createReducer(
   on(ThemeActions.toggleDailyRepresentation, (state: IThemeState) => {
     return {
       ...state,
-      isChartRepresentation: !state.isChartRepresentation
+      isChartRepresentation: !state.isChartRepresentation,
     };
   }),
   on(ThemeActions.setThemeMode, (state: IThemeState, { theme }) => {

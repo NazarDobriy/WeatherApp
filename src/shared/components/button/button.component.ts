@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, computed } from '@angular/core';
-import { MatButton } from "@angular/material/button";
-import { NgClass } from "@angular/common";
+import { MatButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
 
-import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
-import { BUTTON_VARIANT_MAP, BUTTON_WIDTH_MAP } from "@shared/components/button/constants/button.constants";
-import { ButtonResponsiveType } from "@shared/components/button/types/button.type";
+import { ButtonVariant, ButtonWidth } from '@shared/components/button/types/button.enum';
+import { BUTTON_VARIANT_MAP, BUTTON_WIDTH_MAP } from '@shared/components/button/constants/button.constants';
+import { ButtonResponsiveType } from '@shared/components/button/types/button.type';
 
 @Component({
   selector: 'app-button',
@@ -33,5 +33,4 @@ export class ButtonComponent {
   readonly modifierClass = computed(() => {
     return this.responsive() !== null ? `breakpoint-${this.responsive()}` : '';
   });
-
 }

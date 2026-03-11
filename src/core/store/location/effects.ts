@@ -9,7 +9,7 @@ import { LocationService } from '@core/providers/location.service';
 import { ILocation } from '@core/types/location.interface';
 import { NOTIFICATION } from '@core/constants/notification.constants';
 import { SnackBarService } from '@core/providers/snack-bar.service';
-import { KyivGeoLocation} from "@pages/home/constants/location.constants";
+import { KyivGeoLocation } from '@pages/home/constants/location.constants';
 
 @Injectable()
 export class LocationEffects {
@@ -25,14 +25,10 @@ export class LocationEffects {
       ofType(NavigationActions.getNavigationSuccess),
       switchMap(({ coords }) => {
         return this.locationService.getLocation(coords).pipe(
-          map((location: ILocation) =>
-            LocationActions.getLocationSuccess({ location })
-          ),
-          catchError((error: Error) =>
-            of(LocationActions.getLocationFailure({ error: error.message }))
-          )
+          map((location: ILocation) => LocationActions.getLocationSuccess({ location })),
+          catchError((error: Error) => of(LocationActions.getLocationFailure({ error: error.message }))),
         );
-      })
+      }),
     );
   });
 
@@ -41,47 +37,40 @@ export class LocationEffects {
       ofType(NavigationActions.getNavigationFailure),
       switchMap(() => {
         return this.locationService.getLocation(KyivGeoLocation).pipe(
-          map((location: ILocation) =>
-            LocationActions.getLocationSuccess({ location })
-          ),
-          catchError((error: Error) =>
-            of(LocationActions.getLocationFailure({ error: error.message }))
-          )
+          map((location: ILocation) => LocationActions.getLocationSuccess({ location })),
+          catchError((error: Error) => of(LocationActions.getLocationFailure({ error: error.message }))),
         );
-      })
+      }),
     );
   });
 
   locationTriggersWeather$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        LocationActions.getLocationSuccess,
-        LocationActions.changeLocation,
-      ),
+      ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
       map(({ location }) => {
         return WeatherActions.getWeather({ key: location.Key });
       }),
-    )
+    ),
   );
 
   locationTriggersForecasts$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        LocationActions.getLocationSuccess,
-        LocationActions.changeLocation,
-      ),
+      ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
       map(({ location }) => {
         return WeatherActions.getForecasts({ key: location.Key });
       }),
-    )
+    ),
   );
 
-  failureLocation$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(LocationActions.getLocationFailure),
-      tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_LOCATION, 'X')),
-    );
-  }, { dispatch: false });
+  failureLocation$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(LocationActions.getLocationFailure),
+        tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_LOCATION, 'X')),
+      );
+    },
+    { dispatch: false },
+  );
 
   constructor(
     private actions$: Actions,

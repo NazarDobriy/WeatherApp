@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Store } from "@ngrx/store";
-import { filter, map, Observable } from "rxjs";
+import { Store } from '@ngrx/store';
+import { filter, map, Observable } from 'rxjs';
 
-import { IAppState } from "@app/store/state";
-import { selectUrl } from "@app/store/selectors";
+import { IAppState } from '@app/store/state';
+import { selectUrl } from '@app/store/selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AppStoreService {
@@ -13,9 +13,8 @@ export class AppStoreService {
 
   isRoute(path: string): Observable<boolean> {
     return this.selectUrl$.pipe(
-      filter((url: string | undefined): url is string => typeof url === "string"),
+      filter((url: string | undefined): url is string => typeof url === 'string'),
       map((url: string) => url.startsWith(path)),
     );
   }
-
 }

@@ -21,5 +21,5 @@ export const homeRoutes: Routes = [
       HomeFacadeService,
     ],
     pathMatch: 'full',
-  }
+  },
 ];

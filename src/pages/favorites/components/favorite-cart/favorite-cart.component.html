@@ -1,16 +1,16 @@
 <app-card class="cursor-pointer text-center" [type]="CARD.FAVORITE">
   <div class="line-clamp-1">{{ favorite().name }}</div>
 
-  {{ temperature() | temperatureConverter : isCelsius() }}
+  {{ temperature() | temperatureConverter: isCelsius() }}
 
   <img
     ngSrc="assets/weather/{{ favorite().WeatherIcon }}.svg"
+    alt="{{ favorite().WeatherText }}"
     height="48"
     width="48"
     priority
     matTooltipPosition="right"
     [matTooltip]="favorite().WeatherText"
-    alt="{{ favorite().WeatherText }}"
   />
 
   <app-button
@@ -19,9 +19,8 @@
     (click)="$event.stopPropagation(); refreshWeather()"
   >
     <section class="flex-center-y gap-1">
-      <mat-icon [class.animate-spin-fast]="isLoading$ | async">
-        refresh
-      </mat-icon> Refresh
+      <mat-icon [class.animate-spin-fast]="isLoading$ | async"> refresh </mat-icon>
+      Refresh
     </section>
   </app-button>
 

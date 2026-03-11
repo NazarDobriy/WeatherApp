@@ -3,27 +3,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@app/*": [
-        "app/*"
-      ],
-      "@core/*": [
-        "core/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@utils/*": [
-        "utils/*"
-      ],
-      "@pages/*": [
-        "pages/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@environments/*": [
-        "environments/*"
-      ]
+      "@app/*": ["app/*"],
+      "@core/*": ["core/*"],
+      "@assets/*": ["assets/*"],
+      "@utils/*": ["utils/*"],
+      "@pages/*": ["pages/*"],
+      "@shared/*": ["shared/*"],
+      "@environments/*": ["environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,
@@ -40,10 +26,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

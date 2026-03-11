@@ -9,16 +9,16 @@ import {
   STORAGE_KEYS,
   THEME_KEY,
 } from '@core/constants/storage.constants';
-import { WINDOW } from "@core/tokens/window.token";
-import { ThemeType } from "@core/types/theme.type";
-import { LocalStorageService } from "@core/providers/local-storage.service";
-import { IFavoriteShortInfo } from "@core/types/favorite.interface";
+import { WINDOW } from '@core/tokens/window.token';
+import { ThemeType } from '@core/types/theme.type';
+import { LocalStorageService } from '@core/providers/local-storage.service';
+import { IFavoriteShortInfo } from '@core/types/favorite.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NgRxLocalStorageService implements OnDestroy {
-  private readonly storageListener = (event: StorageEvent) => {
+  private readonly storageListener = (event: StorageEvent): void => {
     if (event.key && STORAGE_KEYS.includes(event.key)) {
       const storageHandler = this.getStorageHandlers();
       storageHandler[event.key]();
@@ -43,12 +43,12 @@ export class NgRxLocalStorageService implements OnDestroy {
   }
 
   private getStorageHandlers(): Record<string, () => void> {
-   return Object.freeze({
-     [THEME_KEY]: () => this.loadThemeFromStorage(),
-     [TEMPERATURE_KEY]: () => this.loadTemperatureFromStorage(),
-     [FAVORITES_KEY]: () => this.loadShortFavoritesFromStorage(),
-     [DAILY_REPRESENTATION_KEY]: () => this.loadDailyRepresentationFromStorage(),
-   });
+    return Object.freeze({
+      [THEME_KEY]: () => this.loadThemeFromStorage(),
+      [TEMPERATURE_KEY]: () => this.loadTemperatureFromStorage(),
+      [FAVORITES_KEY]: () => this.loadShortFavoritesFromStorage(),
+      [DAILY_REPRESENTATION_KEY]: () => this.loadDailyRepresentationFromStorage(),
+    });
   }
 
   private loadThemeFromStorage(): void {
@@ -82,5 +82,4 @@ export class NgRxLocalStorageService implements OnDestroy {
   ngOnDestroy(): void {
     this.window.removeEventListener('storage', this.storageListener);
   }
-
 }

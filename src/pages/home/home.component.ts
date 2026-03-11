@@ -4,7 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { MatTooltip } from "@angular/material/tooltip";
+import { MatTooltip } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 
 import { WeatherStoreService } from './providers/weather-store.service';
@@ -21,14 +21,12 @@ import { LineChartComponent } from '@shared/components/line-chart/line-chart.com
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { TemperatureConverterPipe } from '@shared/pipes/temperature-converter.pipe';
 import { TemperatureUnit } from '@shared/helpers/temperature-unit.helper';
-import { ButtonComponent } from "@shared/components/button/button.component";
-import { ButtonVariant, ButtonWidth } from "@shared/components/button/types/button.enum";
-import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.service";
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ButtonVariant, ButtonWidth } from '@shared/components/button/types/button.enum';
+import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
   imports: [
     AsyncPipe,
     MatIconModule,
@@ -42,6 +40,8 @@ import { CrossTabFavoritesService } from "@core/providers/cross-tab-favorites.se
     ButtonComponent,
     MatTooltip,
   ],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent extends TemperatureUnit implements OnInit {
@@ -123,9 +123,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   }
 
   private handleWeather(): void {
-    this.weatherStore.weather$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.weatherStore.weather$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (weather: IWeather) => {
         this.weather.set(weather);
         this.temperature.set(parseFloat(weather.Temperature.Metric.Value));
@@ -134,34 +132,25 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   }
 
   private handleForecasts(): void {
-    this.weatherStore.forecasts$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.weatherStore.forecasts$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (forecasts: IForecast[]) => this.forecasts.set(forecasts),
     });
   }
 
   private handleTemperature(): void {
-    this.themeStore.isCelsius$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.themeStore.isCelsius$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (isCelsius: boolean) => this.isCelsius.set(isCelsius),
     });
   }
 
   private handleLocation(): void {
-    this.locationStore.location$.pipe(
-      filterDefined,
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.locationStore.location$.pipe(filterDefined, takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (location: ILocation) => this.location.set(location),
     });
   }
 
   private handleFavoriteLocation(): void {
-    this.locationStore.isFavoriteLocation$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.locationStore.isFavoriteLocation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (isFavorite: boolean) => this.isFavorite.set(isFavorite),
     });
   }
@@ -176,11 +165,8 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   }
 
   private listenDailyRepresentation(): void {
-    this.themeStore.isChartRepresentation$.pipe(
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe({
+    this.themeStore.isChartRepresentation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (isChartRepresentation: boolean) => this.isLineChart.set(isChartRepresentation),
     });
   }
-
 }

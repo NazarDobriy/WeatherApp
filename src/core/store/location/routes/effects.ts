@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { routerNavigatedAction } from "@ngrx/router-store";
-import { filter, map, withLatestFrom } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { routerNavigatedAction } from '@ngrx/router-store';
+import { filter, map, withLatestFrom } from 'rxjs';
 
 import * as LocationActions from '@core/store/location/actions';
-import { LocationStoreService } from "@core/providers/location-store.service";
+import { LocationStoreService } from '@core/providers/location-store.service';
 
 @Injectable()
 export class LocationRouteEffects {

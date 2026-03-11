@@ -1,4 +1,4 @@
-import { ThemeType } from "@core/types/theme.type";
+import { ThemeType } from '@core/types/theme.type';
 
 export interface IThemeState {
   theme: ThemeType;
