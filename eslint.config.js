@@ -92,6 +92,7 @@ module.exports = defineConfig([
       // "@typescript-eslint/naming-convention": "error",
       '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
       '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
+      '@typescript-eslint/no-extraneous-class': 'warn',
       // JS rules
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
