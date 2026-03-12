@@ -104,6 +104,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "type": "component",
+      "changeDetection": "OnPush",
       "displayBlock": true,
       "style": "scss"
     },
