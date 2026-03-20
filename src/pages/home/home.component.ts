@@ -126,7 +126,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.weatherStore.weather$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (weather: IWeather) => {
         this.weather.set(weather);
-        this.temperature.set(parseFloat(weather.Temperature.Metric.Value));
+        this.temperature.set(weather.Temperature.Metric.Value);
       },
     });
   }
@@ -155,12 +155,12 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     });
   }
 
-  private getTemperatureDataset(selector: (forecast: IForecast) => string): number[] {
+  private getTemperatureDataset(selector: (forecast: IForecast) => number): number[] {
     const isCelsius = this.isCelsius();
     const forecasts = this.forecasts();
 
     return forecasts.map((forecast: IForecast) => {
-      return temperatureConverter(parseFloat(selector(forecast)), isCelsius);
+      return temperatureConverter(selector(forecast), isCelsius);
     });
   }
 

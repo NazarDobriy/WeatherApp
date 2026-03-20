@@ -26,7 +26,7 @@ import { CARD } from '@shared/components/card/types/card.enum';
   ],
   templateUrl: './favorite-cart.component.html',
   styleUrl: './favorite-cart.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly favorite = input.required<IFavoriteDetailedInfo>();
@@ -35,7 +35,7 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly CARD = CARD;
   readonly buttonVariant = ButtonVariant;
   readonly buttonWidth = ButtonWidth;
-  readonly temperature = computed<number>(() => parseFloat(this.favorite().Temperature.Metric.Value));
+  readonly temperature = computed<number>(() => this.favorite().Temperature.Metric.Value);
 
   constructor(private favoritesStore: FavoritesStoreService) {
     super();
