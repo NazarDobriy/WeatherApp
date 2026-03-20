@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 import { ApiInterceptor } from './api.interceptor';
 
 describe('ApiInterceptor', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      providers: [ApiInterceptor],
+      providers: [ApiInterceptor, provideZonelessChangeDetection()],
     }),
   );
 
