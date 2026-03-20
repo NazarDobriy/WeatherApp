@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:coverage": "ng test --code-coverage",
+    "test:headless": "ng test --watch false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "lint:scss": "stylelint **/*.scss",

@@ -9,6 +9,7 @@
       "@utils/*": ["utils/*"],
       "@pages/*": ["pages/*"],
       "@shared/*": ["shared/*"],
+      "@tests/*": ["tests/*"],
       "@environments/*": ["environments/*"]
     },
     "outDir": "./dist/out-tsc",

@@ -92,6 +92,7 @@ module.exports = defineConfig([
       // "@typescript-eslint/naming-convention": "error",
       '@typescript-eslint/unbound-method': ['error', { ignoreStatic: true }],
       '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
+      '@typescript-eslint/no-extraneous-class': 'error',
       // JS rules
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
@@ -169,6 +170,26 @@ module.exports = defineConfig([
       '@angular-eslint/template/use-track-by-function': 'error',
       '@angular-eslint/template/valid-aria': 'error',
       '@angular-eslint/template/attributes-order': 'error',
+    },
+  },
+  {
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off',
+      '@typescript-eslint/no-deprecated': 'warn',
+    },
+  },
+  {
+    files: ['**/tests/**'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      // TODO remove after write fill mock classes
+      '@typescript-eslint/no-extraneous-class': 'off',
+      '@angular-eslint/use-component-selector': 'off',
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
     },
   },
 ]);

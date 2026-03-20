@@ -1,13 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
+import { ThemeStoreService } from '@core/providers/theme-store.service';
+import { MockThemeStoreService } from '@tests/providers/mock-theme-store.service';
+import { ThemeService } from '@core/providers/theme.service';
+import { MockThemeService } from '@tests/providers/mock-theme.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideZonelessChangeDetection()],
+      providers: [
+        { provide: ThemeStoreService, useClass: MockThemeStoreService },
+        { provide: ThemeService, useClass: MockThemeService },
+        provideZonelessChangeDetection(),
+        provideRouter([]),
+        provideStore({}),
+      ],
     }).compileComponents();
   });
 
