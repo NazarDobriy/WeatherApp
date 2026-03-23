@@ -35,4 +35,4 @@ jobs:
         run: npm run test:headless
 
       - name: Build Angular project
-        run: npm run build -- --prod
+        run: npm run build:prod
