@@ -15,7 +15,7 @@ import { PAGE_KEY } from '@core/constants/loading.constants';
   imports: [AsyncPipe, RouterLink, FavoriteCartComponent, MatProgressSpinnerModule],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoritesComponent implements OnInit {
   readonly detailedFavorites$ = this.favoritesStore.detailedFavorites$;

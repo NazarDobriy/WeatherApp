@@ -7,7 +7,7 @@ import { ForecastCardComponent } from '@pages/home/components/forecast-card/fore
   selector: 'app-forecasts',
   imports: [ForecastCardComponent],
   templateUrl: './forecasts.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForecastsComponent {
   readonly forecasts = input.required<IForecast[]>();

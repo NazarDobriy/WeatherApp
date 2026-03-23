@@ -29,10 +29,7 @@ export const selectDetailedFavoritesLength = createSelector(
 export const selectLoadingDetailedFavorites = (
   loadingKey: FavoritesLoadingType,
 ): MemoizedSelector<IFavoritesState, boolean> =>
-  createSelector(
-    selectFavoritesFeature,
-    ({ loading }: IFavoritesState): boolean => !!loading[loadingKey],
-  );
+  createSelector(selectFavoritesFeature, ({ loading }: IFavoritesState): boolean => !!loading[loadingKey]);
 
 export const selectFailureDetailedFavorites = createSelector(
   selectFavoritesFeature,

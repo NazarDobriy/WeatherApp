@@ -46,7 +46,7 @@ import { filterDefined } from '@utils/index';
       useValue: { overlayPanelClass: 'location-autocomplete' },
     },
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationSearchComponent implements OnInit {
   readonly matcher: ErrorStateMatcher = {
