@@ -1,0 +1,38 @@
+name: Angular CI/CD
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TS/JS/Angular lint
+        run: npm run lint
+
+      - name: Run SCSS lint
+        run: npm run lint:scss
+
+      - name: Check code formatting
+        run: npm run format:check
+
+      - name: Run unit tests
+        run: npm run test:headless
+
+      - name: Build Angular project
+        run: npm run build -- --prod
