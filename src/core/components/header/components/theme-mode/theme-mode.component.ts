@@ -11,7 +11,7 @@ import { HeaderFacadeService } from '@core/components/header/providers/header-fa
   selector: 'app-theme-mode',
   imports: [SelectComponent, AsyncPipe],
   templateUrl: './theme-mode.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeModeComponent {
   readonly THEME_GROUPS = THEME_GROUPS;

@@ -18,7 +18,7 @@ import { HeaderFacadeService } from '@core/components/header/providers/header-fa
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   providers: [HeaderFacadeService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   readonly buttonVariant = ButtonVariant;
