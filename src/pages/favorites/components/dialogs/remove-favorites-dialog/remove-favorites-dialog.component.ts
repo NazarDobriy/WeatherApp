@@ -1,31 +1,31 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, signal } from '@angular/core';
-import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { ButtonComponent } from '@shared/components/button/button.component';
-import { ButtonVariant, ButtonWidth } from '@shared/components/button/types/button.enum';
-import { ButtonIconComponent } from '@shared/components/button-icon/button-icon.component';
 import { FavoritesStoreService } from '@core/providers/favorites-store.service';
 import { FavoritesRouteStoreService } from '@core/providers/favorites-route-store.service';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { DialogHelper } from '@shared/components/dialog/helpers/dialog.helper';
 
 @Component({
   selector: 'app-remove-favorites-dialog',
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, ButtonComponent, ButtonIconComponent],
+  imports: [DialogComponent],
   templateUrl: './remove-favorites-dialog.component.html',
   styleUrl: './remove-favorites-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RemoveFavoritesDialogComponent implements OnInit {
-  readonly buttonWidth = ButtonWidth;
-  readonly buttonVariant = ButtonVariant;
+export class RemoveFavoritesDialogComponent
+  extends DialogHelper<RemoveFavoritesDialogComponent>
+  implements OnInit
+{
   readonly amount = signal<number | null>(null);
 
   constructor(
     private destroyRef: DestroyRef,
     private favoritesStore: FavoritesStoreService,
     private favoritesRouteStore: FavoritesRouteStoreService,
-    private dialogRef: MatDialogRef<RemoveFavoritesDialogComponent>,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.favoritesStore.detailedFavoritesLength$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
@@ -38,13 +38,5 @@ export class RemoveFavoritesDialogComponent implements OnInit {
         }
       },
     });
-  }
-
-  close(): void {
-    this.dialogRef.close(false);
-  }
-
-  confirm(): void {
-    this.dialogRef.close(true);
   }
 }

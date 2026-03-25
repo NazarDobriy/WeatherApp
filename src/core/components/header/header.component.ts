@@ -43,7 +43,7 @@ export class HeaderComponent {
   removeAll(): void {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { action: 'removeAll' },
+      queryParams: { id: null, action: 'removeAll' },
       queryParamsHandling: 'merge',
     });
   }
