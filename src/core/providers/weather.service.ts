@@ -6,6 +6,8 @@ import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
 import { IWeatherApi } from '@core/types/weather-api.interface';
 import { weatherMapper } from '@core/mappers/weather.mapper';
+import { IForecastApi } from '@core/types/forecast-api.interface';
+import { forecastsMapper } from '@core/mappers/forecasts.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +25,8 @@ export class WeatherService {
     const params = new HttpParams().set('metric', true);
     return this.http
       .get<{
-        DailyForecasts: IForecast[];
+        DailyForecasts: IForecastApi[];
       }>(`/forecasts/v1/daily/5day/${key}`, { params })
-      .pipe(map((response: { DailyForecasts: IForecast[] }) => response.DailyForecasts));
+      .pipe(map((response: { DailyForecasts: IForecastApi[] }) => forecastsMapper(response.DailyForecasts)));
   }
 }

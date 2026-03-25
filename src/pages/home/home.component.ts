@@ -53,10 +53,10 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly isLineChart = signal<boolean>(false);
   readonly isFavorite = signal<boolean>(false);
   readonly dayDataset = computed<number[]>(() =>
-    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Maximum.Value),
+    this.getTemperatureDataset(({ temperature }: IForecast) => temperature.maximum.value),
   );
   readonly nightDataset = computed<number[]>(() =>
-    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Minimum.Value),
+    this.getTemperatureDataset(({ temperature }: IForecast) => temperature.minimum.value),
   );
   readonly temperature = signal<number | null>(null);
 
@@ -126,7 +126,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.weatherStore.weather$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (weather: IWeather) => {
         this.weather.set(weather);
-        this.temperature.set(weather.temperature.metric.Value);
+        this.temperature.set(weather.temperature.metric.value);
       },
     });
   }

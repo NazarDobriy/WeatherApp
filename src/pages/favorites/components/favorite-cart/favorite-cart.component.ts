@@ -36,7 +36,7 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly CARD = CARD;
   readonly buttonVariant = ButtonVariant;
   readonly buttonWidth = ButtonWidth;
-  readonly temperature = computed<number>(() => this.favorite().temperature.metric.Value);
+  readonly temperature = computed<number>(() => this.favorite().temperature.metric.value);
 
   constructor(
     private router: Router,

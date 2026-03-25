@@ -6,8 +6,14 @@ export function weatherMapper(weather: IWeatherApi): IWeather {
     weatherIcon: weather.WeatherIcon,
     weatherText: weather.WeatherText,
     temperature: {
-      metric: weather.Temperature.Metric,
-      imperial: weather.Temperature.Imperial,
+      metric: {
+        value: weather.Temperature.Metric.Value,
+        unit: weather.Temperature.Metric.Unit,
+      },
+      imperial: {
+        value: weather.Temperature.Imperial.Value,
+        unit: weather.Temperature.Imperial.Unit,
+      },
     },
   };
 }

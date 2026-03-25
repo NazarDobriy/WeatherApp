@@ -1,17 +1,17 @@
 import { ITemperature } from '@core/types/temperature.interface';
 
 export interface IForecastPhase {
-  Icon: number;
-  IconPhrase: string;
-  HasPrecipitation?: boolean;
+  icon: number;
+  iconPhrase: string;
+  hasPrecipitation?: boolean;
 }
 
 export interface IForecast {
-  Date: string;
-  Temperature: {
-    Minimum: ITemperature;
-    Maximum: ITemperature;
+  date: string;
+  temperature: {
+    minimum: ITemperature;
+    maximum: ITemperature;
   };
-  Day: IForecastPhase;
-  Night: IForecastPhase;
+  day: IForecastPhase;
+  night: IForecastPhase;
 }
