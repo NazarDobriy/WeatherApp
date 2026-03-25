@@ -4,6 +4,8 @@ import { Observable, map } from 'rxjs';
 
 import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
+import { IWeatherApi } from '@core/types/weather-api.interface';
+import { weatherMapper } from '@core/mappers/weather.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,8 @@ export class WeatherService {
 
   getWeather(key: string): Observable<IWeather> {
     return this.http
-      .get<[IWeather]>(`/currentconditions/v1/${key}`)
-      .pipe(map((response: [IWeather]) => response[0]));
+      .get<IWeatherApi[]>(`/currentconditions/v1/${key}`)
+      .pipe(map((response: IWeatherApi[]) => weatherMapper(response[0])));
   }
 
   getForecasts(key: string): Observable<IForecast[]> {

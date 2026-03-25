@@ -126,7 +126,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.weatherStore.weather$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (weather: IWeather) => {
         this.weather.set(weather);
-        this.temperature.set(weather.Temperature.Metric.Value);
+        this.temperature.set(weather.temperature.metric.Value);
       },
     });
   }
