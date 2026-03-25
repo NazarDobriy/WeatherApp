@@ -47,9 +47,15 @@ export class FavoritesStoreService {
   }
 
   getDetailedFavoriteIsLoading(id: string): Observable<boolean> {
+    return this.getDetailedFavoriteById(id).pipe(
+      map((item: IFavoriteDetailedInfo | undefined) => item?.isLoading ?? false),
+    );
+  }
+
+  getDetailedFavoriteById(id: string): Observable<IFavoriteDetailedInfo | undefined> {
     return this.detailedFavorites$.pipe(
       map((detailedFavorites: IFavoriteDetailedInfo[]) => {
-        return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id)?.isLoading ?? false;
+        return detailedFavorites.find((item: IFavoriteDetailedInfo) => item.id === id);
       }),
     );
   }

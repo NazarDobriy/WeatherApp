@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, OnInit } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { of } from 'rxjs';
@@ -37,7 +38,11 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   readonly buttonWidth = ButtonWidth;
   readonly temperature = computed<number>(() => this.favorite().Temperature.Metric.Value);
 
-  constructor(private favoritesStore: FavoritesStoreService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private favoritesStore: FavoritesStoreService,
+  ) {
     super();
   }
 
@@ -50,6 +55,10 @@ export class FavoriteCartComponent extends TemperatureUnit implements OnInit {
   }
 
   removeFromFavorites(): void {
-    this.favoritesStore.dispatchRemoveShortFavorite(this.favorite().id, this.favorite().name);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { id: this.favorite().id, action: 'remove' },
+      queryParamsHandling: 'merge',
+    });
   }
 }

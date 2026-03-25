@@ -40,7 +40,7 @@ export class FavoritesService {
 
   clearDialogRouteParams(): void {
     this.router.navigate([], {
-      queryParams: { action: null },
+      queryParams: { action: null, id: null },
       queryParamsHandling: 'merge',
     });
   }

@@ -1,0 +1,30 @@
+<div class="text-sm relative" mat-dialog-title>{{ title() }}</div>
+
+<app-button-icon
+  class="absolute sm:top-2 sm:right-2 md:top-4 md:right-4 top-1 right-1"
+  [icon]="'close'"
+  (click)="closeHandler.emit()"
+></app-button-icon>
+
+<mat-dialog-content>
+  <ng-content></ng-content>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex-center-x gap-2" align="end">
+  <app-button
+    [variant]="buttonVariant.PRIMARY_OUTLINED"
+    [width]="buttonWidth.XS"
+    (click)="closeHandler.emit()"
+  >
+    Close
+  </app-button>
+
+  <app-button
+    [hasAutoFocus]="true"
+    [variant]="buttonVariant.PRIMARY_OUTLINED"
+    [width]="buttonWidth.XS"
+    (click)="confirmHandler.emit()"
+  >
+    Confirm
+  </app-button>
+</mat-dialog-actions>
