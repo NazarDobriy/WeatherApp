@@ -13,6 +13,6 @@ export class TemperatureConverterPipe implements PipeTransform {
 
     const convertedValue = temperatureConverter(value, isCelsius);
     const formattedValue = convertedValue % 1 === 0 ? convertedValue.toFixed(0) : convertedValue.toFixed(1);
-    return isCelsius ? `${formattedValue} °C` : `${formattedValue} F`;
+    return isCelsius ? `${formattedValue} °C` : `${formattedValue} °F`;
   }
 }
