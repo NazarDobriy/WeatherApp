@@ -52,7 +52,9 @@
                 [value]="location.localizedName"
                 (click)="onSelectionChange(location)"
               >
-                <app-location-search-detail [location]="location"></app-location-search-detail>
+                <app-location-search-detail
+                  [location]="location"
+                ></app-location-search-detail>
               </mat-option>
             }
           }
