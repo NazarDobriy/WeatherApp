@@ -15,12 +15,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AsyncPipe } from '@angular/common';
 
-import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
-import { LocationStoreService } from '@core/providers/location-store.service';
+import { filterDefined } from '@utils/index';
 import { ILocation } from '@core/types/location.interface';
+import { LocationStoreService } from '@core/providers/location-store.service';
+import { LocationsStoreService } from '@pages/home/providers/locations-store.service';
 import { LocationSearchFormService } from '@pages/home/components/location-search/providers/location-search-form.service';
 import { LocationSearchDropdownService } from '@pages/home/components/location-search/providers/location-search-dropdown.service';
-import { filterDefined } from '@utils/index';
+import { LocationSearchDetailComponent } from '@pages/home/components/location-search/components/location-search-detail/location-search-detail.component';
 
 @Component({
   selector: 'app-location-search',
@@ -36,6 +37,7 @@ import { filterDefined } from '@utils/index';
     MatAutocomplete,
     AsyncPipe,
     MatOption,
+    LocationSearchDetailComponent,
   ],
   templateUrl: './location-search.component.html',
   providers: [
@@ -119,9 +121,7 @@ export class LocationSearchComponent implements OnInit {
 
   private handleLocation(): void {
     this.locationStore.location$.pipe(filterDefined, takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (location: ILocation) => {
-        this.searchControl.setValue(location.LocalizedName);
-      },
+      next: ({ localizedName }: ILocation) => this.searchControl.setValue(localizedName),
     });
   }
 }

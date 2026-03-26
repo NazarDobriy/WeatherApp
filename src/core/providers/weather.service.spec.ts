@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
 import { WeatherService } from './weather.service';
-import { MOCK_KEY, MOCK_WEATHER } from '@tests/constants/test.constants';
 import { IWeather } from '@core/types/weather.interface';
+import { MOCK_KEY, MOCK_WEATHER, MOCK_WEATHER_API } from '@tests/constants/test.constants';
 
 describe('WeatherService', () => {
   let service: WeatherService;
@@ -27,7 +27,7 @@ describe('WeatherService', () => {
   });
 
   it('check getWeather', () => {
-    mockHttpClient.get.and.returnValue(of([MOCK_WEATHER]));
+    mockHttpClient.get.and.returnValue(of([MOCK_WEATHER_API]));
 
     service.getWeather(MOCK_KEY).subscribe({
       next: (response: IWeather) => {

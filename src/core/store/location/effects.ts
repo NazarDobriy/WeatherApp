@@ -48,7 +48,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
       map(({ location }) => {
-        return WeatherActions.getWeather({ key: location.Key });
+        return WeatherActions.getWeather({ key: location.key });
       }),
     ),
   );
@@ -57,7 +57,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
       map(({ location }) => {
-        return WeatherActions.getForecasts({ key: location.Key });
+        return WeatherActions.getForecasts({ key: location.key });
       }),
     ),
   );

@@ -1,12 +1,11 @@
+export interface ILocationReference {
+  id: string;
+  localizedName: string;
+}
+
 export interface ILocation {
-  Key: string;
-  LocalizedName: string;
-  AdministrativeArea?: {
-    ID: string;
-    LocalizedName: string;
-  };
-  Country?: {
-    ID: string;
-    LocalizedName: string;
-  };
+  key: string;
+  localizedName: string;
+  administrativeArea?: ILocationReference;
+  country?: ILocationReference;
 }

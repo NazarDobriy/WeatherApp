@@ -18,7 +18,7 @@
         />
 
         <div class="flex-center-y-col gap-4 ml-8">
-          <div>{{ location()?.LocalizedName }}</div>
+          <div>{{ location()?.localizedName }}</div>
 
           {{ temperature() | temperatureConverter: isCelsius() }}
         </div>

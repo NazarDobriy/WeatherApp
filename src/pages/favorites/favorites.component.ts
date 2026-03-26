@@ -35,8 +35,8 @@ export class FavoritesComponent implements OnInit {
 
   selectFavorite(detailedFavorite: IFavoriteDetailedInfo): void {
     this.locationStore.dispatchLocationChange({
-      Key: detailedFavorite.id,
-      LocalizedName: detailedFavorite.name,
+      key: detailedFavorite.id,
+      localizedName: detailedFavorite.name,
     });
     this.router.navigateByUrl('/');
   }
