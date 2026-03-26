@@ -53,10 +53,10 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly isLineChart = signal<boolean>(false);
   readonly isFavorite = signal<boolean>(false);
   readonly dayDataset = computed<number[]>(() =>
-    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Maximum.Value),
+    this.getTemperatureDataset(({ temperature }: IForecast) => temperature.maximum.value),
   );
   readonly nightDataset = computed<number[]>(() =>
-    this.getTemperatureDataset((forecast: IForecast) => forecast.Temperature.Minimum.Value),
+    this.getTemperatureDataset(({ temperature }: IForecast) => temperature.minimum.value),
   );
   readonly temperature = signal<number | null>(null);
 
@@ -93,8 +93,8 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
 
     if (location && weather) {
       const shortFavorite: IFavoriteShortInfo = {
-        id: location.Key,
-        name: location.LocalizedName,
+        id: location.key,
+        name: location.localizedName,
         isLoading: false,
         error: null,
       };
@@ -111,12 +111,12 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     const location = this.location();
 
     if (location) {
-      this.favoritesStore.dispatchRemoveShortFavorite(location.Key, location.LocalizedName);
+      this.favoritesStore.dispatchRemoveShortFavorite(location.key, location.localizedName);
       this.crossTabFavoritesService.send({
         type: 'remove',
         payload: {
-          id: location.Key,
-          name: location.LocalizedName,
+          id: location.key,
+          name: location.localizedName,
         },
       });
     }
@@ -126,7 +126,7 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
     this.weatherStore.weather$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (weather: IWeather) => {
         this.weather.set(weather);
-        this.temperature.set(weather.Temperature.Metric.Value);
+        this.temperature.set(weather.temperature.metric.value);
       },
     });
   }

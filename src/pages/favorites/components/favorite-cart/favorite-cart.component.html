@@ -4,13 +4,13 @@
   {{ temperature() | temperatureConverter: isCelsius() }}
 
   <img
-    ngSrc="assets/weather/{{ favorite().WeatherIcon }}.svg"
-    alt="{{ favorite().WeatherText }}"
+    ngSrc="assets/weather/{{ favorite().weatherIcon }}.svg"
+    alt="{{ favorite().weatherText }}"
     height="48"
     width="48"
     priority
     matTooltipPosition="right"
-    [matTooltip]="favorite().WeatherText"
+    [matTooltip]="favorite().weatherText"
   />
 
   <app-button

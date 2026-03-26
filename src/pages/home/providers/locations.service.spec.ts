@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { LocationsService } from './locations.service';
 import { ILocation } from '@core/types/location.interface';
-import { MOCK_LOCATION } from '@tests/constants/test.constants';
+import { MOCK_LOCATION, MOCK_LOCATION_API } from '@tests/constants/test.constants';
 
 describe('LocationsService', () => {
   let service: LocationsService;
@@ -48,6 +48,6 @@ describe('LocationsService', () => {
 
     expect(req.request.method).toBe('GET');
 
-    req.flush([MOCK_LOCATION]);
+    req.flush([MOCK_LOCATION_API]);
   });
 });

@@ -26,6 +26,6 @@ export const isFavoriteLocation = createSelector(
   selectLocation,
   FavoritesSelectors.selectShortFavorites,
   (location: ILocation | null, favorites: IFavoriteShortInfo[]) => {
-    return favorites.some((favorite: IFavoriteShortInfo) => favorite.id === location?.Key);
+    return favorites.some((favorite: IFavoriteShortInfo) => favorite.id === location?.key);
   },
 );

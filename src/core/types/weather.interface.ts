@@ -1,10 +1,10 @@
 import { ITemperature } from '@core/types/temperature.interface';
 
 export interface IWeather {
-  WeatherIcon: number;
-  WeatherText: string;
-  Temperature: {
-    Metric: ITemperature;
-    Imperial: ITemperature;
+  weatherIcon: number;
+  weatherText: string;
+  temperature: {
+    metric: ITemperature;
+    imperial: ITemperature;
   };
 }

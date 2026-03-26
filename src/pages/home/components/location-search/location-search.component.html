@@ -46,19 +46,15 @@
           }
 
           @case ('outcome') {
-            @for (location of locations$ | async; track location.Key) {
+            @for (location of locations$ | async; track location.key) {
               <mat-option
-                [id]="location.Key"
-                [value]="location.LocalizedName"
+                [id]="location.key"
+                [value]="location.localizedName"
                 (click)="onSelectionChange(location)"
               >
-                <section class="flex justify-between gap-2">
-                  <div>{{ location.LocalizedName }}</div>
-                  <div>
-                    ({{ location.Country?.LocalizedName }},
-                    {{ location.AdministrativeArea?.LocalizedName }})
-                  </div>
-                </section>
+                <app-location-search-detail
+                  [location]="location"
+                ></app-location-search-detail>
               </mat-option>
             }
           }

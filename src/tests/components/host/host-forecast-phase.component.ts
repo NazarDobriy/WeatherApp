@@ -9,7 +9,7 @@ import { IForecastPhase } from '@core/types/forecast.interface';
 })
 export class HostForecastPhaseComponent {
   readonly forecastPhase: IForecastPhase = {
-    Icon: 14,
-    IconPhrase: 'Sunny',
+    icon: 14,
+    iconPhrase: 'Sunny',
   };
 }

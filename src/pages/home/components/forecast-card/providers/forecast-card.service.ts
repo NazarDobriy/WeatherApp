@@ -4,7 +4,7 @@ import { IForecast } from '@core/types/forecast.interface';
 
 @Injectable()
 export class ForecastCardService {
-  getAverageTemperature(forecast: IForecast): number {
-    return (forecast.Temperature.Minimum.Value + forecast.Temperature.Maximum.Value) / 2;
+  getAverageTemperature({ temperature }: IForecast): number {
+    return (temperature.minimum.value + temperature.maximum.value) / 2;
   }
 }

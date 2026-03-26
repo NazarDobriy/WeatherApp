@@ -1,4 +1,4 @@
 export interface ITemperature {
-  Value: number;
-  Unit: string;
+  value: number;
+  unit: string;
 }
