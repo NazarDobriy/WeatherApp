@@ -4,7 +4,10 @@ export function temperatureConverter(temperature: number, isCelsius: boolean): n
   if (isCelsius) {
     return temperature;
   }
-  return parseFloat(((temperature * 9) / 5 + 32).toFixed(1));
+
+  const result = parseFloat(((temperature * 9) / 5 + 32).toFixed(1));
+
+  return Object.is(result, -0) ? 0 : result;
 }
 
 export function filterDefined<T>(source$: Observable<T | null | undefined>): Observable<T> {
