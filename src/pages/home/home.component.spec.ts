@@ -8,7 +8,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { HomeComponent } from './home.component';
 import { HomeFacadeService } from '@pages/home/providers/home-facade.service';
 import { MockHomeFacadeService } from '@tests/providers/mock-home-facade.service';
-import { WeatherStoreService } from '@pages/home/providers/weather-store.service';
+import { WeatherStoreService } from '@core/providers/weather-store.service';
 import { MockWeatherStoreService } from '@tests/providers/mock-weather-store.service';
 import { LocationStoreService } from '@core/providers/location-store.service';
 import { MockLocationStoreService } from '@tests/providers/mock-location-store.service';

@@ -27,13 +27,21 @@ import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.se
 import { ThemeEffects } from '@core/store/theme/effects';
 import { NavigationEffects } from '@core/store/navigation/effects';
 import { LocationRouteEffects } from '@core/store/location/routes/effects';
+import { WeatherEffects } from '@core/store/weather/effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideStore(reducers),
-    provideEffects(ThemeEffects, LocationEffects, FavoritesEffects, NavigationEffects, LocationRouteEffects),
+    provideEffects(
+      ThemeEffects,
+      WeatherEffects,
+      LocationEffects,
+      FavoritesEffects,
+      NavigationEffects,
+      LocationRouteEffects,
+    ),
     provideRouterStore(),
     provideStoreDevtools({
       maxAge: 25,

@@ -34,6 +34,35 @@ export const weatherReducer = createReducer(
       },
     };
   }),
+  on(WeatherActions.updateWeather, (state: IWeatherState) => {
+    return {
+      ...state,
+      weather: {
+        ...state.weather,
+        isUpdateLoading: true,
+      },
+    };
+  }),
+  on(WeatherActions.updateWeatherSuccess, (state: IWeatherState, { weather }) => {
+    return {
+      ...state,
+      weather: {
+        ...state.weather,
+        isUpdateLoading: false,
+        data: weather,
+      },
+    };
+  }),
+  on(WeatherActions.updateWeatherFailure, (state: IWeatherState, { error }) => {
+    return {
+      ...state,
+      weather: {
+        ...state.weather,
+        isUpdateLoading: false,
+        error,
+      },
+    };
+  }),
   on(WeatherActions.getForecasts, (state: IWeatherState) => {
     return {
       ...state,

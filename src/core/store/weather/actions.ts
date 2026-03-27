@@ -23,3 +23,15 @@ export const getForecastsFailure = createAction(
   '[Weather] Get Forecasts failure',
   props<{ error: string }>(),
 );
+
+export const updateWeather = createAction('[Weather] Update Weather', props<{ key: string; name: string }>());
+
+export const updateWeatherSuccess = createAction(
+  '[Weather] Update Weather success',
+  props<{ key: string; name: string; weather: IWeather }>(),
+);
+
+export const updateWeatherFailure = createAction(
+  '[Weather] Update Weather failure',
+  props<{ key: string; name: string; error: string }>(),
+);

@@ -5,6 +5,7 @@ import { deepFreeze } from '@utils/index';
 export interface IWeatherState {
   weather: {
     isLoading: boolean;
+    isUpdateLoading: boolean;
     data: IWeather | null;
     error: string | null;
   };
@@ -18,6 +19,7 @@ export interface IWeatherState {
 export const weatherInitialState: IWeatherState = deepFreeze<IWeatherState>({
   weather: {
     isLoading: false,
+    isUpdateLoading: false,
     data: null,
     error: null,
   },

@@ -7,7 +7,7 @@ import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { Title } from '@angular/platform-browser';
 
-import { WeatherStoreService } from './providers/weather-store.service';
+import { WeatherStoreService } from '@core/providers/weather-store.service';
 import { IWeather } from '@core/types/weather.interface';
 import { IForecast } from '@core/types/forecast.interface';
 import { LocationStoreService } from '@core/providers/location-store.service';
@@ -47,6 +47,7 @@ import { CrossTabFavoritesService } from '@core/providers/cross-tab-favorites.se
 export class HomeComponent extends TemperatureUnit implements OnInit {
   readonly buttonWidth = ButtonWidth;
   readonly buttonVariant = ButtonVariant;
+  readonly isLoadingUpdateWeather$ = this.weatherStore.isLoadingUpdateWeather$;
   readonly location = signal<ILocation | null>(null);
   readonly forecasts = signal<IForecast[]>([]);
   readonly weather = signal<IWeather | null>(null);
@@ -119,6 +120,14 @@ export class HomeComponent extends TemperatureUnit implements OnInit {
           name: location.localizedName,
         },
       });
+    }
+  }
+
+  refreshWeather(): void {
+    const location = this.location();
+
+    if (location) {
+      this.weatherStore.dispatchUpdateWeather(location.key, location.localizedName);
     }
   }
 

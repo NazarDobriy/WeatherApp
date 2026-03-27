@@ -24,19 +24,34 @@
         </div>
       </section>
 
-      <app-button
-        [width]="buttonWidth.LG"
-        [variant]="isFavorite() ? buttonVariant.ERROR : buttonVariant.PRIMARY"
-        (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
-      >
-        <section class="flex-center-y gap-1">
-          <mat-icon>
-            {{ isFavorite() ? 'favorite' : 'favorite_border' }}
-          </mat-icon>
+      <section class="flex-center-y-col gap-3">
+        <app-button
+          [width]="buttonWidth.LG"
+          [variant]="buttonVariant.UPDATING"
+          (click)="refreshWeather()"
+        >
+          <section class="flex-center-y gap-1">
+            <mat-icon [class.animate-spin-fast]="isLoadingUpdateWeather$ | async">
+              refresh
+            </mat-icon>
+            Refresh
+          </section>
+        </app-button>
 
-          {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}
-        </section>
-      </app-button>
+        <app-button
+          [width]="buttonWidth.LG"
+          [variant]="isFavorite() ? buttonVariant.ERROR : buttonVariant.PRIMARY"
+          (click)="isFavorite() ? removeFromFavorites() : addToFavorites()"
+        >
+          <section class="flex-center-y gap-1">
+            <mat-icon>
+              {{ isFavorite() ? 'favorite' : 'favorite_border' }}
+            </mat-icon>
+
+            {{ isFavorite() ? 'Remove from favorite' : 'Add to favorite' }}
+          </section>
+        </app-button>
+      </section>
     </section>
 
     <section class="flex-center-x md:justify-start mt-12">
