@@ -53,15 +53,6 @@ export class LocationEffects {
     ),
   );
 
-  locationTriggersForecasts$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
-      map(({ location }) => {
-        return WeatherActions.getForecasts({ key: location.key });
-      }),
-    ),
-  );
-
   failureLocation$ = createEffect(
     () => {
       return this.actions$.pipe(

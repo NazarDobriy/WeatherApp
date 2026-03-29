@@ -4,12 +4,10 @@ import { catchError, map, of, switchMap, exhaustMap, tap } from 'rxjs';
 
 import * as WeatherActions from './actions';
 import { WeatherService } from '@core/providers/weather.service';
-import { IWeather } from '@core/types/weather.interface';
-import { IForecast } from '@core/types/forecast.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { NOTIFICATION } from '@core/constants/notification.constants';
-import { minLoadingTime } from '@utils/index';
 import { WeatherFacadeService } from '@core/providers/weather-facade.service';
+import { minLoadingTime } from '@utils/index';
 
 @Injectable()
 export class WeatherEffects {
@@ -17,9 +15,13 @@ export class WeatherEffects {
     return this.actions$.pipe(
       ofType(WeatherActions.getWeather),
       switchMap(({ key }) => {
-        return this.weatherService.getWeather(key).pipe(
-          map((weather: IWeather) => WeatherActions.getWeatherSuccess({ weather })),
-          catchError((error: Error) => of(WeatherActions.getWeatherFailure({ error: error.message }))),
+        return this.weatherFacadeService.joinedWeather(key).pipe(
+          map(([weather, forecasts]) => {
+            return WeatherActions.getWeatherSuccess({ weather, forecasts });
+          }),
+          catchError((error: Error) => {
+            return of(WeatherActions.getWeatherFailure({ error: error.message }));
+          }),
         );
       }),
     );
@@ -30,28 +32,6 @@ export class WeatherEffects {
       return this.actions$.pipe(
         ofType(WeatherActions.getWeatherFailure),
         tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_WEATHER, 'X')),
-      );
-    },
-    { dispatch: false },
-  );
-
-  getForecasts$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(WeatherActions.getForecasts),
-      switchMap((action) => {
-        return this.weatherService.getForecasts(action.key).pipe(
-          map((forecasts: IForecast[]) => WeatherActions.getForecastsSuccess({ forecasts })),
-          catchError((error: Error) => of(WeatherActions.getForecastsFailure({ error: error.message }))),
-        );
-      }),
-    );
-  });
-
-  failureGetForecasts$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(WeatherActions.getForecastsFailure),
-        tap(() => this.snackBarService.open(NOTIFICATION.ERROR_GETTING_FORECAST, 'X')),
       );
     },
     { dispatch: false },

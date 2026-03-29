@@ -12,15 +12,24 @@ export const weatherReducer = createReducer(
         ...state.weather,
         isLoading: true,
       },
+      forecasts: {
+        ...state.forecasts,
+        isLoading: true,
+      },
     };
   }),
-  on(WeatherActions.getWeatherSuccess, (state: IWeatherState, { weather }) => {
+  on(WeatherActions.getWeatherSuccess, (state: IWeatherState, { weather, forecasts }) => {
     return {
       ...state,
       weather: {
         ...state.weather,
         isLoading: false,
         data: weather,
+      },
+      forecasts: {
+        ...state.forecasts,
+        isLoading: false,
+        data: forecasts,
       },
     };
   }),
@@ -29,6 +38,11 @@ export const weatherReducer = createReducer(
       ...state,
       weather: {
         ...state.weather,
+        isLoading: false,
+        error,
+      },
+      forecasts: {
+        ...state.forecasts,
         isLoading: false,
         error,
       },
@@ -70,33 +84,9 @@ export const weatherReducer = createReducer(
         isUpdateLoading: false,
         error,
       },
-    };
-  }),
-  on(WeatherActions.getForecasts, (state: IWeatherState) => {
-    return {
-      ...state,
       forecasts: {
         ...state.forecasts,
-        isLoading: true,
-      },
-    };
-  }),
-  on(WeatherActions.getForecastsSuccess, (state: IWeatherState, { forecasts }) => {
-    return {
-      ...state,
-      forecasts: {
-        ...state.forecasts,
-        isLoading: false,
-        data: forecasts,
-      },
-    };
-  }),
-  on(WeatherActions.getForecastsFailure, (state: IWeatherState, { error }) => {
-    return {
-      ...state,
-      forecasts: {
-        ...state.forecasts,
-        isLoading: false,
+        isUpdateLoading: false,
         error,
       },
     };
