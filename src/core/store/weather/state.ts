@@ -11,6 +11,7 @@ export interface IWeatherState {
   };
   forecasts: {
     isLoading: boolean;
+    isUpdateLoading: boolean;
     data: IForecast[];
     error: string | null;
   };
@@ -25,6 +26,7 @@ export const weatherInitialState: IWeatherState = deepFreeze<IWeatherState>({
   },
   forecasts: {
     isLoading: false,
+    isUpdateLoading: false,
     data: [],
     error: null,
   },

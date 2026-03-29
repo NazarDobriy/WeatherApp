@@ -9,6 +9,7 @@ import { IForecast } from '@core/types/forecast.interface';
 import { SnackBarService } from '@core/providers/snack-bar.service';
 import { NOTIFICATION } from '@core/constants/notification.constants';
 import { minLoadingTime } from '@utils/index';
+import { WeatherFacadeService } from '@core/providers/weather-facade.service';
 
 @Injectable()
 export class WeatherEffects {
@@ -60,10 +61,12 @@ export class WeatherEffects {
     return this.actions$.pipe(
       ofType(WeatherActions.updateWeather),
       exhaustMap(({ key, name }) => {
-        return this.weatherService.getWeather(key).pipe(
-          map((weather: IWeather) => WeatherActions.updateWeatherSuccess({ key, name, weather })),
+        return this.weatherFacadeService.joinedWeather(key).pipe(
+          map(([weather, forecasts]) => {
+            return WeatherActions.updateWeatherSuccess({ name, weather, forecasts });
+          }),
           catchError((error: Error) =>
-            of(WeatherActions.updateWeatherFailure({ key, name, error: error.message })),
+            of(WeatherActions.updateWeatherFailure({ name, error: error.message })),
           ),
           minLoadingTime(300),
         );
@@ -99,5 +102,6 @@ export class WeatherEffects {
     private actions$: Actions,
     private weatherService: WeatherService,
     private snackBarService: SnackBarService,
+    private weatherFacadeService: WeatherFacadeService,
   ) {}
 }

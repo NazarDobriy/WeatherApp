@@ -28,10 +28,10 @@ export const updateWeather = createAction('[Weather] Update Weather', props<{ ke
 
 export const updateWeatherSuccess = createAction(
   '[Weather] Update Weather success',
-  props<{ key: string; name: string; weather: IWeather }>(),
+  props<{ name: string; weather: IWeather; forecasts: IForecast[] }>(),
 );
 
 export const updateWeatherFailure = createAction(
   '[Weather] Update Weather failure',
-  props<{ key: string; name: string; error: string }>(),
+  props<{ name: string; error: string }>(),
 );

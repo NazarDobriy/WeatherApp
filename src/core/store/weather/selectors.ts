@@ -21,11 +21,6 @@ export const selectFailureWeather = createSelector(
   ({ weather }: Pick<IWeatherState, 'weather'>): string | null => weather.error,
 );
 
-export const selectIsLoadingUpdateWeather = createSelector(
-  selectWeatherFeature,
-  ({ weather }: Pick<IWeatherState, 'weather'>): boolean => weather.isUpdateLoading,
-);
-
 export const selectForecasts = createSelector(
   selectWeatherFeature,
   ({ forecasts }: Pick<IWeatherState, 'forecasts'>): IForecast[] => forecasts.data,
@@ -39,4 +34,9 @@ export const selectIsLoadingForecasts = createSelector(
 export const selectFailureForecasts = createSelector(
   selectWeatherFeature,
   ({ forecasts }: Pick<IWeatherState, 'forecasts'>): string | null => forecasts.error,
+);
+
+export const selectIsLoadingUpdateWeather = createSelector(
+  selectWeatherFeature,
+  ({ weather, forecasts }: IWeatherState): boolean => weather.isUpdateLoading && forecasts.isUpdateLoading,
 );

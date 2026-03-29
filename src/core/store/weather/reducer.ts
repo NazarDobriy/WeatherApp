@@ -41,15 +41,24 @@ export const weatherReducer = createReducer(
         ...state.weather,
         isUpdateLoading: true,
       },
+      forecasts: {
+        ...state.forecasts,
+        isUpdateLoading: true,
+      },
     };
   }),
-  on(WeatherActions.updateWeatherSuccess, (state: IWeatherState, { weather }) => {
+  on(WeatherActions.updateWeatherSuccess, (state: IWeatherState, { weather, forecasts }) => {
     return {
       ...state,
       weather: {
         ...state.weather,
         isUpdateLoading: false,
         data: weather,
+      },
+      forecasts: {
+        ...state.forecasts,
+        isUpdateLoading: false,
+        data: forecasts,
       },
     };
   }),

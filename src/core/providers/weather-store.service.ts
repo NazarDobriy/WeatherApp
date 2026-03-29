@@ -13,11 +13,12 @@ export class WeatherStoreService {
   readonly weather$ = this.store.select(WeatherSelectors.selectWeather).pipe(filterDefined);
   readonly weatherFailure$ = this.store.select(WeatherSelectors.selectFailureWeather);
   readonly isLoadingWeather$ = this.store.select(WeatherSelectors.selectIsLoadingWeather);
-  readonly isLoadingUpdateWeather$ = this.store.select(WeatherSelectors.selectIsLoadingUpdateWeather);
 
   readonly forecasts$ = this.store.select(WeatherSelectors.selectForecasts);
   readonly forecastsFailure$ = this.store.select(WeatherSelectors.selectFailureForecasts);
   readonly isLoadingForecasts$ = this.store.select(WeatherSelectors.selectIsLoadingForecasts);
+
+  readonly isLoadingUpdateWeather$ = this.store.select(WeatherSelectors.selectIsLoadingUpdateWeather);
 
   constructor(private store: Store<IWeatherState>) {}
 
