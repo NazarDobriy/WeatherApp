@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 import * as LocationActions from './actions';
-import * as WeatherActions from '@pages/home/store/weather/actions';
+import * as WeatherActions from '@core/store/weather/actions';
 import * as NavigationActions from '@core/store/navigation/actions';
 import { LocationService } from '@core/providers/location.service';
 import { ILocation } from '@core/types/location.interface';
@@ -49,15 +49,6 @@ export class LocationEffects {
       ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
       map(({ location }) => {
         return WeatherActions.getWeather({ key: location.key });
-      }),
-    ),
-  );
-
-  locationTriggersForecasts$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(LocationActions.getLocationSuccess, LocationActions.changeLocation),
-      map(({ location }) => {
-        return WeatherActions.getForecasts({ key: location.key });
       }),
     ),
   );

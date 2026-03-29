@@ -2,7 +2,6 @@ export const NOTIFICATION = Object.freeze({
   ERROR_GETTING_FAVOURITES: 'Http failure response for getting favorites weather',
   ERROR_SEARCHING_LOCATION: 'Error while searching location',
   ERROR_GETTING_WEATHER: 'Http failure response for getting weather',
-  ERROR_GETTING_FORECAST: 'Http failure response for getting forecast',
   ERROR_GETTING_LOCATION: 'Http failure response for getting location',
   ERROR_DIALOG_FAVORITES: `You don't have any favorites to remove`,
   ERROR_DIALOG_FAVORITE: (id: string): string => `You cannot remove unexist favorite id = ${id}`,
