@@ -25,6 +25,7 @@ module.exports = {
         'assets',
         'app',
         'cross',
+        'build',
       ],
     ],
   },
