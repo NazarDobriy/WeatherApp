@@ -1,3 +1,31 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
+  rules: {
+    'scope-empty': [2, 'never'],
+    'scope-enum': [
+      2,
+      'always',
+      [
+        'weather',
+        'location',
+        'locations',
+        'favorites',
+        'favorite',
+        'theme',
+        'api',
+        'ngrx',
+        'ui',
+        'core',
+        'shared',
+        'styles',
+        'utils',
+        'tests',
+        'pages',
+        'env',
+        'assets',
+        'app',
+        'cross',
+      ],
+    ],
+  },
 };
